@@ -2,128 +2,177 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kaspi Style App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Kaspi Juma</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
+        :root {
+            --kaspi-red: #f14635;
+            --bg-color: #f2f2f5;
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-secondary: #8e8e93;
+        }
+
         body {
-            background-color: #f2f2f5;
+            background-color: var(--bg-color);
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            color: #333;
+            font-family: -apple-system, system-ui, sans-serif;
+            color: var(--text-main);
+            padding-bottom: 80px; /* место под нижнее меню */
         }
 
-        .header {
-            background-color: #ffffff;
-            padding: 20px;
-            text-align: center;
-            border-bottom: 1px solid #e0e0e0;
+        /* Поиск */
+        .search-container {
+            background-color: white;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-
-        .header h1 {
-            margin: 0;
-            font-size: 18px;
-            color: #f14635;
-        }
-
-        /* Стиль для приветствия (имени) */
-        .user-greeting {
-            padding: 15px 15px 0 15px;
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            padding: 15px;
-        }
-
-        .card {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            transition: transform 0.1s;
-            /* ТВОЯ НОВАЯ СТРОКА: тонкая рамка */
-            border: 1px solid #e0e0e0; 
-        }
-
-        .card:active {
-            transform: scale(0.95);
-        }
-
-        .card-icon {
-            font-size: 30px;
-            margin-bottom: 10px;
-        }
-
-        .card-title {
+        .search-bar {
+            background-color: #f0f0f2;
+            border-radius: 10px;
+            padding: 10px;
+            color: var(--text-secondary);
             font-size: 14px;
-            font-weight: 500;
+            display: flex;
+            align-items: center;
         }
 
-        .main-button {
-            background-color: #f14635;
-            color: white;
-            border: none;
-            width: calc(100% - 30px);
-            margin: 15px;
+        /* Баннеры */
+        .promo-scroll {
+            display: flex;
+            overflow-x: auto;
             padding: 15px;
+            gap: 10px;
+            scroll-snap-type: x mandatory;
+        }
+        .promo-banner {
+            min-width: 85%;
+            height: 120px;
             border-radius: 12px;
-            font-size: 16px;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 15px;
+            color: white;
             font-weight: bold;
+        }
+        .banner-red { background: linear-gradient(135deg, #ff5f4d, #f14635); }
+        .banner-orange { background: linear-gradient(135deg, #ff9500, #ff5e00); }
+
+        /* Сетка сервисов (8 иконок как на фото) */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            background: white;
+            padding: 20px 10px;
+            gap: 15px 5px;
+        }
+        .service-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            font-size: 11px;
+            color: #444;
+        }
+        .icon-circle {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        /* Список (Magnum и др.) */
+        .list-item {
+            background: white;
+            margin-top: 10px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .item-logo {
+            width: 40px;
+            height: 40px;
+            background: #e11c2a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Нижнее меню */
+        .tab-bar {
             position: fixed;
             bottom: 0;
+            width: 100%;
+            background: white;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            padding: 10px 0;
+            border-top: 1px solid #ddd;
         }
+        .tab-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 10px;
+            color: var(--text-secondary);
+        }
+        .tab-item.active { color: var(--kaspi-red); }
+
     </style>
 </head>
 <body>
 
-<div class="header">
-    <h1>Kaspi Bot Clone</h1>
+<div class="search-container">
+    <div class="search-bar">🔍 Поиск по Kaspi.kz</div>
 </div>
 
-<div class="user-greeting" id="greeting">
-    Привет, Пользователь!
-</div>
-
-<div class="grid">
-    <div class="card" onclick="alert('Переводы нажаты')">
-        <div class="card-icon">💸</div>
-        <div class="card-title">Переводы</div>
+<div class="promo-scroll">
+    <div class="promo-banner banner-red">
+        Новогодняя акция 0•0•12
     </div>
-    <div class="card" onclick="alert('Платежи нажаты')">
-        <div class="card-icon">📱</div>
-        <div class="card-title">Платежи</div>
-    </div>
-    <div class="card" onclick="alert('Магазин нажаты')">
-        <div class="card-icon">🛒</div>
-        <div class="card-title">Магазин</div>
-    </div>
-    <div class="card" onclick="alert('Мой Банк нажаты')">
-        <div class="card-icon">🏦</div>
-        <div class="card-title">Мой Банк</div>
+    <div class="promo-banner banner-orange">
+        Kaspi Juma: Скидки здесь!
     </div>
 </div>
 
-<button class="main-button" onclick="Telegram.WebApp.close()">Выйти из приложения</button>
+<div class="services-grid">
+    <div class="service-item"><div class="icon-circle">🔳</div><div>Kaspi QR</div></div>
+    <div class="service-item"><div class="icon-circle">💳</div><div>Мой Банк</div></div>
+    <div class="service-item"><div class="icon-circle">📱</div><div style="color:red">Платежи</div></div>
+    <div class="service-item"><div class="icon-circle">🔄</div><div>Переводы</div></div>
+    <div class="service-item"><div class="icon-circle">🛒</div><div>Магазин</div></div>
+    <div class="service-item"><div class="icon-circle">✈️</div><div>Travel</div></div>
+    <div class="service-item"><div class="icon-circle">🏛️</div><div>Госуслуги</div></div>
+    <div class="service-item"><div class="icon-circle">📢</div><div>Объявления</div></div>
+</div>
+
+<div class="list-item">
+    <div class="item-logo">M</div>
+    <div>
+        <div style="font-weight: bold;">Magnum</div>
+        <div style="font-size: 12px; color: gray;">Продукты питания с доставкой</div>
+    </div>
+</div>
+
+<div class="tab-bar">
+    <div class="tab-item active">🏠<div>Главная</div></div>
+    <div class="tab-item">🔳<div>Kaspi QR</div></div>
+    <div class="tab-item">💬<div>Сообщения</div></div>
+    <div class="tab-item">☰<div>Сервисы</div></div>
+</div>
 
 <script>
-    // Инициализация Telegram WebApp
     const tg = window.Telegram.WebApp;
-    tg.expand(); // Раскрыть на всё окно
-
-    // Получаем имя пользователя из данных Телеграма
-    const user = tg.initDataUnsafe?.user;
-    
-    if (user) {
-        // Если имя есть, меняем текст приветствия
-        document.getElementById('greeting').innerText = `Привет, ${user.first_name}!`;
-    }
+    tg.expand();
 </script>
 
 </body>
