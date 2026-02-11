@@ -3,15 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Kaspi Juma</title>
+    <title>Kaspi App</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         :root {
             --kaspi-red: #f14635;
             --bg-color: #f2f2f5;
-            --card-bg: #ffffff;
-            --text-main: #333333;
-            --text-secondary: #8e8e93;
         }
 
         body {
@@ -19,92 +16,55 @@
             margin: 0;
             padding: 0;
             font-family: -apple-system, system-ui, sans-serif;
-            color: var(--text-main);
-            padding-bottom: 80px; /* место под нижнее меню */
+            color: #333;
+            padding-bottom: 80px;
         }
 
-        /* Поиск */
+        /* Поиск сверху */
         .search-container {
             background-color: white;
             padding: 10px 15px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            border-bottom: 1px solid #f0f0f2;
         }
         .search-bar {
             background-color: #f0f0f2;
             border-radius: 10px;
-            padding: 10px;
-            color: var(--text-secondary);
+            padding: 8px 12px;
+            color: #8e8e93;
             font-size: 14px;
-            display: flex;
-            align-items: center;
         }
 
-        /* Баннеры */
-        .promo-scroll {
-            display: flex;
-            overflow-x: auto;
-            padding: 15px;
-            gap: 10px;
-            scroll-snap-type: x mandatory;
-        }
-        .promo-banner {
-            min-width: 85%;
-            height: 120px;
-            border-radius: 12px;
-            scroll-snap-align: start;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 15px;
-            color: white;
-            font-weight: bold;
-        }
-        .banner-red { background: linear-gradient(135deg, #ff5f4d, #f14635); }
-        .banner-orange { background: linear-gradient(135deg, #ff9500, #ff5e00); }
-
-        /* Сетка сервисов (8 иконок как на фото) */
+        /* Сетка сервисов 4 в ряд */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             background: white;
-            padding: 20px 10px;
-            gap: 15px 5px;
+            padding: 20px 5px;
+            gap: 20px 0;
         }
+
         .service-item {
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
             font-size: 11px;
-            color: #444;
-        }
-        .icon-circle {
-            font-size: 24px;
-            margin-bottom: 8px;
         }
 
-        /* Список (Magnum и др.) */
-        .list-item {
-            background: white;
-            margin-top: 10px;
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            border-bottom: 1px solid #eee;
-        }
-        .item-logo {
-            width: 40px;
+        /* Контейнеры для твоих иконок */
+        .icon-wrapper {
             height: 40px;
-            background: #e11c2a;
-            border-radius: 50%;
+            width: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .service-icon {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
         }
 
         /* Нижнее меню */
@@ -116,17 +76,16 @@
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             padding: 10px 0;
-            border-top: 1px solid #ddd;
+            border-top: 1px solid #eee;
         }
         .tab-item {
             display: flex;
             flex-direction: column;
             align-items: center;
             font-size: 10px;
-            color: var(--text-secondary);
+            color: #8e8e93;
         }
         .tab-item.active { color: var(--kaspi-red); }
-
     </style>
 </head>
 <body>
@@ -135,31 +94,38 @@
     <div class="search-bar">🔍 Поиск по Kaspi.kz</div>
 </div>
 
-<div class="promo-scroll">
-    <div class="promo-banner banner-red">
-        Новогодняя акция 0•0•12
-    </div>
-    <div class="promo-banner banner-orange">
-        Kaspi Juma: Скидки здесь!
-    </div>
-</div>
-
 <div class="services-grid">
-    <div class="service-item"><div class="icon-circle">🔳</div><div>Kaspi QR</div></div>
-    <div class="service-item"><div class="icon-circle">💳</div><div>Мой Банк</div></div>
-    <div class="service-item"><div class="icon-circle">📱</div><div style="color:red">Платежи</div></div>
-    <div class="service-item"><div class="icon-circle">🔄</div><div>Переводы</div></div>
-    <div class="service-item"><div class="icon-circle">🛒</div><div>Магазин</div></div>
-    <div class="service-item"><div class="icon-circle">✈️</div><div>Travel</div></div>
-    <div class="service-item"><div class="icon-circle">🏛️</div><div>Госуслуги</div></div>
-    <div class="service-item"><div class="icon-circle">📢</div><div>Объявления</div></div>
-</div>
-
-<div class="list-item">
-    <div class="item-logo">M</div>
-    <div>
-        <div style="font-weight: bold;">Magnum</div>
-        <div style="font-size: 12px; color: gray;">Продукты питания с доставкой</div>
+    <div class="service-item">
+        <div class="icon-wrapper"><img src="qr.png" class="service-icon"></div>
+        <div>Kaspi QR</div>
+    </div>
+    <div class="service-item">
+        <div class="icon-wrapper"><img src="bank.png" class="service-icon"></div>
+        <div>Мой Банк</div>
+    </div>
+    <div class="service-item">
+        <div class="icon-wrapper"><img src="pay.png" class="service-icon"></div>
+        <div style="color:var(--kaspi-red)">Платежи</div>
+    </div>
+    <div class="service-item">
+        <div class="icon-wrapper"><img src="transfer.png" class="service-icon"></div>
+        <div>Переводы</div>
+    </div>
+    <div class="service-item">
+        <div class="icon-wrapper"><img src="shop.png" class="service-icon"></div>
+        <div>Магазин</div>
+    </div>
+    <div class="service-item">
+        <div class="icon-wrapper"><img src="travel.png" class="service-icon"></div>
+        <div>Travel</div>
+    </div>
+    <div class="service-item">
+        <div class="icon-wrapper"><img src="gos.png" class="service-icon"></div>
+        <div>Госуслуги</div>
+    </div>
+    <div class="service-item">
+        <div class="icon-wrapper"><img src="ads.png" class="service-icon"></div>
+        <div>Объявления</div>
     </div>
 </div>
 
@@ -172,7 +138,7 @@
 
 <script>
     const tg = window.Telegram.WebApp;
-    tg.expand();
+    tg.expand(); // Раскрыть на весь экран
 </script>
 
 </body>
