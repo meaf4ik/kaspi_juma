@@ -6,16 +6,14 @@
     <title>Kaspi Style App</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        /* Основные настройки стиля */
         body {
-            background-color: #f2f2f5; /* Светло-серый фон как в приложении */
+            background-color: #f2f2f5;
             margin: 0;
             padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             color: #333;
         }
 
-        /* Шапка */
         .header {
             background-color: #ffffff;
             padding: 20px;
@@ -26,10 +24,16 @@
         .header h1 {
             margin: 0;
             font-size: 18px;
-            color: #f14635; /* Тот самый красный Kaspi */
+            color: #f14635;
         }
 
-        /* Сетка категорий */
+        /* Стиль для приветствия (имени) */
+        .user-greeting {
+            padding: 15px 15px 0 15px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
         .grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -37,7 +41,6 @@
             padding: 15px;
         }
 
-        /* Карточка сервиса */
         .card {
             background-color: #ffffff;
             padding: 20px;
@@ -45,10 +48,12 @@
             text-align: center;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
             transition: transform 0.1s;
+            /* ТВОЯ НОВАЯ СТРОКА: тонкая рамка */
+            border: 1px solid #e0e0e0; 
         }
 
         .card:active {
-            transform: scale(0.95); /* Эффект нажатия */
+            transform: scale(0.95);
         }
 
         .card-icon {
@@ -61,7 +66,6 @@
             font-weight: 500;
         }
 
-        /* Большая кнопка внизу */
         .main-button {
             background-color: #f14635;
             color: white;
@@ -81,6 +85,10 @@
 
 <div class="header">
     <h1>Kaspi Bot Clone</h1>
+</div>
+
+<div class="user-greeting" id="greeting">
+    Привет, Пользователь!
 </div>
 
 <div class="grid">
@@ -103,6 +111,20 @@
 </div>
 
 <button class="main-button" onclick="Telegram.WebApp.close()">Выйти из приложения</button>
+
+<script>
+    // Инициализация Telegram WebApp
+    const tg = window.Telegram.WebApp;
+    tg.expand(); // Раскрыть на всё окно
+
+    // Получаем имя пользователя из данных Телеграма
+    const user = tg.initDataUnsafe?.user;
+    
+    if (user) {
+        // Если имя есть, меняем текст приветствия
+        document.getElementById('greeting').innerText = `Привет, ${user.first_name}!`;
+    }
+</script>
 
 </body>
 </html>
