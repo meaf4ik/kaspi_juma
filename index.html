@@ -1,17 +1,108 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>My Mini App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaspi Style App</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        body { background-color: #242f3e; color: white; text-align: center; font-family: sans-serif; }
-        button { background: #24a1de; color: white; border: none; padding: 15px 25px; border-radius: 10px; font-size: 18px; margin-top: 50px; }
+        /* Основные настройки стиля */
+        body {
+            background-color: #f2f2f5; /* Светло-серый фон как в приложении */
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: #333;
+        }
+
+        /* Шапка */
+        .header {
+            background-color: #ffffff;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 18px;
+            color: #f14635; /* Тот самый красный Kaspi */
+        }
+
+        /* Сетка категорий */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            padding: 15px;
+        }
+
+        /* Карточка сервиса */
+        .card {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: transform 0.1s;
+        }
+
+        .card:active {
+            transform: scale(0.95); /* Эффект нажатия */
+        }
+
+        .card-icon {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .card-title {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Большая кнопка внизу */
+        .main-button {
+            background-color: #f14635;
+            color: white;
+            border: none;
+            width: calc(100% - 30px);
+            margin: 15px;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            position: fixed;
+            bottom: 0;
+        }
     </style>
 </head>
 <body>
-    <h1>Привет! Это мое первое Mini App</h1>
-    <p>Я 19-летний разработчик из будущего!</p>
-    <button onclick="Telegram.WebApp.close()">Закрыть приложение</button>
+
+<div class="header">
+    <h1>Kaspi Bot Clone</h1>
+</div>
+
+<div class="grid">
+    <div class="card" onclick="alert('Переводы нажаты')">
+        <div class="card-icon">💸</div>
+        <div class="card-title">Переводы</div>
+    </div>
+    <div class="card" onclick="alert('Платежи нажаты')">
+        <div class="card-icon">📱</div>
+        <div class="card-title">Платежи</div>
+    </div>
+    <div class="card" onclick="alert('Магазин нажаты')">
+        <div class="card-icon">🛒</div>
+        <div class="card-title">Магазин</div>
+    </div>
+    <div class="card" onclick="alert('Мой Банк нажаты')">
+        <div class="card-icon">🏦</div>
+        <div class="card-title">Мой Банк</div>
+    </div>
+</div>
+
+<button class="main-button" onclick="Telegram.WebApp.close()">Выйти из приложения</button>
+
 </body>
 </html>
