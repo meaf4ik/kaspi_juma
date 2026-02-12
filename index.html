@@ -40,13 +40,11 @@
             gap: 10px;
         }
 
-        /* Иконка лупы */
         .search-icon {
             width: 16px;
             height: 16px;
             object-fit: contain;
             opacity: 0.7;
-            /* Убираем возможные смещения */
             display: block;
         }
 
@@ -75,6 +73,7 @@
             margin-bottom: 6px;
         }
 
+        /* Общие фильтры для всех иконок */
         .service-icon {
             width: 40px;
             height: 40px;
@@ -83,10 +82,11 @@
             transform: scale(1.05);
         }
 
-        /* Индивидуальное исправление для Магазина */
+        /* Индивидуальное исправление для Магазина: теперь цвет совпадает */
         img[src="shop.png"] {
             transform: scale(1.25) !important;
-            filter: brightness(1.15) contrast(1.2) drop-shadow(0.4px 0 0px #333) !important;
+            /* Убрали лишнюю яркость, оставили только общие настройки цвета */
+            filter: drop-shadow(0.4px 0 0px #333) drop-shadow(-0.4px 0 0px #333) contrast(1.1) brightness(0.9) !important;
         }
 
         .service-name {
