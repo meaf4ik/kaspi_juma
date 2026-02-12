@@ -23,12 +23,16 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Контейнер поиска */
-        .search-container {
+        /* Обновленный контейнер поиска с иконкой справа */
+        .search-wrapper {
             background-color: white;
             padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px; /* Отступ между поиском и иконкой silvershop */
             border-bottom: 1px solid #e5e5e5;
         }
+
         .search-bar {
             background-color: #f0f0f2;
             border-radius: 8px;
@@ -38,6 +42,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            flex: 1; /* Поиск занимает всё свободное место, кроме иконки справа */
         }
 
         .search-icon {
@@ -45,7 +50,13 @@
             height: 16px;
             object-fit: contain;
             opacity: 0.7;
-            display: block;
+        }
+
+        /* Иконка silvershop справа от поиска */
+        .header-extra-icon {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
         }
 
         /* Сетка сервисов */
@@ -73,7 +84,6 @@
             margin-bottom: 6px;
         }
 
-        /* Общие фильтры для всех иконок */
         .service-icon {
             width: 40px;
             height: 40px;
@@ -82,10 +92,9 @@
             transform: scale(1.05);
         }
 
-        /* Индивидуальное исправление для Магазина: теперь цвет совпадает */
+        /* Индивидуальное исправление для Магазина */
         img[src="shop.png"] {
             transform: scale(1.25) !important;
-            /* Убрали лишнюю яркость, оставили только общие настройки цвета */
             filter: drop-shadow(0.4px 0 0px #333) drop-shadow(-0.4px 0 0px #333) contrast(1.1) brightness(0.9) !important;
         }
 
@@ -157,18 +166,16 @@
             color: var(--kaspi-red); 
             font-weight: 700;
         }
-        .tab-icon {
-            font-size: 20px;
-        }
     </style>
 </head>
 <body>
 
-<div class="search-container">
+<div class="search-wrapper">
     <div class="search-bar">
         <img src="magnifier.png" class="search-icon">
         Поиск по Kaspi.kz
     </div>
+    <img src="silvershop.png" class="header-extra-icon">
 </div>
 
 <div class="services-grid">
@@ -239,8 +246,3 @@
 <script>
     const tg = window.Telegram.WebApp;
     tg.expand();
-    tg.ready();
-</script>
-
-</body>
-</html>
