@@ -21,16 +21,137 @@
             color: var(--text-dark);
             padding-bottom: 90px;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden; /* Защита от горизонтальной прокрутки всего сайта */
         }
 
-        /* Шапка с поиском и silvershop.png */
+        /* Поиск и иконка silvershop */
         .search-wrapper {
             background-color: white;
             padding: 10px 15px;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
             border-bottom: 1px solid #e5e5e5;
         }
 
-        .search-bar
+        .search-bar {
+            background-color: #f0f0f2;
+            border-radius: 8px;
+            padding: 9px 12px;
+            color: var(--gray-text);
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+        }
+
+        .search-icon {
+            width: 16px;
+            height: 16px;
+            object-fit: contain;
+            opacity: 0.7;
+        }
+
+        .header-extra-icon {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
+
+        /* Сетка сервисов */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            background: white;
+            padding: 20px 5px;
+            gap: 22px 0;
+        }
+
+        .service-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .icon-wrapper {
+            height: 44px;
+            width: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 6px;
+        }
+
+        .service-icon {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            filter: drop-shadow(0.4px 0 0px #333) drop-shadow(-0.4px 0 0px #333) contrast(1.1) brightness(0.9);
+            transform: scale(1.05);
+        }
+
+        /* Индивидуально для Магазина */
+        img[src="shop.png"] {
+            transform: scale(1.25) !important;
+            filter: drop-shadow(0.4px 0 0px #333) drop-shadow(-0.4px 0 0px #333) contrast(1.1) brightness(0.9) !important;
+        }
+
+        .service-name {
+            font-size: 11.5px;
+            font-weight: 600;
+            color: var(--text-dark);
+            letter-spacing: -0.2px;
+        }
+
+        /* Баннеры */
+        .banners-container {
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        .banners-scroll {
+            display: flex;
+            overflow-x: auto;
+            padding: 0 15px;
+            gap: 10px;
+            -webkit-overflow-scrolling: touch; /* Плавная прокрутка на iOS */
+        }
+        .banners-scroll::-webkit-scrollbar { display: none; }
+
+        .banner-item {
+            min-width: 85%;
+            height: 130px;
+            border-radius: 12px;
+            display: flex;
+            align-items: flex-end;
+            padding: 15px;
+            box-sizing: border-box;
+            color: white;
+        }
+
+        .banner-title { font-weight: 800; font-size: 18px; line-height: 1.2; margin-bottom: 6px; }
+        .banner-badge { 
+            display: inline-block; 
+            background: rgba(255,255,255,0.25); 
+            padding: 3px 8px; 
+            border-radius: 6px; 
+            font-size: 11px; 
+            font-weight: 700; 
+            backdrop-filter: blur(5px);
+        }
+
+        /* Magnum */
+        .magnum-row {
+            background: white;
+            margin-top: 10px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .section-title {
+            padding: 18px 15px 10px;
+            font-weight: 800;
