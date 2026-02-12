@@ -31,11 +31,20 @@
         .search-bar {
             background-color: #f0f0f2;
             border-radius: 8px;
-            padding: 10px 12px;
+            padding: 8px 12px;
             color: #8e8e93;
             font-size: 15px;
             display: flex;
             align-items: center;
+            gap: 8px; /* Расстояние между лупой и текстом */
+        }
+
+        /* Стиль новой лупы */
+        .search-icon {
+            width: 16px;
+            height: 16px;
+            object-fit: contain;
+            opacity: 0.6; /* Делает её слегка серой, если она слишком черная */
         }
 
         /* Сетка сервисов */
@@ -67,9 +76,14 @@
             width: 40px;
             height: 40px;
             object-fit: contain;
-            /* Эффект жирности для иконок */
             filter: drop-shadow(0.4px 0 0px #333) drop-shadow(-0.4px 0 0px #333) contrast(1.1) brightness(0.9);
             transform: scale(1.05);
+        }
+
+        /* Индивидуальное исправление для Магазина */
+        img[src="shop.png"] {
+            transform: scale(1.25) !important;
+            filter: brightness(1.15) contrast(1.2) drop-shadow(0.4px 0 0px #333) !important;
         }
 
         .service-name {
@@ -115,7 +129,7 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
 
-        /* Нижнее меню (Таббар) */
+        /* Нижнее меню */
         .tab-bar {
             position: fixed;
             bottom: 0;
@@ -140,15 +154,15 @@
             color: var(--kaspi-red); 
             font-weight: 700;
         }
-        .tab-icon {
-            font-size: 20px;
-        }
     </style>
 </head>
 <body>
 
 <div class="search-container">
-    <div class="search-bar">🔍 Поиск по Kaspi.kz</div>
+    <div class="search-bar">
+        <img src="magnifier.png" class="search-icon">
+        Поиск по Kaspi.kz
+    </div>
 </div>
 
 <div class="services-grid">
@@ -210,10 +224,10 @@
 </div>
 
 <div class="tab-bar">
-    <div class="tab-item active"><span class="tab-icon">🏠</span><div>Главная</div></div>
-    <div class="tab-item"><span class="tab-icon">🔳</span><div>Kaspi QR</div></div>
-    <div class="tab-item"><span class="tab-icon">💬</span><div>Сообщения</div></div>
-    <div class="tab-item"><span class="tab-icon">☰</span><div>Сервисы</div></div>
+    <div class="tab-item active">🏠<div>Главная</div></div>
+    <div class="tab-item">🔳<div>Kaspi QR</div></div>
+    <div class="tab-item">💬<div>Сообщения</div></div>
+    <div class="tab-item">☰<div>Сервисы</div></div>
 </div>
 
 <script>
