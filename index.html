@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Kaspi.kz</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
@@ -13,19 +13,18 @@
             --gray-text: #8e8e93;
         }
 
-        /* Основные настройки страницы */
         body {
             background-color: var(--bg-color);
             margin: 0;
             padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             color: var(--text-dark);
-            padding-bottom: 90px; /* Отступ под нижнее меню */
+            padding-bottom: 90px;
             -webkit-font-smoothing: antialiased;
-            overflow-x: hidden; /* Блокируем горизонтальный скролл */
+            overflow-x: hidden;
         }
 
-        /* --- ВЕРХНЯЯ ЧАСТЬ (ПОИСК) --- */
+        /* Поиск и silvershop */
         .search-wrapper {
             background-color: white;
             padding: 10px 15px;
@@ -43,246 +42,160 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            flex: 1; /* Растягиваем поиск */
+            flex: 1;
         }
-        .search-icon {
-            width: 16px;
-            height: 16px;
-            object-fit: contain;
-            opacity: 0.7;
-            display: block;
-        }
-        .header-extra-icon {
-            width: 24px;
-            height: 24px;
-            object-fit: contain;
-            display: block;
-        }
+        .search-icon { width: 16px; height: 16px; opacity: 0.7; }
+        .header-extra-icon { width: 24px; height: 24px; object-fit: contain; }
 
-        /* --- СЕТКА СЕРВИСОВ --- */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            background: white;
-            padding: 20px 5px;
-            gap: 22px 0;
-        }
-        .service-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-        .icon-wrapper {
-            height: 44px;
-            width: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 6px;
-        }
-        .service-icon {
-            width: 40px;
-            height: 40px;
-            object-fit: contain;
-            /* Единый фильтр для всех иконок */
-            filter: drop-shadow(0.4px 0 0px #333) drop-shadow(-0.4px 0 0px #333) contrast(1.1) brightness(0.9);
-            transform: scale(1.05);
-        }
-        /* Индивидуально для Магазина (увеличение) */
-        img[src="shop.png"] {
-            transform: scale(1.25) !important;
-            filter: drop-shadow(0.4px 0 0px #333) drop-shadow(-0.4px 0 0px #333) contrast(1.1) brightness(0.9) !important;
-        }
-        .service-name {
-            font-size: 11.5px;
-            font-weight: 600;
-            color: var(--text-dark);
-            letter-spacing: -0.2px;
-        }
-
-        /* --- БАННЕРЫ --- */
+        /* БАННЕРЫ (Теперь над кнопками) */
         .banners-container {
-            margin-top: 10px;
+            background-color: white; /* Чтобы фон под баннерами не был серым */
+            padding-top: 10px;
         }
         .banners-scroll {
             display: flex;
             overflow-x: auto;
-            padding: 0 15px;
+            padding: 5px 15px 15px;
             gap: 10px;
-            scrollbar-width: none; /* Скрываем скроллбар */
+            -webkit-overflow-scrolling: touch;
         }
         .banners-scroll::-webkit-scrollbar { display: none; }
-        
+
         .banner-item {
             min-width: 85%;
-            height: 130px;
+            height: 120px;
             border-radius: 12px;
             display: flex;
             align-items: flex-end;
             padding: 15px;
             box-sizing: border-box;
             color: white;
-            position: relative;
         }
-        .banner-title {
-            font-weight: 800;
-            font-size: 18px;
-            line-height: 1.2;
-            margin-bottom: 6px;
-            position: relative;
-            z-index: 2;
-        }
-        .banner-badge {
-            display: inline-block;
-            background: rgba(255,255,255,0.25);
-            padding: 3px 8px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: 700;
+        .banner-title { font-weight: 800; font-size: 18px; margin-bottom: 5px; }
+        .banner-badge { 
+            display: inline-block; 
+            background: rgba(255,255,255,0.25); 
+            padding: 3px 8px; 
+            border-radius: 6px; 
+            font-size: 11px; 
+            font-weight: 700; 
             backdrop-filter: blur(5px);
-            position: relative;
-            z-index: 2;
         }
 
-        /* --- MAGNUM --- */
-        .magnum-row {
-            background: white;
-            margin-top: 10px;
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border-bottom: 1px solid #e5e5e5;
-        }
-
-        /* --- ТОВАРЫ --- */
-        .section-title {
-            padding: 18px 15px 10px;
-            font-weight: 800;
-            font-size: 19px;
-            letter-spacing: -0.5px;
-        }
-        .products-scroll {
-            display: flex;
-            overflow-x: auto;
-            padding: 0 15px;
-            gap: 12px;
-            scrollbar-width: none;
-        }
-        .products-scroll::-webkit-scrollbar { display: none; }
-        
-        .product-card {
-            min-width: 150px;
-            background: white;
-            border-radius: 12px;
-            padding: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-
-        /* --- НИЖНЕЕ МЕНЮ --- */
-        .tab-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: white;
+        /* СЕТКА СЕРВИСОВ */
+        .services-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            padding: 8px 0;
-            border-top: 1px solid #e5e5e5;
-            z-index: 1000;
-            padding-bottom: env(safe-area-inset-bottom); /* Для iPhone без кнопки */
+            background: white;
+            padding: 10px 5px 20px; /* Немного уменьшил верхний отступ */
+            gap: 22px 0;
         }
-        .tab-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-size: 10px;
-            color: var(--gray-text);
-            gap: 4px;
+        .service-item { display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .icon-wrapper { height: 44px; width: 44px; display: flex; align-items: center; justify-content: center; margin-bottom: 6px; }
+        .service-icon {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            filter: drop-shadow(0.4px 0 0px #333) drop-shadow(-0.4px 0 0px #333) contrast(1.1) brightness(0.9);
+            transform: scale(1.05);
         }
+        img[src="shop.png"] {
+            transform: scale(1.25) !important;
+            filter: drop-shadow(0.4px 0 0px #333) drop-shadow(-0.4px 0 0px #333) contrast(1.1) brightness(0.9) !important;
+        }
+        .service-name { font-size: 11.5px; font-weight: 600; color: var(--text-dark); letter-spacing: -0.2px; }
+
+        /* ОСТАЛЬНЫЕ БЛОКИ */
+        .magnum-row { background: white; margin-top: 10px; padding: 15px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #e5e5e5; }
+        .section-title { padding: 18px 15px 10px; font-weight: 800; font-size: 19px; }
+        .products-scroll { display: flex; overflow-x: auto; padding: 0 15px; gap: 12px; }
+        .product-card { min-width: 150px; background: white; border-radius: 12px; padding: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+
+        /* ТАББАР */
+        .tab-bar {
+            position: fixed; bottom: 0; left: 0; right: 0;
+            background: white; display: grid; grid-template-columns: repeat(4, 1fr);
+            padding: 8px 0; border-top: 1px solid #e5e5e5; z-index: 1000;
+        }
+        .tab-item { display: flex; flex-direction: column; align-items: center; font-size: 10px; color: var(--gray-text); gap: 4px; }
         .tab-item.active { color: var(--kaspi-red); font-weight: 700; }
         .tab-icon { font-size: 20px; }
     </style>
 </head>
 <body>
 
-    <div class="search-wrapper">
-        <div class="search-bar">
-            <img src="magnifier.png" class="search-icon" alt="search">
-            Поиск по Kaspi.kz
+<div class="search-wrapper">
+    <div class="search-bar">
+        <img src="magnifier.png" class="search-icon">
+        Поиск по Kaspi.kz
+    </div>
+    <img src="silvershop.png" class="header-extra-icon">
+</div>
+
+<div class="banners-container">
+    <div class="banners-scroll">
+        <div class="banner-item" style="background: linear-gradient(135deg, #FF512F 0%, #DD2476 100%);">
+            <div><div class="banner-title">Гаджеты в Рассрочку</div><div class="banner-badge">0-0-12</div></div>
         </div>
-        <img src="silvershop.png" class="header-extra-icon" alt="shop">
-    </div>
-
-    <div class="services-grid">
-        <div class="service-item"><div class="icon-wrapper"><img src="qr.png" class="service-icon"></div><div class="service-name">Kaspi QR</div></div>
-        <div class="service-item"><div class="icon-wrapper"><img src="bank.png" class="service-icon"></div><div class="service-name">Мой Банк</div></div>
-        <div class="service-item"><div class="icon-wrapper"><img src="pay.png" class="service-icon"></div><div class="service-name">Платежи</div></div>
-        <div class="service-item"><div class="icon-wrapper"><img src="transfer.png" class="service-icon"></div><div class="service-name">Переводы</div></div>
-        <div class="service-item"><div class="icon-wrapper"><img src="shop.png" class="service-icon"></div><div class="service-name">Магазин</div></div>
-        <div class="service-item"><div class="icon-wrapper"><img src="travel.png" class="service-icon"></div><div class="service-name">Travel</div></div>
-        <div class="service-item"><div class="icon-wrapper"><img src="gos.png" class="service-icon"></div><div class="service-name">Госуслуги</div></div>
-        <div class="service-item"><div class="icon-wrapper"><img src="ads.png" class="service-icon"></div><div class="service-name">Объявления</div></div>
-    </div>
-
-    <div class="banners-container">
-        <div class="banners-scroll">
-            <div class="banner-item" style="background: linear-gradient(135deg, #FF512F 0%, #DD2476 100%);">
-                <div><div class="banner-title">Гаджеты в Рассрочку</div><div class="banner-badge">0-0-12</div></div>
-            </div>
-            <div class="banner-item" style="background: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);">
-                <div><div class="banner-title">Кешбэк на услуги</div><div class="banner-badge">до 10%</div></div>
-            </div>
-            <div class="banner-item" style="background: linear-gradient(135deg, #1D976C 0%, #93F9B9 100%);">
-                <div><div class="banner-title">Билеты Kaspi Travel</div><div class="banner-badge">Выгодные цены</div></div>
-            </div>
+        <div class="banner-item" style="background: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);">
+            <div><div class="banner-title">Кешбэк на услуги</div><div class="banner-badge">до 10%</div></div>
+        </div>
+        <div class="banner-item" style="background: linear-gradient(135deg, #1D976C 0%, #93F9B9 100%);">
+            <div><div class="banner-title">Билеты Kaspi Travel</div><div class="banner-badge">Выгодные цены</div></div>
         </div>
     </div>
+</div>
 
-    <div class="magnum-row">
-        <div style="background: #e11c2a; color:white; width:45px; height:45px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:900; font-size: 22px;">M</div>
-        <div style="flex:1">
-            <div style="font-weight:700; font-size: 16px;">Magnum</div>
-            <div style="color:var(--gray-text); font-size:13px;">Продукты питания с доставкой</div>
-        </div>
-        <div style="color:#ccc; font-size: 18px;">❯</div>
+<div class="services-grid">
+    <div class="service-item"><div class="icon-wrapper"><img src="qr.png" class="service-icon"></div><div class="service-name">Kaspi QR</div></div>
+    <div class="service-item"><div class="icon-wrapper"><img src="bank.png" class="service-icon"></div><div class="service-name">Мой Банк</div></div>
+    <div class="service-item"><div class="icon-wrapper"><img src="pay.png" class="service-icon"></div><div class="service-name">Платежи</div></div>
+    <div class="service-item"><div class="icon-wrapper"><img src="transfer.png" class="service-icon"></div><div class="service-name">Переводы</div></div>
+    <div class="service-item"><div class="icon-wrapper"><img src="shop.png" class="service-icon"></div><div class="service-name">Магазин</div></div>
+    <div class="service-item"><div class="icon-wrapper"><img src="travel.png" class="service-icon"></div><div class="service-name">Travel</div></div>
+    <div class="service-item"><div class="icon-wrapper"><img src="gos.png" class="service-icon"></div><div class="service-name">Госуслуги</div></div>
+    <div class="service-item"><div class="icon-wrapper"><img src="ads.png" class="service-icon"></div><div class="service-name">Объявления</div></div>
+</div>
+
+<div class="magnum-row">
+    <div style="background: #e11c2a; color:white; width:45px; height:45px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:900; font-size: 22px;">M</div>
+    <div style="flex:1">
+        <div style="font-weight:700; font-size: 16px;">Magnum</div>
+        <div style="color:var(--gray-text); font-size:13px;">Продукты питания с доставкой</div>
     </div>
+    <div style="color:#ccc; font-size: 18px;">❯</div>
+</div>
 
-    <div class="section-title">Вы недавно смотрели</div>
-    <div class="products-scroll">
-        <div class="product-card">
-            <div style="background:#f8f8f8; height:110px; border-radius:8px;"></div>
-            <div style="font-size:13px; margin-top:8px; font-weight: 600;">Товар 1</div>
-            <div style="font-size:14px; font-weight: 800; margin-top:4px;">0 ₸</div>
-        </div>
-        <div class="product-card">
-            <div style="background:#f8f8f8; height:110px; border-radius:8px;"></div>
-            <div style="font-size:13px; margin-top:8px; font-weight: 600;">Товар 2</div>
-            <div style="font-size:14px; font-weight: 800; margin-top:4px;">0 ₸</div>
-        </div>
+<div class="section-title">Вы недавно смотрели</div>
+<div class="products-scroll">
+    <div class="product-card">
+        <div style="background:#f8f8f8; height:110px; border-radius:8px;"></div>
+        <div style="font-size:13px; margin-top:8px; font-weight: 600;">Товар 1</div>
+        <div style="font-size:14px; font-weight: 800; margin-top:4px;">0 ₸</div>
     </div>
-
-    <div class="tab-bar">
-        <div class="tab-item active"><span class="tab-icon">🏠</span><div>Главная</div></div>
-        <div class="tab-item"><span class="tab-icon">🔳</span><div>Kaspi QR</div></div>
-        <div class="tab-item"><span class="tab-icon">💬</span><div>Сообщения</div></div>
-        <div class="tab-item"><span class="tab-icon">☰</span><div>Сервисы</div></div>
+    <div class="product-card">
+        <div style="background:#f8f8f8; height:110px; border-radius:8px;"></div>
+        <div style="font-size:13px; margin-top:8px; font-weight: 600;">Товар 2</div>
+        <div style="font-size:14px; font-weight: 800; margin-top:4px;">0 ₸</div>
     </div>
+</div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Проверяем, существует ли объект Telegram
-            if (window.Telegram && window.Telegram.WebApp) {
-                const tg = window.Telegram.WebApp;
-                tg.expand(); // Разворачиваем на весь экран
-                tg.ready();  // Сообщаем, что приложение готово
-            } else {
-                console.log('Запущено не в Telegram');
-            }
-        });
-    </script>
+<div class="tab-bar">
+    <div class="tab-item active"><span class="tab-icon">🏠</span><div>Главная</div></div>
+    <div class="tab-item"><span class="tab-icon">🔳</span><div>Kaspi QR</div></div>
+    <div class="tab-item"><span class="tab-icon">💬</span><div>Сообщения</div></div>
+    <div class="tab-item"><span class="tab-icon">☰</span><div>Сервисы</div></div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if (window.Telegram && window.Telegram.WebApp) {
+            const tg = window.Telegram.WebApp;
+            tg.ready();
+            tg.expand();
+        }
+    });
+</script>
 
 </body>
 </html>
