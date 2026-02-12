@@ -16,14 +16,13 @@
             background-color: var(--bg-color);
             margin: 0;
             padding: 0;
-            /* Используем максимально близкие к оригиналу шрифты */
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             color: var(--text-dark);
             padding-bottom: 90px;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Поиск */
+        /* Контейнер поиска */
         .search-container {
             background-color: white;
             padding: 10px 15px;
@@ -68,14 +67,14 @@
             width: 40px;
             height: 40px;
             object-fit: contain;
-            /* Улучшенная имитация жирного начертания для PNG */
+            /* Эффект жирности для иконок */
             filter: drop-shadow(0.4px 0 0px #333) drop-shadow(-0.4px 0 0px #333) contrast(1.1) brightness(0.9);
-            transform: scale(1.05); /* Легкое увеличение для массивности */
+            transform: scale(1.05);
         }
 
         .service-name {
             font-size: 11.5px;
-            font-weight: 600; /* Плотный шрифт */
+            font-weight: 600;
             color: var(--text-dark);
             letter-spacing: -0.2px;
         }
@@ -93,18 +92,18 @@
 
         .section-title {
             padding: 18px 15px 10px;
-            font-weight: 800; /* Очень жирный заголовок */
+            font-weight: 800;
             font-size: 19px;
             letter-spacing: -0.5px;
         }
 
-        /* Скролл товаров */
+        /* Слайдер товаров */
         .products-scroll {
             display: flex;
             overflow-x: auto;
             padding: 0 15px;
             gap: 12px;
-            scrollbar-width: none; /* Скрываем скроллбар */
+            scrollbar-width: none;
         }
         .products-scroll::-webkit-scrollbar { display: none; }
 
@@ -116,7 +115,7 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
 
-        /* Нижнее меню */
+        /* Нижнее меню (Таббар) */
         .tab-bar {
             position: fixed;
             bottom: 0;
@@ -163,7 +162,7 @@
     </div>
     <div class="service-item">
         <div class="icon-wrapper"><img src="pay.png" class="service-icon"></div>
-        <div class="service-name" style="color:var(--kaspi-red)">Платежи</div>
+        <div class="service-name">Платежи</div>
     </div>
     <div class="service-item">
         <div class="icon-wrapper"><img src="transfer.png" class="service-icon"></div>
@@ -200,13 +199,13 @@
 <div class="products-scroll">
     <div class="product-card">
         <div style="background:#f8f8f8; height:110px; border-radius:8px; display:flex; align-items:center; justify-content:center; color:#ccc;">Фото</div>
-        <div style="font-size:13px; margin-top:8px; font-weight: 600;">Смартфон...</div>
-        <div style="font-size:14px; font-weight: 800; margin-top:4px;">450 000 ₸</div>
+        <div style="font-size:13px; margin-top:8px; font-weight: 600;">Товар 1</div>
+        <div style="font-size:14px; font-weight: 800; margin-top:4px;">0 ₸</div>
     </div>
     <div class="product-card">
         <div style="background:#f8f8f8; height:110px; border-radius:8px; display:flex; align-items:center; justify-content:center; color:#ccc;">Фото</div>
-        <div style="font-size:13px; margin-top:8px; font-weight: 600;">Наушники...</div>
-        <div style="font-size:14px; font-weight: 800; margin-top:4px;">95 000 ₸</div>
+        <div style="font-size:13px; margin-top:8px; font-weight: 600;">Товар 2</div>
+        <div style="font-size:14px; font-weight: 800; margin-top:4px;">0 ₸</div>
     </div>
 </div>
 
