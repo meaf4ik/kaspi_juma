@@ -11,29 +11,28 @@
             --bg-color: #f2f2f5;
             --text-dark: #222222;
             --gray-text: #8e8e93;
-            --card-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            --press-effect: brightness(0.9) blur(1.5px); /* Тот самый размытый эффект */
         }
 
         body {
             background-color: var(--bg-color);
             margin: 0; padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             color: var(--text-dark);
-            padding-bottom: 100px;
+            padding-bottom: 90px;
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
             user-select: none;
         }
 
-        /* 1. Шапка и Приветствие */
-        .header-section { background: white; padding-top: 5px; }
-        .greeting { padding: 10px 15px 5px; font-size: 14px; color: var(--gray-text); }
-        .user-name { color: var(--text-dark); font-weight: 700; }
-
+        /* 1. Поиск */
         .search-wrapper {
             background-color: white;
-            padding: 10px 15px;
-            display: flex; align-items: center; gap: 12px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid #f0f0f0;
         }
         .search-bar {
             background-color: #f0f0f2;
@@ -41,108 +40,127 @@
             padding: 10px 12px;
             color: var(--gray-text);
             font-size: 15px;
-            display: flex; align-items: center; gap: 10px; flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
         }
         .search-icon { width: 16px; height: 16px; opacity: 0.5; }
         .header-extra-icon { width: 26px; height: 26px; object-fit: contain; }
 
-        /* 2. Блок Kaspi Gold */
-        .kaspi-gold-card {
-            background: white;
-            margin: 0 15px 15px;
-            padding: 15px;
-            border-radius: 12px;
-            box-shadow: var(--card-shadow);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        /* 2. Баннеры (Расположены над кнопками) */
+        .banners-container {
+            background-color: white;
+            padding-top: 5px;
         }
-        .kg-info { display: flex; align-items: center; gap: 12px; }
-        .kg-icon { width: 35px; height: 35px; }
-        .kg-text-main { font-weight: 700; font-size: 15px; display: block; }
-        .kg-text-sub { color: var(--gray-text); font-size: 12px; }
-        .kg-balance { font-weight: 800; font-size: 17px; }
-
-        /* 3. Рекламные баннеры */
-        .banners-container { background-color: white; }
         .banners-scroll {
-            display: flex; overflow-x: auto;
-            padding: 5px 15px 20px; gap: 10px;
+            display: flex;
+            overflow-x: auto;
+            padding: 5px 15px 15px;
+            gap: 10px;
             -webkit-overflow-scrolling: touch;
         }
         .banners-scroll::-webkit-scrollbar { display: none; }
+        
         .banner-item {
-            min-width: 88%; height: 130px;
+            min-width: 85%;
+            height: 125px;
             border-radius: 14px;
-            background-position: center; background-size: cover;
-            transition: transform 0.1s;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            /* Плавный выход из нажатия */
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .banner-item:active { transform: scale(0.97); }
+        .banner-item:active {
+            filter: var(--press-effect);
+            transform: scale(0.98);
+        }
 
-        /* 4. Сетка сервисов */
+        /* 3. Сетка сервисов */
         .services-grid {
-            display: grid; grid-template-columns: repeat(4, 1fr);
-            background: white; padding: 15px 5px; gap: 20px 0;
-            border-bottom: 1px solid #f0f0f0;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            background: white;
+            padding: 10px 5px 20px;
+            gap: 22px 0;
         }
-        .service-item { display: flex; flex-direction: column; align-items: center; text-align: center; }
-        .service-item:active { opacity: 0.5; }
-        .icon-wrapper { height: 48px; width: 48px; display: flex; align-items: center; justify-content: center; margin-bottom: 4px; }
-        .service-icon { width: 42px; height: 42px; object-fit: contain; }
-        .service-name { font-size: 11px; font-weight: 600; letter-spacing: -0.1px; }
+        .service-item { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            text-align: center;
+            /* Плавная анимация */
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .service-item:active {
+            filter: var(--press-effect);
+            opacity: 0.8;
+        }
 
-        /* 5. Промо-строки (Рассрочка/Кредит) */
-        .small-promo-container { background-color: white; padding: 0 15px; margin-bottom: 10px; }
+        .icon-wrapper { height: 44px; width: 44px; display: flex; align-items: center; justify-content: center; margin-bottom: 6px; }
+        .service-icon {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            filter: contrast(1.1);
+        }
+        .service-name { font-size: 11.5px; font-weight: 600; color: var(--text-dark); letter-spacing: -0.2px; }
+
+        /* 4. Маленькие баннеры (Рассрочка и Кредит) */
+        .small-promo-container {
+            background-color: white;
+            margin-top: 10px;
+            padding: 0 15px;
+        }
         .promo-row {
-            display: flex; align-items: center; padding: 15px 0; gap: 15px;
-            border-bottom: 1px solid #f5f5f5;
+            display: flex;
+            align-items: center;
+            padding: 14px 0;
+            gap: 15px;
+            border-bottom: 1px solid #f0f0f0;
+            transition: all 0.3s ease;
         }
-        .promo-row:active { background-color: #fafafa; }
+        .promo-row:active {
+            filter: var(--press-effect);
+            background-color: rgba(0,0,0,0.02);
+        }
         .promo-row:last-child { border-bottom: none; }
-        .promo-img { width: 34px; height: 34px; object-fit: contain; }
+        .promo-img { width: 36px; height: 36px; object-fit: contain; }
         .promo-text { font-size: 15px; font-weight: 700; flex: 1; }
-        .arrow-right { color: #ccc; font-size: 18px; }
+        .promo-arrow { color: #ccc; font-size: 18px; }
 
-        /* 6. Таббар */
+        /* 5. Таббар */
         .tab-bar {
             position: fixed; bottom: 0; left: 0; right: 0;
             background: white; display: grid; grid-template-columns: repeat(4, 1fr);
-            padding: 10px 0 calc(10px + env(safe-area-inset-bottom));
-            border-top: 1px solid #e5e5e5; z-index: 1000;
+            padding: 8px 0; border-top: 1px solid #e5e5e5; z-index: 1000;
+            padding-bottom: env(safe-area-inset-bottom);
         }
-        .tab-item { display: flex; flex-direction: column; align-items: center; font-size: 10px; color: var(--gray-text); gap: 5px; }
+        .tab-item { 
+            display: flex; flex-direction: column; align-items: center; 
+            font-size: 10px; color: var(--gray-text); gap: 4px;
+            transition: all 0.2s ease;
+        }
+        .tab-item:active { filter: blur(1px); opacity: 0.7; }
         .tab-item.active { color: var(--kaspi-red); font-weight: 700; }
-        .tab-icon { font-size: 22px; }
+        .tab-icon { font-size: 20px; }
     </style>
 </head>
 <body>
 
-    <div class="header-section">
-        <div class="greeting">Здравствуйте, <span id="userName" class="user-name">Гость</span>!</div>
-        <div class="search-wrapper">
-            <div class="search-bar">
-                <img src="magnifier.png" class="search-icon">
-                Поиск по Kaspi.kz
-            </div>
-            <img src="silvershop.png" class="header-extra-icon">
+    <div class="search-wrapper">
+        <div class="search-bar">
+            <img src="magnifier.png" class="search-icon">
+            Поиск по Kaspi.kz
         </div>
-    </div>
-
-    <div class="kaspi-gold-card" onclick="vibrate()">
-        <div class="kg-info">
-            <img src="bank.png" class="kg-icon">
-            <div>
-                <span class="kg-text-main">Kaspi Gold</span>
-                <span class="kg-text-sub">0000 •••• 0000</span>
-            </div>
-        </div>
-        <div class="kg-balance">500 000 ₸</div>
+        <img src="silvershop.png" class="header-extra-icon">
     </div>
 
     <div class="banners-container">
         <div class="banners-scroll">
-            <div class="banner-item" style="background-image: url('reklama.png');"></div>
-            <div class="banner-item" style="background: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);"></div>
+            <div class="banner-item" style="background-image: url('reklama.png');" onclick="vibrate()"></div>
+            <div class="banner-item" style="background: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);" onclick="vibrate()"></div>
         </div>
     </div>
 
@@ -151,7 +169,7 @@
         <div class="service-item" onclick="vibrate()"><div class="icon-wrapper"><img src="bank.png" class="service-icon"></div><div class="service-name">Мой Банк</div></div>
         <div class="service-item" onclick="vibrate()"><div class="icon-wrapper"><img src="pay.png" class="service-icon"></div><div class="service-name">Платежи</div></div>
         <div class="service-item" onclick="vibrate()"><div class="icon-wrapper"><img src="transfer.png" class="service-icon"></div><div class="service-name">Переводы</div></div>
-        <div class="service-item" onclick="vibrate()"><div class="icon-wrapper"><img src="shop.png" class="service-icon" style="transform: scale(1.2);"></div><div class="service-name">Магазин</div></div>
+        <div class="service-item" onclick="vibrate()"><div class="icon-wrapper"><img src="shop.png" class="service-icon" style="transform: scale(1.15);"></div><div class="service-name">Магазин</div></div>
         <div class="service-item" onclick="vibrate()"><div class="icon-wrapper"><img src="travel.png" class="service-icon"></div><div class="service-name">Travel</div></div>
         <div class="service-item" onclick="vibrate()"><div class="icon-wrapper"><img src="gos.png" class="service-icon"></div><div class="service-name">Госуслуги</div></div>
         <div class="service-item" onclick="vibrate()"><div class="icon-wrapper"><img src="ads.png" class="service-icon"></div><div class="service-name">Объявления</div></div>
@@ -161,12 +179,12 @@
         <div class="promo-row" onclick="vibrate()">
             <img src="red.png" class="promo-img">
             <div class="promo-text">Рассрочка 0-0-12</div>
-            <div class="arrow-right">❯</div>
+            <div class="promo-arrow">❯</div>
         </div>
         <div class="promo-row" onclick="vibrate()">
             <img src="credit.png" class="promo-img">
             <div class="promo-text">Кредит наличными</div>
-            <div class="arrow-right">❯</div>
+            <div class="promo-arrow">❯</div>
         </div>
     </div>
 
@@ -182,14 +200,8 @@
         tg.ready();
         tg.expand();
 
-        // Установка имени пользователя из Telegram
-        const user = tg.initDataUnsafe?.user;
-        if (user && user.first_name) {
-            document.getElementById('userName').innerText = user.first_name;
-        }
-
         function vibrate() {
-            tg.HapticFeedback.impactOccurred('medium');
+            tg.HapticFeedback.impactOccurred('light');
         }
 
         function switchTab(el) {
