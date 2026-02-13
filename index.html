@@ -22,9 +22,10 @@
             padding-bottom: 90px;
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
+            user-select: none; /* Запрещаем выделение текста для эффекта нативности */
         }
 
-        /* 1. Поиск и silvershop */
+        /* 1. Поиск */
         .search-wrapper {
             background-color: white;
             padding: 10px 15px;
@@ -47,7 +48,7 @@
         .search-icon { width: 16px; height: 16px; opacity: 0.7; }
         .header-extra-icon { width: 24px; height: 24px; object-fit: contain; }
 
-        /* 2. Верхние баннеры (над сервисами) */
+        /* 2. Баннеры */
         .banners-container {
             background-color: white;
             padding-top: 10px;
@@ -73,7 +74,9 @@
             background-position: center;
             background-size: cover;
             background-repeat: no-repeat;
+            transition: transform 0.1s;
         }
+        .banner-item:active { transform: scale(0.98); }
         .banner-title { font-weight: 800; font-size: 18px; text-shadow: 0 1px 4px rgba(0,0,0,0.4); }
 
         /* 3. Сетка сервисов */
@@ -84,7 +87,15 @@
             padding: 10px 5px 20px;
             gap: 22px 0;
         }
-        .service-item { display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .service-item { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            text-align: center;
+            transition: opacity 0.1s;
+        }
+        .service-item:active { opacity: 0.6; } /* Эффект нажатия */
+
         .icon-wrapper { height: 44px; width: 44px; display: flex; align-items: center; justify-content: center; margin-bottom: 6px; }
         .service-icon {
             width: 40px;
@@ -95,38 +106,23 @@
         }
         img[src="shop.png"] {
             transform: scale(1.25) !important;
-            filter: drop-shadow(0.4px 0 0px #333) drop-shadow(-0.4px 0 0px #333) contrast(1.1) brightness(0.9) !important;
         }
         .service-name { font-size: 11.5px; font-weight: 600; color: var(--text-dark); letter-spacing: -0.2px; }
 
-        /* 4. Маленькие баннеры (Рассрочка и Кредит) */
-        .small-promo-container {
-            background-color: white;
-            margin-top: 10px;
-            padding: 0 15px;
-        }
+        /* 4. Маленькие промо */
+        .small-promo-container { background-color: white; margin-top: 10px; padding: 0 15px; }
         .promo-row {
-            display: flex;
-            align-items: center;
-            padding: 14px 0;
-            gap: 15px;
+            display: flex; align-items: center; padding: 14px 0; gap: 15px;
             border-bottom: 1px solid #f0f0f0;
         }
+        .promo-row:active { background-color: #f9f9f9; }
         .promo-row:last-child { border-bottom: none; }
-        
-        .promo-img {
-            width: 36px;  /* Единый размер */
-            height: 36px; /* Единый размер */
-            object-fit: contain;
-        }
-        .promo-text {
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--text-dark);
-        }
+        .promo-img { width: 36px; height: 36px; object-fit: contain; }
+        .promo-text { font-size: 15px; font-weight: 700; }
 
-        /* 5. Остальные блоки (Magnum, Товары) */
-        .magnum-row { background: white; margin-top: 10px; padding: 15px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #e5e5e5; }
+        /* 5. Magnum и Товары */
+        .magnum-row { background: white; margin-top: 10px; padding: 15px; display: flex; align-items: center; gap: 12px; }
+        .magnum-row:active { background-color: #f9f9f9; }
         .section-title { padding: 18px 15px 10px; font-weight: 800; font-size: 19px; }
         .products-scroll { display: flex; overflow-x: auto; padding: 0 15px; gap: 12px; scrollbar-width: none; }
         .products-scroll::-webkit-scrollbar { display: none; }
@@ -156,8 +152,7 @@
 
     <div class="banners-container">
         <div class="banners-scroll">
-            <div class="banner-item" style="background-image: url('reklama.png');">
-                <div class="banner-title"></div> </div>
+            <div class="banner-item" style="background-image: url('reklama.png');"></div>
             <div class="banner-item" style="background: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);">
                 <div class="banner-title">Кешбэк на услуги</div>
             </div>
@@ -165,28 +160,28 @@
     </div>
 
     <div class="services-grid">
-        <div class="service-item"><div class="icon-wrapper"><img src="qr.png" class="service-icon"></div><div class="service-name">Kaspi QR</div></div>
-        <div class="service-item"><div class="icon-wrapper"><img src="bank.png" class="service-icon"></div><div class="service-name">Мой Банк</div></div>
-        <div class="service-item"><div class="icon-wrapper"><img src="pay.png" class="service-icon"></div><div class="service-name">Платежи</div></div>
-        <div class="service-item"><div class="icon-wrapper"><img src="transfer.png" class="service-icon"></div><div class="service-name">Переводы</div></div>
-        <div class="service-item"><div class="icon-wrapper"><img src="shop.png" class="service-icon"></div><div class="service-name">Магазин</div></div>
-        <div class="service-item"><div class="icon-wrapper"><img src="travel.png" class="service-icon"></div><div class="service-name">Travel</div></div>
-        <div class="service-item"><div class="icon-wrapper"><img src="gos.png" class="service-icon"></div><div class="service-name">Госуслуги</div></div>
-        <div class="service-item"><div class="icon-wrapper"><img src="ads.png" class="service-icon"></div><div class="service-name">Объявления</div></div>
+        <div class="service-item" onclick="vibrate()"><div class="icon-wrapper"><img src="qr.png" class="service-icon"></div><div class="service-name">Kaspi QR</div></div>
+        <div class="service-item" onclick="vibrate()"><div class="icon-wrapper"><img src="bank.png" class="service-icon"></div><div class="service-name">Мой Банк</div></div>
+        <div class="service-item" onclick="vibrate()"><div class="icon-wrapper"><img src="pay.png" class="service-icon"></div><div class="service-name">Платежи</div></div>
+        <div class="service-item" onclick="vibrate()"><div class="icon-wrapper"><img src="transfer.png" class="service-icon"></div><div class="service-name">Переводы</div></div>
+        <div class="service-item" onclick="vibrate()"><div class="icon-wrapper"><img src="shop.png" class="service-icon"></div><div class="service-name">Магазин</div></div>
+        <div class="service-item" onclick="vibrate()"><div class="icon-wrapper"><img src="travel.png" class="service-icon"></div><div class="service-name">Travel</div></div>
+        <div class="service-item" onclick="vibrate()"><div class="icon-wrapper"><img src="gos.png" class="service-icon"></div><div class="service-name">Госуслуги</div></div>
+        <div class="service-item" onclick="vibrate()"><div class="icon-wrapper"><img src="ads.png" class="service-icon"></div><div class="service-name">Объявления</div></div>
     </div>
 
     <div class="small-promo-container">
-        <div class="promo-row">
+        <div class="promo-row" onclick="vibrate()">
             <img src="red.png" class="promo-img">
             <div class="promo-text">Рассрочка 0-0-12</div>
         </div>
-        <div class="promo-row">
+        <div class="promo-row" onclick="vibrate()">
             <img src="credit.png" class="promo-img">
             <div class="promo-text">Кредит наличными</div>
         </div>
     </div>
 
-    <div class="magnum-row">
+    <div class="magnum-row" onclick="vibrate()">
         <div style="background: #e11c2a; color:white; width:45px; height:45px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:900; font-size: 22px;">M</div>
         <div style="flex:1">
             <div style="font-weight:700; font-size: 16px;">Magnum</div>
@@ -209,21 +204,31 @@
         </div>
     </div>
 
-    <div class="tab-bar">
-        <div class="tab-item active"><span class="tab-icon">🏠</span><div>Главная</div></div>
-        <div class="tab-item"><span class="tab-icon">🔳</span><div>Kaspi QR</div></div>
-        <div class="tab-item"><span class="tab-icon">💬</span><div>Сообщения</div></div>
-        <div class="tab-item"><span class="tab-icon">☰</span><div>Сервисы</div></div>
+    <div class="tab-bar" id="tabBar">
+        <div class="tab-item active" onclick="switchTab(this, '🏠', 'Главная')"><span class="tab-icon">🏠</span><div>Главная</div></div>
+        <div class="tab-item" onclick="switchTab(this, '🔳', 'Kaspi QR')"><span class="tab-icon">🔳</span><div>Kaspi QR</div></div>
+        <div class="tab-item" onclick="switchTab(this, '💬', 'Сообщения')"><span class="tab-icon">💬</span><div>Сообщения</div></div>
+        <div class="tab-item" onclick="switchTab(this, '☰', 'Сервисы')"><span class="tab-icon">☰</span><div>Сервисы</div></div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            if (window.Telegram && window.Telegram.WebApp) {
-                const tg = window.Telegram.WebApp;
-                tg.ready();
-                tg.expand();
-            }
-        });
+        const tg = window.Telegram.WebApp;
+        tg.ready();
+        tg.expand();
+
+        // Функция вибрации
+        function vibrate() {
+            tg.HapticFeedback.impactOccurred('light');
+        }
+
+        // Функция переключения вкладок
+        function switchTab(element, icon, label) {
+            vibrate();
+            document.querySelectorAll('.tab-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            element.classList.add('active');
+        }
     </script>
 </body>
 </html>
