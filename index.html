@@ -19,7 +19,7 @@
             margin: 0; padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             color: var(--text-dark);
-            padding-bottom: 90px;
+            padding-bottom: 120px; /* Увеличил отступ из-за высокого таббара */
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
             user-select: none;
@@ -35,7 +35,7 @@
             align-items: center;
             gap: 12px;
             border-bottom: 1px solid #f0f0f0;
-            z-index: 2000; /* Высокий приоритет, чтобы быть поверх всего */
+            z-index: 2000;
         }
         .search-bar {
             background-color: #f0f0f2;
@@ -51,25 +51,26 @@
         .search-icon { width: 16px; height: 16px; opacity: 0.5; }
         .header-extra-icon { width: 24px; height: 24px; object-fit: contain; }
 
-        /* 2. Рекламные баннеры */
+        /* 2. РЕКЛАМНЫЕ БАННЕРЫ (ИСПРАВЛЕНО) */
         .banners-container { background-color: white; padding-top: 5px; }
         .banners-scroll {
             display: flex;
             overflow-x: auto;
             padding: 5px 15px 15px;
-            gap: 10px;
+            gap: 12px;
             -webkit-overflow-scrolling: touch;
         }
         .banners-scroll::-webkit-scrollbar { display: none; }
         
         .banner-item {
-            min-width: 85%;
-            height: 135px;
+            min-width: 75%; /* Уменьшил ширину */
+            height: 110px;  /* Уменьшил высоту, чтобы не тянуло */
             border-radius: 14px;
             overflow: hidden;
             background-position: center;
-            background-size: 100% 100%;
+            background-size: contain; /* Картинка больше не растягивается */
             background-repeat: no-repeat;
+            background-color: #ffffff; /* Фон, если картинка короче блока */
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .banner-item:active {
@@ -86,19 +87,15 @@
             gap: 20px 0;
         }
         .service-item { 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            text-align: center;
+            display: flex; flex-direction: column; align-items: center; text-align: center;
             transition: all 0.3s ease;
         }
         .service-item:active { filter: var(--press-effect); }
-
         .icon-wrapper { height: 44px; width: 44px; display: flex; align-items: center; justify-content: center; margin-bottom: 6px; }
         .service-icon { width: 40px; height: 40px; object-fit: contain; }
         .service-name { font-size: 11.5px; font-weight: 600; color: var(--text-dark); }
 
-        /* 4. Двухрядная карусель промо-блоков */
+        /* 4. Двухрядная карусель */
         .promo-scroll-area {
             margin-top: 12px;
             overflow-x: auto;
@@ -106,7 +103,6 @@
             padding-bottom: 10px;
         }
         .promo-scroll-area::-webkit-scrollbar { display: none; }
-
         .promo-grid-container {
             display: grid;
             grid-template-rows: repeat(2, 1fr);
@@ -115,55 +111,46 @@
             gap: 10px;
             padding: 0 15px;
         }
-
         .promo-card {
             background: white;
             border-radius: 16px;
             padding: 12px 18px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
+            display: flex; align-items: center; gap: 12px;
             min-width: 215px;
             transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
-        .promo-card:active {
-            filter: var(--press-effect);
-            transform: scale(0.96);
-        }
-
+        .promo-card:active { filter: var(--press-effect); transform: scale(0.96); }
         .promo-img { width: 40px; height: 40px; object-fit: contain; flex-shrink: 0; }
-        
         .promo-text-container { display: flex; flex-direction: column; white-space: nowrap; }
         .promo-main-text { font-size: 14.5px; font-weight: 700; color: var(--text-dark); }
         .promo-subtext { font-size: 11.5px; color: var(--gray-text); margin-top: 1px; }
 
         .badge-yellow {
-            background-color: #ffdb00;
-            color: #222;
-            padding: 1px 5px;
-            border-radius: 5px;
-            font-size: 12px;
-            font-weight: 800;
-            margin-left: 3px;
+            background-color: #ffdb00; color: #222; padding: 1px 5px;
+            border-radius: 5px; font-size: 12px; font-weight: 800; margin-left: 3px;
         }
 
-        /* 5. Нижний таббар */
+        /* 5. НИЖНЯЯ ПАНЕЛЬ (УВЕЛИЧЕНО В 2 РАЗА) */
         .tab-bar {
             position: fixed; bottom: 0; left: 0; right: 0;
             background: white; display: grid; grid-template-columns: repeat(4, 1fr);
-            padding: 8px 0; border-top: 1px solid #e5e5e5; z-index: 3000;
+            height: 90px; /* Увеличено */
+            align-items: center;
+            border-top: 1px solid #e5e5e5; z-index: 3000;
             padding-bottom: env(safe-area-inset-bottom);
         }
         .tab-item { 
             display: flex; flex-direction: column; align-items: center; 
-            font-size: 10px; color: var(--gray-text); gap: 4px;
+            font-size: 13px; /* Текст крупнее */
+            color: var(--gray-text); gap: 8px;
             transition: all 0.2s ease;
         }
-        .tab-item:active { filter: blur(1px); opacity: 0.7; }
         .tab-item.active { color: var(--kaspi-red); font-weight: 700; }
         
         .tab-icon-img { 
-            width: 24px; height: 24px; object-fit: contain;
+            width: 38px; /* Иконки крупнее */
+            height: 38px; 
+            object-fit: contain;
             opacity: 0.4;
             filter: grayscale(100%);
             transition: all 0.2s ease;
