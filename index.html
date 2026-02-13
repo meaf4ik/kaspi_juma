@@ -11,7 +11,7 @@
             --bg-color: #f2f2f5;
             --text-dark: #222222;
             --gray-text: #8e8e93;
-            --press-effect: brightness(0.9) blur(1px);
+            --press-effect: brightness(0.9) blur(1.5px);
         }
 
         body {
@@ -78,34 +78,44 @@
         .service-icon { width: 40px; height: 40px; object-fit: contain; }
         .service-name { font-size: 11.5px; font-weight: 600; }
 
-        /* 4. Сетка ПРОМО (Рассрочка, Кредит, Депозит) */
+        /* 4. Крупная сетка промо (2x2 без линий) */
         .promo-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr; /* Две колонки */
+            grid-template-columns: 1fr 1fr;
             background-color: white;
             margin-top: 10px;
-            gap: 1px; /* Создает эффект тонких разделителей */
-            background-color: #f0f0f0; /* Цвет линий разделителя */
-            border-top: 1px solid #f0f0f0;
-            border-bottom: 1px solid #f0f0f0;
+            padding: 5px 0; /* Небольшой отступ сверху/снизу */
         }
         .promo-item {
             display: flex;
             align-items: center;
             background-color: white;
-            padding: 12px 10px;
-            gap: 10px;
-            transition: all 0.2s ease;
+            padding: 18px 12px; /* Увеличил высоту блоков */
+            gap: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .promo-item:active { filter: var(--press-effect); background-color: #fafafa; }
+        .promo-item:active { filter: var(--press-effect); }
         
-        .promo-img { width: 34px; height: 34px; object-fit: contain; flex-shrink: 0; }
+        .promo-img { 
+            width: 44px;  /* Увеличил иконку */
+            height: 44px; 
+            object-fit: contain; 
+            flex-shrink: 0; 
+        }
         
-        .promo-text-container { display: flex; flex-direction: column; gap: 2px; }
-        .promo-main-text { font-size: 13.5px; font-weight: 700; line-height: 1.2; }
-        .promo-subtext { font-size: 11px; color: var(--gray-text); font-weight: 400; }
+        .promo-text-container { display: flex; flex-direction: column; gap: 3px; }
+        .promo-main-text { 
+            font-size: 15px; /* Увеличил текст */
+            font-weight: 700; 
+            line-height: 1.2; 
+        }
+        .promo-subtext { 
+            font-size: 11px; 
+            color: var(--gray-text); 
+            font-weight: 400; 
+            line-height: 1.1;
+        }
         
-        /* Желтый прямоугольник для процентов */
         .badge-yellow {
             background-color: #ffdb00;
             color: #222;
@@ -113,6 +123,7 @@
             border-radius: 4px;
             font-size: 13px;
             margin-left: 2px;
+            display: inline-block;
         }
 
         /* 5. Таббар */
@@ -165,13 +176,14 @@
         <div class="promo-item" onclick="vibrate()">
             <img src="deposit.png" class="promo-img">
             <div class="promo-text-container">
-                <div class="promo-main-text">Накопительный депозит <span class="badge-yellow">20%</span></div>
+                <div class="promo-main-text">Депозит <span class="badge-yellow">20%</span></div>
             </div>
         </div>
         <div class="promo-item" onclick="vibrate()">
             <img src="credit.png" class="promo-img">
             <div class="promo-text-container">
                 <div class="promo-main-text">Кредит наличными</div>
+                <div class="promo-subtext">до 2 млн ₸ на Kaspi Gold</div>
             </div>
         </div>
         <div class="promo-item" onclick="vibrate()">
