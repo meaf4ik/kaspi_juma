@@ -11,7 +11,7 @@
             --bg-color: #f2f2f5;
             --text-dark: #222222;
             --gray-text: #8e8e93;
-            --press-effect: brightness(0.92) blur(2px);
+            --press-effect: brightness(0.92) blur(1.5px);
         }
 
         body {
@@ -41,7 +41,7 @@
         .search-icon { width: 16px; height: 16px; opacity: 0.5; }
         .header-extra-icon { width: 24px; height: 24px; object-fit: contain; }
 
-        /* Верхние баннеры */
+        /* Баннеры */
         .banners-container { background-color: white; padding-top: 5px; }
         .banners-scroll {
             display: flex; overflow-x: auto;
@@ -57,7 +57,7 @@
         }
         .banner-item:active { filter: var(--press-effect); transform: scale(0.98); }
 
-        /* Сетка основных сервисов */
+        /* Сетка сервисов */
         .services-grid {
             display: grid; grid-template-columns: repeat(4, 1fr);
             background: white; padding: 10px 5px 15px; gap: 20px 0;
@@ -68,18 +68,17 @@
         .service-icon { width: 40px; height: 40px; object-fit: contain; }
         .service-name { font-size: 11.5px; font-weight: 600; }
 
-        /* Двухрядный горизонтальный скролл промо-блоков */
+        /* Двухрядная карусель */
         .promo-scroll-area {
             margin-top: 12px;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
-            padding-bottom: 5px;
+            padding-bottom: 10px;
         }
         .promo-scroll-area::-webkit-scrollbar { display: none; }
 
         .promo-grid-container {
             display: grid;
-            /* Два ряда, колонки подстраиваются под контент */
             grid-template-rows: repeat(2, 1fr);
             grid-auto-flow: column; 
             grid-auto-columns: max-content;
@@ -94,13 +93,13 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            min-width: 200px;
+            min-width: 210px;
             transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
         .promo-card:active {
             filter: var(--press-effect);
-            transform: scale(0.95);
+            transform: scale(0.96);
         }
 
         .promo-img { width: 40px; height: 40px; object-fit: contain; flex-shrink: 0; }
@@ -169,6 +168,13 @@
                     <div class="promo-subtext">Покупки в рассрочку</div>
                 </div>
             </div>
+            <div class="promo-card" onclick="vibrate()">
+                <img src="credit.png" class="promo-img">
+                <div class="promo-text-container">
+                    <div class="promo-main-text">Кредит наличными</div>
+                    <div class="promo-subtext">до 2 млн ₸ на Gold</div>
+                </div>
+            </div>
 
             <div class="promo-card" onclick="vibrate()">
                 <img src="deposit.png" class="promo-img">
@@ -177,20 +183,11 @@
                     <div class="promo-subtext">Накопительный счет</div>
                 </div>
             </div>
-
             <div class="promo-card" onclick="vibrate()">
                 <img src="magnum.png" class="promo-img">
                 <div class="promo-text-container">
                     <div class="promo-main-text">Magnum</div>
                     <div class="promo-subtext">Продукты с доставкой</div>
-                </div>
-            </div>
-
-            <div class="promo-card" onclick="vibrate()">
-                <img src="credit.png" class="promo-img">
-                <div class="promo-text-container">
-                    <div class="promo-main-text">Кредит наличными</div>
-                    <div class="promo-subtext">до 2 млн ₸ на Gold</div>
                 </div>
             </div>
 
@@ -201,9 +198,8 @@
                     <div class="promo-subtext">Рассрочка 0%</div>
                 </div>
             </div>
-
             <div class="promo-card" onclick="vibrate()">
-                <img src="guide.png" class="promo-img">
+                <img src="gid.png" class="promo-img">
                 <div class="promo-text-container">
                     <div class="promo-main-text">Kaspi Гид</div>
                     <div class="promo-subtext">Ответы на вопросы</div>
