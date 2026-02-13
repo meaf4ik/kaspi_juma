@@ -11,7 +11,7 @@
             --bg-color: #f2f2f5;
             --text-dark: #222222;
             --gray-text: #8e8e93;
-            --press-effect: brightness(0.9) blur(1.5px);
+            --press-effect: brightness(0.9) blur(1px);
         }
 
         body {
@@ -29,26 +29,19 @@
         .search-wrapper {
             background-color: white;
             padding: 15px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
+            display: flex; align-items: center; gap: 12px;
             border-bottom: 1px solid #f0f0f0;
         }
         .search-bar {
             background-color: #f0f0f2;
-            border-radius: 10px;
-            padding: 10px 12px;
-            color: var(--gray-text);
-            font-size: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex: 1;
+            border-radius: 10px; padding: 10px 12px;
+            color: var(--gray-text); font-size: 15px;
+            display: flex; align-items: center; gap: 10px; flex: 1;
         }
         .search-icon { width: 16px; height: 16px; opacity: 0.5; }
         .header-extra-icon { width: 24px; height: 24px; object-fit: contain; }
 
-        /* 2. Рекламные баннеры */
+        /* 2. Верхние рекламные баннеры */
         .banners-container { background-color: white; padding-top: 5px; }
         .banners-scroll {
             display: flex; overflow-x: auto;
@@ -60,11 +53,11 @@
             min-width: 85%; height: 125px;
             border-radius: 14px;
             background-position: center; background-size: cover;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
         }
         .banner-item:active { filter: var(--press-effect); transform: scale(0.98); }
 
-        /* 3. Сетка сервисов */
+        /* 3. Основная сетка сервисов */
         .services-grid {
             display: grid; grid-template-columns: repeat(4, 1fr);
             background: white; padding: 10px 5px 20px; gap: 22px 0;
@@ -78,51 +71,68 @@
         .service-icon { width: 40px; height: 40px; object-fit: contain; }
         .service-name { font-size: 11.5px; font-weight: 600; }
 
-        /* 4. Крупная сетка промо (2x2 без линий) */
-        .promo-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            background-color: white;
-            margin-top: 10px;
-            padding: 5px 0; /* Небольшой отступ сверху/снизу */
+        /* 4. Подвижные блоки (Новый скролл-контейнер) */
+        .promo-scroll-wrapper {
+            margin-top: 12px;
+            padding-bottom: 5px;
         }
-        .promo-item {
+        .promo-scroll {
+            display: flex;
+            overflow-x: auto;
+            padding: 0 15px 15px;
+            gap: 12px;
+            -webkit-overflow-scrolling: touch;
+        }
+        .promo-scroll::-webkit-scrollbar { display: none; }
+
+        .promo-card {
+            flex-shrink: 0; /* Не дает карточкам сжиматься */
             display: flex;
             align-items: center;
-            background-color: white;
-            padding: 18px 12px; /* Увеличил высоту блоков */
-            gap: 12px;
+            background: white;
+            padding: 16px 20px;
+            border-radius: 16px;
+            gap: 14px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04); /* Красивая тень */
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .promo-item:active { filter: var(--press-effect); }
-        
+        .promo-card:active {
+            filter: var(--press-effect);
+            transform: scale(0.97);
+        }
+
         .promo-img { 
-            width: 44px;  /* Увеличил иконку */
-            height: 44px; 
-            object-fit: contain; 
-            flex-shrink: 0; 
+            width: 46px; height: 46px; 
+            object-fit: contain; flex-shrink: 0; 
         }
-        
-        .promo-text-container { display: flex; flex-direction: column; gap: 3px; }
-        .promo-main-text { 
-            font-size: 15px; /* Увеличил текст */
-            font-weight: 700; 
-            line-height: 1.2; 
+
+        .promo-text-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            white-space: nowrap; /* Запрет переноса текста */
         }
-        .promo-subtext { 
-            font-size: 11px; 
-            color: var(--gray-text); 
-            font-weight: 400; 
-            line-height: 1.1;
+
+        .promo-main-text {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-dark);
         }
-        
+
+        .promo-subtext {
+            font-size: 12px;
+            color: var(--gray-text);
+            font-weight: 400;
+        }
+
         .badge-yellow {
             background-color: #ffdb00;
             color: #222;
-            padding: 1px 4px;
-            border-radius: 4px;
+            padding: 2px 6px;
+            border-radius: 6px;
             font-size: 13px;
-            margin-left: 2px;
+            font-weight: 800;
+            margin-left: 4px;
             display: inline-block;
         }
 
@@ -166,32 +176,41 @@
         <div class="service-item" onclick="vibrate()"><div class="icon-wrapper"><img src="ads.png" class="service-icon"></div><div class="service-name">Объявления</div></div>
     </div>
 
-    <div class="promo-grid">
-        <div class="promo-item" onclick="vibrate()">
-            <img src="red.png" class="promo-img">
-            <div class="promo-text-container">
-                <div class="promo-main-text">Рассрочка 0-0-12</div>
+    <div class="promo-scroll-wrapper">
+        <div class="promo-scroll">
+            
+            <div class="promo-card" onclick="vibrate()">
+                <img src="red.png" class="promo-img">
+                <div class="promo-text-container">
+                    <div class="promo-main-text">Рассрочка 0-0-12</div>
+                    <div class="promo-subtext">Покупки в рассрочку</div>
+                </div>
             </div>
-        </div>
-        <div class="promo-item" onclick="vibrate()">
-            <img src="deposit.png" class="promo-img">
-            <div class="promo-text-container">
-                <div class="promo-main-text">Депозит <span class="badge-yellow">20%</span></div>
+
+            <div class="promo-card" onclick="vibrate()">
+                <img src="deposit.png" class="promo-img">
+                <div class="promo-text-container">
+                    <div class="promo-main-text">Депозит <span class="badge-yellow">20%</span></div>
+                    <div class="promo-subtext">Эффективная ставка</div>
+                </div>
             </div>
-        </div>
-        <div class="promo-item" onclick="vibrate()">
-            <img src="credit.png" class="promo-img">
-            <div class="promo-text-container">
-                <div class="promo-main-text">Кредит наличными</div>
-                <div class="promo-subtext">до 2 млн ₸ на Kaspi Gold</div>
+
+            <div class="promo-card" onclick="vibrate()">
+                <img src="credit.png" class="promo-img">
+                <div class="promo-text-container">
+                    <div class="promo-main-text">Кредит наличными</div>
+                    <div class="promo-subtext">до 2 млн ₸ на Kaspi Gold</div>
+                </div>
             </div>
-        </div>
-        <div class="promo-item" onclick="vibrate()">
-            <img src="credit2.png" class="promo-img">
-            <div class="promo-text-container">
-                <div class="promo-main-text">Кредит на покупки</div>
-                <div class="promo-subtext">Кредит или рассрочка 0%</div>
+
+            <div class="promo-card" onclick="vibrate()">
+                <img src="credit2.png" class="promo-img">
+                <div class="promo-text-container">
+                    <div class="promo-main-text">Кредит на покупки</div>
+                    <div class="promo-subtext">Кредит или рассрочка 0%</div>
+                </div>
             </div>
+
         </div>
     </div>
 
