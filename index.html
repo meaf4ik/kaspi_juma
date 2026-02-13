@@ -11,7 +11,7 @@
             --bg-color: #f2f2f5;
             --text-dark: #222222;
             --gray-text: #8e8e93;
-            --press-effect: brightness(0.9) blur(1.5px); /* Тот самый размытый эффект */
+            --press-effect: brightness(0.9) blur(1px);
         }
 
         body {
@@ -46,89 +46,74 @@
             flex: 1;
         }
         .search-icon { width: 16px; height: 16px; opacity: 0.5; }
-        .header-extra-icon { width: 26px; height: 26px; object-fit: contain; }
+        .header-extra-icon { width: 24px; height: 24px; object-fit: contain; }
 
-        /* 2. Баннеры (Расположены над кнопками) */
-        .banners-container {
-            background-color: white;
-            padding-top: 5px;
-        }
+        /* 2. Рекламные баннеры */
+        .banners-container { background-color: white; padding-top: 5px; }
         .banners-scroll {
-            display: flex;
-            overflow-x: auto;
-            padding: 5px 15px 15px;
-            gap: 10px;
+            display: flex; overflow-x: auto;
+            padding: 5px 15px 15px; gap: 10px;
             -webkit-overflow-scrolling: touch;
         }
         .banners-scroll::-webkit-scrollbar { display: none; }
-        
         .banner-item {
-            min-width: 85%;
-            height: 125px;
+            min-width: 85%; height: 125px;
             border-radius: 14px;
-            background-position: center;
-            background-size: cover;
-            background-repeat: no-repeat;
-            /* Плавный выход из нажатия */
+            background-position: center; background-size: cover;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .banner-item:active {
-            filter: var(--press-effect);
-            transform: scale(0.98);
-        }
+        .banner-item:active { filter: var(--press-effect); transform: scale(0.98); }
 
         /* 3. Сетка сервисов */
         .services-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            background: white;
-            padding: 10px 5px 20px;
-            gap: 22px 0;
+            display: grid; grid-template-columns: repeat(4, 1fr);
+            background: white; padding: 10px 5px 20px; gap: 22px 0;
         }
         .service-item { 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            text-align: center;
-            /* Плавная анимация */
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .service-item:active {
-            filter: var(--press-effect);
-            opacity: 0.8;
-        }
-
-        .icon-wrapper { height: 44px; width: 44px; display: flex; align-items: center; justify-content: center; margin-bottom: 6px; }
-        .service-icon {
-            width: 40px;
-            height: 40px;
-            object-fit: contain;
-            filter: contrast(1.1);
-        }
-        .service-name { font-size: 11.5px; font-weight: 600; color: var(--text-dark); letter-spacing: -0.2px; }
-
-        /* 4. Маленькие баннеры (Рассрочка и Кредит) */
-        .small-promo-container {
-            background-color: white;
-            margin-top: 10px;
-            padding: 0 15px;
-        }
-        .promo-row {
-            display: flex;
-            align-items: center;
-            padding: 14px 0;
-            gap: 15px;
-            border-bottom: 1px solid #f0f0f0;
+            display: flex; flex-direction: column; align-items: center; text-align: center;
             transition: all 0.3s ease;
         }
-        .promo-row:active {
-            filter: var(--press-effect);
-            background-color: rgba(0,0,0,0.02);
+        .service-item:active { filter: var(--press-effect); opacity: 0.8; }
+        .icon-wrapper { height: 44px; width: 44px; display: flex; align-items: center; justify-content: center; margin-bottom: 6px; }
+        .service-icon { width: 40px; height: 40px; object-fit: contain; }
+        .service-name { font-size: 11.5px; font-weight: 600; }
+
+        /* 4. Сетка ПРОМО (Рассрочка, Кредит, Депозит) */
+        .promo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Две колонки */
+            background-color: white;
+            margin-top: 10px;
+            gap: 1px; /* Создает эффект тонких разделителей */
+            background-color: #f0f0f0; /* Цвет линий разделителя */
+            border-top: 1px solid #f0f0f0;
+            border-bottom: 1px solid #f0f0f0;
         }
-        .promo-row:last-child { border-bottom: none; }
-        .promo-img { width: 36px; height: 36px; object-fit: contain; }
-        .promo-text { font-size: 15px; font-weight: 700; flex: 1; }
-        .promo-arrow { color: #ccc; font-size: 18px; }
+        .promo-item {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            padding: 12px 10px;
+            gap: 10px;
+            transition: all 0.2s ease;
+        }
+        .promo-item:active { filter: var(--press-effect); background-color: #fafafa; }
+        
+        .promo-img { width: 34px; height: 34px; object-fit: contain; flex-shrink: 0; }
+        
+        .promo-text-container { display: flex; flex-direction: column; gap: 2px; }
+        .promo-main-text { font-size: 13.5px; font-weight: 700; line-height: 1.2; }
+        .promo-subtext { font-size: 11px; color: var(--gray-text); font-weight: 400; }
+        
+        /* Желтый прямоугольник для процентов */
+        .badge-yellow {
+            background-color: #ffdb00;
+            color: #222;
+            padding: 1px 4px;
+            border-radius: 4px;
+            font-size: 13px;
+            margin-left: 2px;
+        }
 
         /* 5. Таббар */
         .tab-bar {
@@ -137,12 +122,7 @@
             padding: 8px 0; border-top: 1px solid #e5e5e5; z-index: 1000;
             padding-bottom: env(safe-area-inset-bottom);
         }
-        .tab-item { 
-            display: flex; flex-direction: column; align-items: center; 
-            font-size: 10px; color: var(--gray-text); gap: 4px;
-            transition: all 0.2s ease;
-        }
-        .tab-item:active { filter: blur(1px); opacity: 0.7; }
+        .tab-item { display: flex; flex-direction: column; align-items: center; font-size: 10px; color: var(--gray-text); gap: 4px; }
         .tab-item.active { color: var(--kaspi-red); font-weight: 700; }
         .tab-icon { font-size: 20px; }
     </style>
@@ -175,16 +155,31 @@
         <div class="service-item" onclick="vibrate()"><div class="icon-wrapper"><img src="ads.png" class="service-icon"></div><div class="service-name">Объявления</div></div>
     </div>
 
-    <div class="small-promo-container">
-        <div class="promo-row" onclick="vibrate()">
+    <div class="promo-grid">
+        <div class="promo-item" onclick="vibrate()">
             <img src="red.png" class="promo-img">
-            <div class="promo-text">Рассрочка 0-0-12</div>
-            <div class="promo-arrow">❯</div>
+            <div class="promo-text-container">
+                <div class="promo-main-text">Рассрочка 0-0-12</div>
+            </div>
         </div>
-        <div class="promo-row" onclick="vibrate()">
+        <div class="promo-item" onclick="vibrate()">
+            <img src="deposit.png" class="promo-img">
+            <div class="promo-text-container">
+                <div class="promo-main-text">Накопительный депозит <span class="badge-yellow">20%</span></div>
+            </div>
+        </div>
+        <div class="promo-item" onclick="vibrate()">
             <img src="credit.png" class="promo-img">
-            <div class="promo-text">Кредит наличными</div>
-            <div class="promo-arrow">❯</div>
+            <div class="promo-text-container">
+                <div class="promo-main-text">Кредит наличными</div>
+            </div>
+        </div>
+        <div class="promo-item" onclick="vibrate()">
+            <img src="credit2.png" class="promo-img">
+            <div class="promo-text-container">
+                <div class="promo-main-text">Кредит на покупки</div>
+                <div class="promo-subtext">Кредит или рассрочка 0%</div>
+            </div>
         </div>
     </div>
 
