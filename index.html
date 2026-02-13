@@ -11,7 +11,7 @@
             --bg-color: #f2f2f5;
             --text-dark: #222222;
             --gray-text: #8e8e93;
-            --press-effect: brightness(0.9) blur(1px);
+            --press-effect: brightness(0.92) blur(2px);
         }
 
         body {
@@ -25,7 +25,7 @@
             user-select: none;
         }
 
-        /* 1. Поиск */
+        /* Поиск */
         .search-wrapper {
             background-color: white;
             padding: 15px;
@@ -41,7 +41,7 @@
         .search-icon { width: 16px; height: 16px; opacity: 0.5; }
         .header-extra-icon { width: 24px; height: 24px; object-fit: contain; }
 
-        /* 2. Верхние рекламные баннеры */
+        /* Верхние баннеры */
         .banners-container { background-color: white; padding-top: 5px; }
         .banners-scroll {
             display: flex; overflow-x: auto;
@@ -50,93 +50,76 @@
         }
         .banners-scroll::-webkit-scrollbar { display: none; }
         .banner-item {
-            min-width: 85%; height: 125px;
+            min-width: 85%; height: 120px;
             border-radius: 14px;
             background-position: center; background-size: cover;
             transition: all 0.3s ease;
         }
         .banner-item:active { filter: var(--press-effect); transform: scale(0.98); }
 
-        /* 3. Основная сетка сервисов */
+        /* Сетка основных сервисов */
         .services-grid {
             display: grid; grid-template-columns: repeat(4, 1fr);
-            background: white; padding: 10px 5px 20px; gap: 22px 0;
+            background: white; padding: 10px 5px 15px; gap: 20px 0;
         }
-        .service-item { 
-            display: flex; flex-direction: column; align-items: center; text-align: center;
-            transition: all 0.3s ease;
-        }
+        .service-item { display: flex; flex-direction: column; align-items: center; text-align: center; transition: all 0.3s ease; }
         .service-item:active { filter: var(--press-effect); opacity: 0.8; }
         .icon-wrapper { height: 44px; width: 44px; display: flex; align-items: center; justify-content: center; margin-bottom: 6px; }
         .service-icon { width: 40px; height: 40px; object-fit: contain; }
         .service-name { font-size: 11.5px; font-weight: 600; }
 
-        /* 4. Подвижные блоки (Новый скролл-контейнер) */
-        .promo-scroll-wrapper {
+        /* Двухрядный горизонтальный скролл промо-блоков */
+        .promo-scroll-area {
             margin-top: 12px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
             padding-bottom: 5px;
         }
-        .promo-scroll {
-            display: flex;
-            overflow-x: auto;
-            padding: 0 15px 15px;
-            gap: 12px;
-            -webkit-overflow-scrolling: touch;
+        .promo-scroll-area::-webkit-scrollbar { display: none; }
+
+        .promo-grid-container {
+            display: grid;
+            /* Два ряда, колонки подстраиваются под контент */
+            grid-template-rows: repeat(2, 1fr);
+            grid-auto-flow: column; 
+            grid-auto-columns: max-content;
+            gap: 10px;
+            padding: 0 15px;
         }
-        .promo-scroll::-webkit-scrollbar { display: none; }
 
         .promo-card {
-            flex-shrink: 0; /* Не дает карточкам сжиматься */
+            background: white;
+            border-radius: 16px;
+            padding: 12px 18px;
             display: flex;
             align-items: center;
-            background: white;
-            padding: 16px 20px;
-            border-radius: 16px;
-            gap: 14px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04); /* Красивая тень */
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            gap: 12px;
+            min-width: 200px;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
+
         .promo-card:active {
             filter: var(--press-effect);
-            transform: scale(0.97);
+            transform: scale(0.95);
         }
 
-        .promo-img { 
-            width: 46px; height: 46px; 
-            object-fit: contain; flex-shrink: 0; 
-        }
-
-        .promo-text-container {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-            white-space: nowrap; /* Запрет переноса текста */
-        }
-
-        .promo-main-text {
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--text-dark);
-        }
-
-        .promo-subtext {
-            font-size: 12px;
-            color: var(--gray-text);
-            font-weight: 400;
-        }
+        .promo-img { width: 40px; height: 40px; object-fit: contain; flex-shrink: 0; }
+        
+        .promo-text-container { display: flex; flex-direction: column; white-space: nowrap; }
+        .promo-main-text { font-size: 14.5px; font-weight: 700; color: var(--text-dark); }
+        .promo-subtext { font-size: 11.5px; color: var(--gray-text); margin-top: 1px; }
 
         .badge-yellow {
             background-color: #ffdb00;
             color: #222;
-            padding: 2px 6px;
-            border-radius: 6px;
-            font-size: 13px;
+            padding: 1px 5px;
+            border-radius: 5px;
+            font-size: 12px;
             font-weight: 800;
-            margin-left: 4px;
-            display: inline-block;
+            margin-left: 3px;
         }
 
-        /* 5. Таббар */
+        /* Таббар */
         .tab-bar {
             position: fixed; bottom: 0; left: 0; right: 0;
             background: white; display: grid; grid-template-columns: repeat(4, 1fr);
@@ -161,7 +144,7 @@
     <div class="banners-container">
         <div class="banners-scroll">
             <div class="banner-item" style="background-image: url('reklama.png');" onclick="vibrate()"></div>
-            <div class="banner-item" style="background: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);" onclick="vibrate()"></div>
+            <div class="banner-item" style="background: linear-gradient(135deg, #1d976c 0%, #93f9b9 100%);" onclick="vibrate()"></div>
         </div>
     </div>
 
@@ -170,14 +153,14 @@
         <div class="service-item" onclick="vibrate()"><div class="icon-wrapper"><img src="bank.png" class="service-icon"></div><div class="service-name">Мой Банк</div></div>
         <div class="service-item" onclick="vibrate()"><div class="icon-wrapper"><img src="pay.png" class="service-icon"></div><div class="service-name">Платежи</div></div>
         <div class="service-item" onclick="vibrate()"><div class="icon-wrapper"><img src="transfer.png" class="service-icon"></div><div class="service-name">Переводы</div></div>
-        <div class="service-item" onclick="vibrate()"><div class="icon-wrapper"><img src="shop.png" class="service-icon" style="transform: scale(1.15);"></div><div class="service-name">Магазин</div></div>
+        <div class="service-item" onclick="vibrate()"><div class="icon-wrapper"><img src="shop.png" class="service-icon"></div><div class="service-name">Магазин</div></div>
         <div class="service-item" onclick="vibrate()"><div class="icon-wrapper"><img src="travel.png" class="service-icon"></div><div class="service-name">Travel</div></div>
         <div class="service-item" onclick="vibrate()"><div class="icon-wrapper"><img src="gos.png" class="service-icon"></div><div class="service-name">Госуслуги</div></div>
         <div class="service-item" onclick="vibrate()"><div class="icon-wrapper"><img src="ads.png" class="service-icon"></div><div class="service-name">Объявления</div></div>
     </div>
 
-    <div class="promo-scroll-wrapper">
-        <div class="promo-scroll">
+    <div class="promo-scroll-area">
+        <div class="promo-grid-container">
             
             <div class="promo-card" onclick="vibrate()">
                 <img src="red.png" class="promo-img">
@@ -191,7 +174,15 @@
                 <img src="deposit.png" class="promo-img">
                 <div class="promo-text-container">
                     <div class="promo-main-text">Депозит <span class="badge-yellow">20%</span></div>
-                    <div class="promo-subtext">Эффективная ставка</div>
+                    <div class="promo-subtext">Накопительный счет</div>
+                </div>
+            </div>
+
+            <div class="promo-card" onclick="vibrate()">
+                <img src="magnum.png" class="promo-img">
+                <div class="promo-text-container">
+                    <div class="promo-main-text">Magnum</div>
+                    <div class="promo-subtext">Продукты с доставкой</div>
                 </div>
             </div>
 
@@ -199,7 +190,7 @@
                 <img src="credit.png" class="promo-img">
                 <div class="promo-text-container">
                     <div class="promo-main-text">Кредит наличными</div>
-                    <div class="promo-subtext">до 2 млн ₸ на Kaspi Gold</div>
+                    <div class="promo-subtext">до 2 млн ₸ на Gold</div>
                 </div>
             </div>
 
@@ -207,7 +198,15 @@
                 <img src="credit2.png" class="promo-img">
                 <div class="promo-text-container">
                     <div class="promo-main-text">Кредит на покупки</div>
-                    <div class="promo-subtext">Кредит или рассрочка 0%</div>
+                    <div class="promo-subtext">Рассрочка 0%</div>
+                </div>
+            </div>
+
+            <div class="promo-card" onclick="vibrate()">
+                <img src="guide.png" class="promo-img">
+                <div class="promo-text-container">
+                    <div class="promo-main-text">Kaspi Гид</div>
+                    <div class="promo-subtext">Ответы на вопросы</div>
                 </div>
             </div>
 
