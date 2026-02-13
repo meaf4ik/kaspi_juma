@@ -49,7 +49,7 @@
         .search-icon { width: 16px; height: 16px; opacity: 0.5; }
         .header-extra-icon { width: 24px; height: 24px; object-fit: contain; }
 
-        /* 2. Рекламные баннеры (reklama.png и reklama2.png) */
+        /* 2. Рекламные баннеры (ИСПРАВЛЕНО) */
         .banners-container { background-color: white; padding-top: 5px; }
         .banners-scroll {
             display: flex;
@@ -62,10 +62,14 @@
         
         .banner-item {
             min-width: 85%;
-            height: 120px;
+            /* Немного увеличил высоту для реалистичности */
+            height: 135px;
             border-radius: 14px;
+            /* Важно: обрезаем все, что выходит за закругленные углы */
+            overflow: hidden;
             background-position: center;
-            background-size: cover;
+            /* ИЗМЕНЕНО: Заставляем изображение вписаться ровно в блок */
+            background-size: 100% 100%;
             background-repeat: no-repeat;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
