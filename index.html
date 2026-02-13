@@ -11,7 +11,6 @@
             --bg-color: #f2f2f5;
             --text-dark: #222222;
             --gray-text: #8e8e93;
-            /* Эффект нажатия: легкое затемнение и плавное размытие */
             --press-effect: brightness(0.92) blur(1.5px);
         }
 
@@ -26,14 +25,17 @@
             user-select: none;
         }
 
-        /* 1. Поиск в шапке */
+        /* 1. ПРИЛИПАЮЩАЯ ШАПКА */
         .search-wrapper {
+            position: sticky;
+            top: 0;
             background-color: white;
             padding: 15px;
             display: flex;
             align-items: center;
             gap: 12px;
             border-bottom: 1px solid #f0f0f0;
+            z-index: 2000; /* Высокий приоритет, чтобы быть поверх всего */
         }
         .search-bar {
             background-color: #f0f0f2;
@@ -49,7 +51,7 @@
         .search-icon { width: 16px; height: 16px; opacity: 0.5; }
         .header-extra-icon { width: 24px; height: 24px; object-fit: contain; }
 
-        /* 2. Рекламные баннеры (ИСПРАВЛЕНО) */
+        /* 2. Рекламные баннеры */
         .banners-container { background-color: white; padding-top: 5px; }
         .banners-scroll {
             display: flex;
@@ -62,13 +64,10 @@
         
         .banner-item {
             min-width: 85%;
-            /* Немного увеличил высоту для реалистичности */
             height: 135px;
             border-radius: 14px;
-            /* Важно: обрезаем все, что выходит за закругленные углы */
             overflow: hidden;
             background-position: center;
-            /* ИЗМЕНЕНО: Заставляем изображение вписаться ровно в блок */
             background-size: 100% 100%;
             background-repeat: no-repeat;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -93,16 +92,10 @@
             text-align: center;
             transition: all 0.3s ease;
         }
-        .service-item:active {
-            filter: var(--press-effect);
-        }
+        .service-item:active { filter: var(--press-effect); }
 
         .icon-wrapper { height: 44px; width: 44px; display: flex; align-items: center; justify-content: center; margin-bottom: 6px; }
-        .service-icon {
-            width: 40px;
-            height: 40px;
-            object-fit: contain;
-        }
+        .service-icon { width: 40px; height: 40px; object-fit: contain; }
         .service-name { font-size: 11.5px; font-weight: 600; color: var(--text-dark); }
 
         /* 4. Двухрядная карусель промо-блоков */
@@ -158,7 +151,7 @@
         .tab-bar {
             position: fixed; bottom: 0; left: 0; right: 0;
             background: white; display: grid; grid-template-columns: repeat(4, 1fr);
-            padding: 8px 0; border-top: 1px solid #e5e5e5; z-index: 1000;
+            padding: 8px 0; border-top: 1px solid #e5e5e5; z-index: 3000;
             padding-bottom: env(safe-area-inset-bottom);
         }
         .tab-item { 
@@ -168,7 +161,17 @@
         }
         .tab-item:active { filter: blur(1px); opacity: 0.7; }
         .tab-item.active { color: var(--kaspi-red); font-weight: 700; }
-        .tab-icon { font-size: 20px; }
+        
+        .tab-icon-img { 
+            width: 24px; height: 24px; object-fit: contain;
+            opacity: 0.4;
+            filter: grayscale(100%);
+            transition: all 0.2s ease;
+        }
+        .tab-item.active .tab-icon-img {
+            opacity: 1;
+            filter: grayscale(0%);
+        }
     </style>
 </head>
 <body>
@@ -201,7 +204,6 @@
 
     <div class="promo-scroll-area">
         <div class="promo-grid-container">
-            
             <div class="promo-card" onclick="vibrate()">
                 <img src="red.png" class="promo-img">
                 <div class="promo-text-container">
@@ -216,7 +218,6 @@
                     <div class="promo-subtext">до 2 млн ₸ на Gold</div>
                 </div>
             </div>
-
             <div class="promo-card" onclick="vibrate()">
                 <img src="deposit.png" class="promo-img">
                 <div class="promo-text-container">
@@ -231,7 +232,6 @@
                     <div class="promo-subtext">Продукты с доставкой</div>
                 </div>
             </div>
-
             <div class="promo-card" onclick="vibrate()">
                 <img src="credit2.png" class="promo-img">
                 <div class="promo-text-container">
@@ -246,15 +246,26 @@
                     <div class="promo-subtext">Ответы на вопросы</div>
                 </div>
             </div>
-
         </div>
     </div>
 
     <div class="tab-bar">
-        <div class="tab-item active" onclick="switchTab(this)"><span class="tab-icon">🏠</span><div>Главная</div></div>
-        <div class="tab-item" onclick="switchTab(this)"><span class="tab-icon">🔳</span><div>Kaspi QR</div></div>
-        <div class="tab-item" onclick="switchTab(this)"><span class="tab-icon">💬</span><div>Сообщения</div></div>
-        <div class="tab-item" onclick="switchTab(this)"><span class="tab-icon">☰</span><div>Сервисы</div></div>
+        <div class="tab-item active" onclick="switchTab(this)">
+            <img src="main.png" class="tab-icon-img">
+            <div>Главная</div>
+        </div>
+        <div class="tab-item" onclick="switchTab(this)">
+            <img src="kaspiqr.png" class="tab-icon-img">
+            <div>Kaspi QR</div>
+        </div>
+        <div class="tab-item" onclick="switchTab(this)">
+            <img src="sms.png" class="tab-icon-img">
+            <div>Сообщения</div>
+        </div>
+        <div class="tab-item" onclick="switchTab(this)">
+            <img src="service.png" class="tab-icon-img">
+            <div>Сервисы</div>
+        </div>
     </div>
 
     <script>
@@ -262,12 +273,10 @@
         tg.ready();
         tg.expand();
 
-        // Вибрация при нажатии
         function vibrate() {
             tg.HapticFeedback.impactOccurred('light');
         }
 
-        // Переключение вкладок в меню
         function switchTab(el) {
             vibrate();
             document.querySelectorAll('.tab-item').forEach(i => i.classList.remove('active'));
