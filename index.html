@@ -11,7 +11,6 @@
             --bg-color: #f2f2f5;
             --text-dark: #222222;
             --gray-text: #8e8e93;
-            --press-effect: brightness(0.92) blur(1.5px);
             --border-color: #e5e5e5;
         }
 
@@ -41,29 +40,28 @@
         .search-icon { width: 16px; height: 16px; opacity: 0.5; }
         .header-extra-icon { width: 22px; height: 22px; object-fit: contain; }
 
-        /* 2. РЕКЛАМНЫЕ БАННЕРЫ (ИСПРАВЛЕНО ПОД КВАДРАТЫ) */
+        /* 2. РЕКЛАМНЫЕ БАННЕРЫ (ИСПРАВЛЕНО ПОД ПРЯМОУГОЛЬНИКИ) */
         .banners-container { background-color: white; padding: 5px 0 10px; }
         .banners-scroll {
             display: flex; overflow-x: auto; padding: 0 15px; 
-            gap: 8px; /* Маленькое расстояние между блоками */
+            gap: 12px;
             -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory;
         }
         .banners-scroll::-webkit-scrollbar { display: none; }
+        
         .banner-item {
-            /* flex: 42% делает блоки узкими, чтобы квадратные фото заполнили их без полей */
-            flex: 0 0 42%; 
-            height: 155px; 
+            /* 88% ширины делает баннер широким прямоугольником */
+            flex: 0 0 88%; 
+            height: 130px; 
             border-radius: 12px;
             overflow: hidden; 
             background-position: center;
-            background-size: contain; 
+            /* cover идеально растягивает прямоугольное фото без белых полей */
+            background-size: cover; 
             background-repeat: no-repeat;
-            background-color: #ffffff; 
-            border: 1px solid #f0f0f0;
-            scroll-snap-align: start;
-            transition: all 0.2s ease;
+            background-color: #ddd; 
+            scroll-snap-align: center;
         }
-        .banner-item:active { transform: scale(0.96); }
 
         /* 3. СЕРВИСЫ */
         .services-grid {
@@ -122,10 +120,8 @@
             box-sizing: border-box;
         }
         .product-img {
-            width: 100%; 
-            height: 115px; 
-            object-fit: contain; 
-            margin-bottom: 4px;
+            width: 100%; height: 115px;
+            object-fit: contain; margin-bottom: 4px;
         }
         .product-title {
             font-size: 12px; line-height: 1.2;
@@ -162,9 +158,6 @@
         <div class="banners-scroll">
             <div class="banner-item" style="background-image: url('reklama.png');" onclick="vibrate()"></div>
             <div class="banner-item" style="background-image: url('reklama2.png');" onclick="vibrate()"></div>
-            <div class="banner-item" style="background-image: url('reklama.png');" onclick="vibrate()"></div>
-            <div class="banner-item" style="background-image: url('reklama2.png');" onclick="vibrate()"></div>
-            <div class="banner-item" style="background-image: url('reklama.png');" onclick="vibrate()"></div>
         </div>
     </div>
 
@@ -183,8 +176,6 @@
         <div class="promo-grid-container">
             <div class="promo-card" onclick="vibrate()"><img src="red.png" class="promo-img"><div class="promo-text-container"><div class="promo-main-text">Рассрочка 0-0-12</div><div class="promo-subtext">Покупки</div></div></div>
             <div class="promo-card" onclick="vibrate()"><img src="credit.png" class="promo-img"><div class="promo-text-container"><div class="promo-main-text">Кредит наличными</div><div class="promo-subtext">на Kaspi Gold</div></div></div>
-            <div class="promo-card" onclick="vibrate()"><img src="deposit.png" class="promo-img"><div class="promo-text-container"><div class="promo-main-text">Депозит</div><div class="promo-subtext">Эффективная 20%</div></div></div>
-            <div class="promo-card" onclick="vibrate()"><img src="magnum.png" class="promo-img"><div class="promo-text-container"><div class="promo-main-text">Magnum</div><div class="promo-subtext">Продукты</div></div></div>
         </div>
     </div>
 
