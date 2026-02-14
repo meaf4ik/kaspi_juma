@@ -14,7 +14,7 @@
             --border-color: #e5e5e5;
         }
 
-        /* --- ЗАГРУЗОЧНЫЙ ЭКРАН --- */
+        /* --- ПРЕЛОАДЕР --- */
         #preloader {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: white; display: flex; justify-content: center; align-items: center;
@@ -23,7 +23,7 @@
         #preloader.fade-out { opacity: 0; filter: blur(15px); visibility: hidden; }
         .loading-image { width: 100%; max-width: 380px; height: auto; padding-left: 20px; box-sizing: border-box; }
 
-        /* --- МОДАЛЬНОЕ ОКНО ЗУМА --- */
+        /* --- МОДАЛКА ЗУМА ТОВАРА --- */
         #product-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(255, 255, 255, 0.7);
@@ -35,6 +35,34 @@
         .modal-content { width: 85%; max-width: 400px; transform: scale(0.8); transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
         #product-modal.active .modal-content { transform: scale(1); }
         .modal-image { width: 100%; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+
+        /* --- ЭКРАН ПИН-КОДА --- */
+        #pin-screen {
+            position: fixed; top: 100%; left: 0; width: 100%; height: 100%;
+            background: white; z-index: 6000; transition: top 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            display: flex; flex-direction: column;
+        }
+        #pin-screen.active { top: 0; }
+        .pin-bg { width: 100%; height: 100%; object-fit: cover; }
+
+        /* --- FACE ID OVERLAY --- */
+        #faceid-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            z-index: 6500; display: none; align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 0.5s ease;
+        }
+        #faceid-overlay.active { display: flex; opacity: 1; }
+        .faceid-video { width: 150px; height: 150px; }
+
+        /* --- ФИНАЛЬНОЕ ОКНО --- */
+        #final-app-page {
+            position: fixed; top: 100%; left: 0; width: 100%; height: 100%;
+            background: var(--bg-color); z-index: 7000; 
+            transition: top 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        #final-app-page.active { top: 0; }
 
         body {
             background-color: var(--bg-color); margin: 0; padding: 0;
@@ -56,38 +84,33 @@
         .search-bar input { border: none; background: transparent; outline: none; width: 100%; font-size: 16px; color: var(--text-dark); }
         .cancel-btn { display: none; color: var(--kaspi-red); font-size: 15px; font-weight: 500; cursor: pointer; white-space: nowrap; }
         body.search-mode .cancel-btn { display: block; }
-        .header-extra-icon { width: 22px; height: 22px; object-fit: contain; }
 
-        /* --- КОНТЕНТ --- */
+        /* --- СЕРВИСЫ --- */
+        .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); background: white; padding: 10px 5px 15px; gap: 20px 0; }
+        .service-item { display: flex; flex-direction: column; align-items: center; text-align: center; cursor: pointer; }
+        .service-icon { width: 42px; height: 42px; object-fit: contain; }
+        .service-name { font-size: 11.5px; font-weight: 700; color: #111; margin-top: 8px;}
+
+        /* --- БАННЕРЫ И ПРОМО (БЕЗ ИЗМЕНЕНИЙ) --- */
         .banners-container { background-color: white; padding: 5px 0 10px; }
         .banners-scroll { display: flex; overflow-x: auto; padding: 0 15px; gap: 8px; }
         .banner-item { flex: 0 0 54%; aspect-ratio: 1080 / 680; border-radius: 12px; background-size: cover; background-position: center; }
-
-        .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); background: white; padding: 10px 5px 15px; gap: 20px 0; }
-        .service-item { display: flex; flex-direction: column; align-items: center; text-align: center; }
-        .service-icon { width: 42px; height: 42px; object-fit: contain; }
-        .service-name { font-size: 11.5px; font-weight: 700; color: #111; margin-top: 8px;}
 
         .promo-scroll-area { margin-top: 12px; overflow-x: auto; padding-bottom: 10px; }
         .promo-grid-container { display: grid; grid-template-rows: repeat(2, 1fr); grid-auto-flow: column; grid-auto-columns: max-content; gap: 10px; padding: 0 15px; }
         .promo-card { background: white; border-radius: 14px; padding: 10px 15px; display: flex; align-items: center; gap: 10px; min-width: 210px; }
         .promo-img { width: 36px; height: 36px; object-fit: contain; }
-        .promo-main-text { font-size: 14px; font-weight: 700; }
-        .promo-subtext { font-size: 11px; color: var(--gray-text); }
 
         .divider-line { height: 1px; background-color: var(--border-color); margin: 15px 15px 10px 15px; }
-        .section-title { font-size: 17px; font-weight: 800; margin: 0 15px 12px 15px; color: var(--text-dark); }
+        .section-title { font-size: 17px; font-weight: 800; margin: 0 15px 12px 15px; }
 
-        .history-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 20px; }
+        /* --- ТОВАРЫ --- */
+        .history-scroll { overflow-x: auto; padding-bottom: 20px; }
         .history-grid { display: grid; grid-template-rows: repeat(2, 1fr); grid-auto-flow: column; grid-auto-columns: 145px; gap: 10px; padding: 0 15px; }
-        .product-card { background: white; border-radius: 12px; padding: 8px; display: flex; flex-direction: column; height: 190px; box-sizing: border-box; cursor: pointer; }
-        .product-img { width: 100%; height: 115px; object-fit: contain; margin-bottom: 4px; }
-        .product-title {
-            font-size: 12px; line-height: 1.2; height: 28px; overflow: hidden;
-            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
-            margin-bottom: 4px; color: #333;
-        }
-        .product-price { font-size: 14px; font-weight: 800; color: var(--text-dark); margin-top: auto; }
+        .product-card { background: white; border-radius: 12px; padding: 8px; display: flex; flex-direction: column; height: 190px; box-sizing: border-box; }
+        .product-img { width: 100%; height: 115px; object-fit: contain; }
+        .product-title { font-size: 12px; line-height: 1.2; height: 28px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; margin-bottom: 4px; }
+        .product-price { font-size: 14px; font-weight: 800; margin-top: auto; }
 
         .tab-bar {
             position: fixed; bottom: 0; left: 0; right: 0; background: white; 
@@ -97,8 +120,7 @@
         }
         .tab-item { display: flex; flex-direction: column; align-items: center; font-size: 10px; color: var(--gray-text); gap: 4px; }
         .tab-item.active { color: var(--kaspi-red); font-weight: 700; }
-        .tab-icon-img { width: 26px; height: 26px; opacity: 0.4; filter: grayscale(100%); }
-        .tab-item.active .tab-icon-img { opacity: 1; filter: grayscale(0%); }
+        .tab-icon-img { width: 26px; height: 26px; opacity: 0.4; }
     </style>
 </head>
 <body>
@@ -109,6 +131,19 @@
         <div class="modal-content"><img id="modal-img" src="" class="modal-image"></div>
     </div>
 
+    <div id="pin-screen">
+        <img src="pin.png" class="pin-bg">
+    </div>
+
+    <div id="faceid-overlay">
+        <video id="faceid-video" class="faceid-video" playsinline muted>
+            <source src="faceid.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div id="final-app-page">
+        </div>
+
     <div id="app-wrapper">
         <div class="search-wrapper">
             <div class="search-bar">
@@ -116,35 +151,33 @@
                 <input type="text" id="searchInput" placeholder="Поиск по Kaspi.kz" onfocus="enableSearchMode()">
             </div>
             <div class="cancel-btn" onclick="disableSearchMode()">Отмена</div>
-            <img src="silvershop.png" class="header-extra-icon">
+            <img src="silvershop.png" style="width:22px;">
         </div>
 
         <div class="banners-container">
             <div class="banners-scroll">
                 <div class="banner-item" style="background-image: url('reklama.png');"></div>
                 <div class="banner-item" style="background-image: url('reklama2.png');"></div>
-                <div class="banner-item" style="background-image: url('reklama.png');"></div>
-                <div class="banner-item" style="background-image: url('reklama2.png');"></div>
             </div>
         </div>
 
         <div class="services-grid">
-            <div class="service-item" onclick="vibrate()"><img src="qr.png" style="width:42px;"><div class="service-name">Kaspi QR</div></div>
-            <div class="service-item" onclick="vibrate()"><img src="bank.png" style="width:42px;"><div class="service-name">Мой Банк</div></div>
-            <div class="service-item" onclick="vibrate()"><img src="pay.png" style="width:42px;"><div class="service-name">Платежи</div></div>
-            <div class="service-item" onclick="vibrate()"><img src="transfer.png" style="width:42px;"><div class="service-name">Переводы</div></div>
-            <div class="service-item" onclick="vibrate()"><img src="shop.png" style="width:42px;"><div class="service-name">Магазин</div></div>
-            <div class="service-item" onclick="vibrate()"><img src="travel.png" style="width:42px;"><div class="service-name">Travel</div></div>
-            <div class="service-item" onclick="vibrate()"><img src="gos.png" style="width:42px;"><div class="service-name">Госуслуги</div></div>
-            <div class="service-item" onclick="vibrate()"><img src="ads.png" style="width:42px;"><div class="service-name">Объявления</div></div>
+            <div class="service-item" onclick="vibrate()"><img src="qr.png" class="service-icon"><div class="service-name">Kaspi QR</div></div>
+            <div class="service-item" onclick="vibrate()"><img src="bank.png" class="service-icon"><div class="service-name">Мой Банк</div></div>
+            <div class="service-item" onclick="vibrate()"><img src="pay.png" class="service-icon"><div class="service-name">Платежи</div></div>
+            <div class="service-item" onclick="vibrate()"><img src="transfer.png" class="service-icon"><div class="service-name">Переводы</div></div>
+            <div class="service-item" onclick="vibrate()"><img src="shop.png" class="service-icon"><div class="service-name">Магазин</div></div>
+            <div class="service-item" onclick="vibrate()"><img src="travel.png" class="service-icon"><div class="service-name">Travel</div></div>
+            <div class="service-item" onclick="startGovAuth()"><img src="gos.png" class="service-icon"><div class="service-name">Госуслуги</div></div>
+            <div class="service-item" onclick="vibrate()"><img src="ads.png" class="service-icon"><div class="service-name">Объявления</div></div>
         </div>
 
         <div class="promo-scroll-area">
             <div class="promo-grid-container">
-                <div class="promo-card" onclick="vibrate()"><img src="red.png" class="promo-img"><div><div class="promo-main-text">Рассрочка 0-0-12</div><div class="promo-subtext">Покупки</div></div></div>
-                <div class="promo-card" onclick="vibrate()"><img src="credit.png" class="promo-img"><div><div class="promo-main-text">Кредит наличными</div><div class="promo-subtext">на Kaspi Gold</div></div></div>
-                <div class="promo-card" onclick="vibrate()"><img src="deposit.png" class="promo-img"><div><div class="promo-main-text">Депозит</div><div class="promo-subtext">Эффективная ставка 15%</div></div></div>
-                <div class="promo-card" onclick="vibrate()"><img src="magnum.png" class="promo-img"><div><div class="promo-main-text">Magnum</div><div class="promo-subtext">Продукты с доставкой</div></div></div>
+                <div class="promo-card"><img src="red.png" class="promo-img"><div><div class="promo-main-text">Рассрочка 0-0-12</div><div class="promo-subtext">Покупки</div></div></div>
+                <div class="promo-card"><img src="credit.png" class="promo-img"><div><div class="promo-main-text">Кредит наличными</div><div class="promo-subtext">на Kaspi Gold</div></div></div>
+                <div class="promo-card"><img src="deposit.png" class="promo-img"><div><div class="promo-main-text">Депозит</div><div class="promo-subtext">15% годовых</div></div></div>
+                <div class="promo-card"><img src="magnum.png" class="promo-img"><div><div class="promo-main-text">Magnum</div><div class="promo-subtext">Доставка еды</div></div></div>
             </div>
         </div>
 
@@ -168,31 +201,57 @@
     </div>
 
     <div class="tab-bar">
-        <div class="tab-item active" onclick="switchTab(this)"><img src="main.png" class="tab-icon-img"><div>Главная</div></div>
-        <div class="tab-item" onclick="switchTab(this)"><img src="kaspiqr.png" class="tab-icon-img"><div>Kaspi QR</div></div>
-        <div class="tab-item" onclick="switchTab(this)"><img src="sms.png" class="tab-icon-img"><div>Сообщения</div></div>
-        <div class="tab-item" onclick="switchTab(this)"><img src="service.png" class="tab-icon-img"><div>Сервисы</div></div>
+        <div class="tab-item active"><img src="main.png" style="width:26px;"><div>Главная</div></div>
+        <div class="tab-item"><img src="kaspiqr.png" style="width:26px;"><div>Kaspi QR</div></div>
+        <div class="tab-item"><img src="sms.png" style="width:26px;"><div>Сообщения</div></div>
+        <div class="tab-item"><img src="service.png" style="width:26px;"><div>Сервисы</div></div>
     </div>
 
     <script>
         const tg = window.Telegram.WebApp;
-        tg.ready();
-        tg.expand();
+        tg.ready(); tg.expand();
         tg.isClosingConfirmationEnabled = true;
 
+        // 1. ПРЕЛОАДЕР
         window.addEventListener('load', () => {
             setTimeout(() => {
-                const loader = document.getElementById('preloader');
-                loader.classList.add('fade-out');
-                setTimeout(() => loader.style.display = 'none', 400);
+                document.getElementById('preloader').classList.add('fade-out');
             }, 1000);
         });
 
+        // 2. ЛОГИКА ГОСУСЛУГ (PIN + FACE ID)
+        function startGovAuth() {
+            vibrate();
+            const pinScreen = document.getElementById('pin-screen');
+            const faceOverlay = document.getElementById('faceid-overlay');
+            const faceVideo = document.getElementById('faceid-video');
+            const finalPage = document.getElementById('final-app-page');
+
+            // Вылет Пина снизу
+            pinScreen.classList.add('active');
+
+            // Через 0.5 сек - Блюр и Face ID
+            setTimeout(() => {
+                faceOverlay.classList.add('active');
+                faceVideo.play();
+            }, 500);
+
+            // Когда видео Face ID заканчивается
+            faceVideo.onended = () => {
+                finalPage.classList.add('active');
+                // Очистка состояний (необязательно, но полезно)
+                setTimeout(() => {
+                    faceOverlay.classList.remove('active');
+                    pinScreen.classList.remove('active');
+                }, 600);
+            };
+        }
+
+        // 3. ОСТАЛЬНЫЕ ФУНКЦИИ (Зум, поиск и т.д.)
         function openProduct(card) {
             const imgSrc = card.querySelector('img').src;
             const modal = document.getElementById('product-modal');
-            const modalImg = document.getElementById('modal-img');
-            modalImg.src = imgSrc;
+            document.getElementById('modal-img').src = imgSrc;
             modal.style.display = 'flex';
             tg.HapticFeedback.impactOccurred('medium');
             setTimeout(() => modal.classList.add('active'), 10);
@@ -207,7 +266,6 @@
         function enableSearchMode() {
             vibrate();
             document.body.classList.add('search-mode');
-            window.scrollTo(0, 0);
         }
 
         function disableSearchMode() {
@@ -217,11 +275,6 @@
         }
 
         function vibrate() { tg.HapticFeedback.impactOccurred('light'); }
-        function switchTab(el) {
-            vibrate();
-            document.querySelectorAll('.tab-item').forEach(i => i.classList.remove('active'));
-            el.classList.add('active');
-        }
     </script>
 </body>
 </html>
