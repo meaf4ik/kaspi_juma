@@ -14,7 +14,7 @@
             --border-color: #e5e5e5;
         }
 
-        /* --- ОБНОВЛЕННЫЙ ЗАГРУЗОЧНЫЙ ЭКРАН --- */
+        /* --- ЗАГРУЗОЧНЫЙ ЭКРАН --- */
         #preloader {
             position: fixed;
             top: 0; left: 0;
@@ -24,26 +24,24 @@
             justify-content: center;
             align-items: center;
             z-index: 10000;
-            /* Ускорил анимацию: теперь 0.4s вместо 0.8s */
             transition: opacity 0.4s ease-out, filter 0.4s ease-out, visibility 0.4s;
         }
+        #preloader.fade-out { opacity: 0; filter: blur(15px); visibility: hidden; }
+        .loading-image { width: 100%; max-width: 380px; height: auto; padding-left: 20px; box-sizing: border-box; }
 
-        #preloader.fade-out {
+        /* --- ЭФФЕКТ ЗАТЕМНЕНИЯ ДЛЯ ПОИСКА --- */
+        #search-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1500;
+            display: none; /* Скрыт по умолчанию */
             opacity: 0;
-            filter: blur(15px); /* Уменьшил радиус блюра для более быстрого визуального эффекта */
-            visibility: hidden;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(2px);
         }
 
-        .loading-image {
-            width: 100%;
-            max-width: 380px;
-            height: auto;
-            /* Исправление: добавил отступ слева, чтобы компенсировать смещение логотипа в самом файле */
-            padding-left: 20px; 
-            box-sizing: border-box;
-        }
-
-        /* --- ОСНОВНОЙ СТИЛЬ --- */
         body {
             background-color: var(--bg-color);
             margin: 0; padding: 0;
@@ -55,42 +53,41 @@
             user-select: none;
         }
 
-        /* 1. ШАПКА */
+        /* 1. ШАПКА И ПОИСК */
         .search-wrapper {
             position: sticky; top: 0;
             background-color: white; padding: 12px 15px;
             display: flex; align-items: center; gap: 12px;
             border-bottom: 1px solid #f0f0f0; z-index: 2000;
+            transition: all 0.3s ease;
         }
         .search-bar {
             background-color: #f0f0f2; border-radius: 10px;
-            padding: 8px 12px; color: var(--gray-text);
-            font-size: 15px; display: flex; align-items: center; gap: 10px; flex: 1;
+            padding: 8px 12px; display: flex; align-items: center; gap: 10px; flex: 1;
+            border: 1px solid transparent; transition: all 0.3s ease;
         }
+        /* Стиль при фокусе на поиске */
+        .search-wrapper.active { padding-right: 70px; } /* Место для кнопки "Отмена", если захочешь добавить */
+        .search-bar.active { background-color: #fff; border-color: var(--kaspi-red); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        
+        .search-bar input {
+            border: none; background: transparent; outline: none;
+            width: 100%; font-size: 15px; color: var(--text-dark);
+        }
+        .search-bar input::placeholder { color: var(--gray-text); }
         .search-icon { width: 16px; height: 16px; opacity: 0.5; }
         .header-extra-icon { width: 22px; height: 22px; object-fit: contain; }
 
         /* 2. РЕКЛАМНЫЕ БАННЕРЫ */
         .banners-container { background-color: white; padding: 5px 0 10px; }
         .banners-scroll {
-            display: flex; overflow-x: auto; padding: 0 15px; 
-            gap: 8px;
+            display: flex; overflow-x: auto; padding: 0 15px; gap: 8px;
             -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory;
         }
         .banners-scroll::-webkit-scrollbar { display: none; }
-        
         .banner-item {
-            flex: 0 0 54%; 
-            aspect-ratio: 1080 / 680; 
-            height: auto; 
-            border-radius: 12px;
-            overflow: hidden; 
-            background-position: center;
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-color: #f2f2f2; 
-            scroll-snap-align: center;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+            flex: 0 0 54%; aspect-ratio: 1080 / 680; border-radius: 12px;
+            background-position: center; background-size: cover; scroll-snap-align: center;
         }
 
         /* 3. СЕРВИСЫ */
@@ -100,11 +97,7 @@
         }
         .service-item { display: flex; flex-direction: column; align-items: center; text-align: center; }
         .icon-wrapper { height: 48px; width: 48px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; }
-        .service-icon { 
-            width: 42px; height: 42px; 
-            object-fit: contain; 
-            filter: drop-shadow(0 0 1px rgba(255, 45, 23, 0.1));
-        }
+        .service-icon { width: 42px; height: 42px; object-fit: contain; filter: drop-shadow(0 0 1px rgba(255, 45, 23, 0.1)); }
         .service-name { font-size: 11.5px; font-weight: 700; color: #111; letter-spacing: -0.2px; }
 
         /* 4. ПРОМО КАРУСЕЛЬ */
@@ -128,7 +121,6 @@
         .section-title { font-size: 17px; font-weight: 800; margin: 0 15px 12px 15px; color: var(--text-dark); }
         .history-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 20px; }
         .history-scroll::-webkit-scrollbar { display: none; }
-        
         .history-grid {
             display: grid; grid-template-rows: repeat(2, 1fr);
             grid-auto-flow: column; grid-auto-columns: 145px;
@@ -136,9 +128,7 @@
         }
         .product-card {
             background: white; border-radius: 12px; padding: 8px;
-            display: flex; flex-direction: column;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            height: 190px; box-sizing: border-box;
+            display: flex; flex-direction: column; height: 190px; box-sizing: border-box;
         }
         .product-img { width: 100%; height: 115px; object-fit: contain; margin-bottom: 4px; }
         .product-title {
@@ -167,8 +157,13 @@
         <img src="loading.png" class="loading-image">
     </div>
 
-    <div class="search-wrapper">
-        <div class="search-bar"><img src="magnifier.png" class="search-icon"> Поиск по Kaspi.kz</div>
+    <div id="search-overlay" onclick="closeSearch()"></div>
+
+    <div class="search-wrapper" id="header">
+        <div class="search-bar" id="searchBar">
+            <img src="magnifier.png" class="search-icon">
+            <input type="text" id="searchInput" placeholder="Поиск по Kaspi.kz" onfocus="openSearch()" onblur="setTimeout(closeSearch, 100)">
+        </div>
         <img src="silvershop.png" class="header-extra-icon">
     </div>
 
@@ -230,20 +225,38 @@
         const tg = window.Telegram.WebApp;
         tg.ready(); tg.expand();
 
-        // ОБНОВЛЕННАЯ ЛОГИКА ТАЙМЕРА
+        // 1. ПРЕЛОАДЕР (1 сек)
         window.addEventListener('load', () => {
-            // Уменьшил время показа до 1 секунды (1000мс)
             setTimeout(() => {
                 const loader = document.getElementById('preloader');
                 loader.classList.add('fade-out');
-                
-                // Удаление элемента теперь через 0.4с (согласно новой анимации)
-                setTimeout(() => {
-                    loader.style.display = 'none';
-                }, 400);
+                setTimeout(() => loader.style.display = 'none', 400);
             }, 1000); 
         });
 
+        // 2. ЛОГИКА ПОИСКА
+        const overlay = document.getElementById('search-overlay');
+        const searchBar = document.getElementById('searchBar');
+        const header = document.getElementById('header');
+
+        function openSearch() {
+            vibrate();
+            overlay.style.display = 'block';
+            setTimeout(() => {
+                overlay.style.opacity = '1';
+                searchBar.classList.add('active');
+            }, 10);
+        }
+
+        function closeSearch() {
+            overlay.style.opacity = '0';
+            searchBar.classList.remove('active');
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 300);
+        }
+
+        // 3. ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
         function vibrate() { tg.HapticFeedback.impactOccurred('light'); }
         function switchTab(el) {
             vibrate();
