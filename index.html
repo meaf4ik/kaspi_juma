@@ -7,13 +7,45 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         :root {
-            --kaspi-red: #ff2d17; /* Яркий насыщенный красный */
+            --kaspi-red: #ff2d17;
             --bg-color: #f2f2f5;
             --text-dark: #222222;
             --gray-text: #8e8e93;
             --border-color: #e5e5e5;
         }
 
+        /* --- ЗАГРУЗОЧНЫЙ ЭКРАН --- */
+        #preloader {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: white; /* Цвет фона под картинкой */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.8s ease, filter 1s ease, visibility 0.8s;
+        }
+
+        /* Анимация рассеивания */
+        #preloader.fade-out {
+            opacity: 0;
+            filter: blur(30px); /* Эффект сильного размытия при уходе */
+            visibility: hidden;
+        }
+
+        .loading-image {
+            width: 100%; /* Картинка на весь экран или по размеру */
+            max-width: 400px; /* Ограничим, чтобы на планшетах не растягивало */
+            height: auto;
+            
+            /* ХИТРОСТЬ ДЛЯ ВЫРАВНИВАНИЯ: 
+               Если логотип смещен вправо — используй отрицательный translateX.
+               Если влево — положительный. Я поставил -3%, подправь если нужно. */
+            transform: translateX(-3%); 
+        }
+
+        /* --- ОСНОВНОЙ СТИЛЬ --- */
         body {
             background-color: var(--bg-color);
             margin: 0; padding: 0;
@@ -40,7 +72,7 @@
         .search-icon { width: 16px; height: 16px; opacity: 0.5; }
         .header-extra-icon { width: 22px; height: 22px; object-fit: contain; }
 
-        /* 2. РЕКЛАМНЫЕ БАННЕРЫ (4 штуки) */
+        /* 2. РЕКЛАМНЫЕ БАННЕРЫ */
         .banners-container { background-color: white; padding: 5px 0 10px; }
         .banners-scroll {
             display: flex; overflow-x: auto; padding: 0 15px; 
@@ -77,7 +109,7 @@
         }
         .service-name { font-size: 11.5px; font-weight: 700; color: #111; letter-spacing: -0.2px; }
 
-        /* 4. ПРОМО КАРУСЕЛЬ (Все 4 блока) */
+        /* 4. ПРОМО КАРУСЕЛЬ */
         .promo-scroll-area { margin-top: 12px; overflow-x: auto; padding-bottom: 10px; }
         .promo-scroll-area::-webkit-scrollbar { display: none; }
         .promo-grid-container {
@@ -93,7 +125,7 @@
         .promo-main-text { font-size: 14px; font-weight: 700; }
         .promo-subtext { font-size: 11px; color: var(--gray-text); }
 
-        /* 5. ИСТОРИЯ ПРОСМОТРОВ (Все 10 товаров) */
+        /* 5. ИСТОРИЯ ПРОСМОТРОВ */
         .divider-line { height: 1px; background-color: var(--border-color); margin: 15px 15px 10px 15px; }
         .section-title { font-size: 17px; font-weight: 800; margin: 0 15px 12px 15px; color: var(--text-dark); }
         .history-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 20px; }
@@ -132,6 +164,10 @@
     </style>
 </head>
 <body>
+
+    <div id="preloader">
+        <img src="loading.png" class="loading-image">
+    </div>
 
     <div class="search-wrapper">
         <div class="search-bar"><img src="magnifier.png" class="search-icon"> Поиск по Kaspi.kz</div>
@@ -195,6 +231,19 @@
     <script>
         const tg = window.Telegram.WebApp;
         tg.ready(); tg.expand();
+
+        // ЛОГИКА ЗАГРУЗОЧНОГО ЭКРАНА
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const loader = document.getElementById('preloader');
+                loader.classList.add('fade-out'); // Запуск анимации рассеивания
+                
+                setTimeout(() => {
+                    loader.style.display = 'none'; // Полное удаление через 0.8 сек
+                }, 800);
+            }, 2000); // Экран показывается 2 секунды
+        });
+
         function vibrate() { tg.HapticFeedback.impactOccurred('light'); }
         function switchTab(el) {
             vibrate();
