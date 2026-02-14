@@ -40,27 +40,31 @@
         .search-icon { width: 16px; height: 16px; opacity: 0.5; }
         .header-extra-icon { width: 22px; height: 22px; object-fit: contain; }
 
-        /* 2. РЕКЛАМНЫЕ БАННЕРЫ (ИСПРАВЛЕНО ПОД ПРЯМОУГОЛЬНИКИ) */
+        /* 2. РЕКЛАМНЫЕ БАННЕРЫ (ИДЕАЛЬНЫЕ ПРОПОРЦИИ) */
         .banners-container { background-color: white; padding: 5px 0 10px; }
         .banners-scroll {
             display: flex; overflow-x: auto; padding: 0 15px; 
-            gap: 12px;
+            gap: 8px; /* Расположены близко друг к другу */
             -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory;
         }
         .banners-scroll::-webkit-scrollbar { display: none; }
         
         .banner-item {
-            /* 88% ширины делает баннер широким прямоугольником */
-            flex: 0 0 88%; 
-            height: 130px; 
+            /* Ширина 75% делает блок компактным, на экране видно кусочек следующего */
+            flex: 0 0 75%; 
+            
+            /* МАГИЯ ЗДЕСЬ: Точные пропорции твоих картинок */
+            aspect-ratio: 1080 / 680; 
+            height: auto; /* Высота подстраивается сама! Никаких жестких рамок */
+            
             border-radius: 12px;
             overflow: hidden; 
             background-position: center;
-            /* cover идеально растягивает прямоугольное фото без белых полей */
-            background-size: cover; 
+            background-size: cover; /* Идеально заполнит блок, ничего не обрезая */
             background-repeat: no-repeat;
-            background-color: #ddd; 
+            background-color: #f2f2f2; 
             scroll-snap-align: center;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08); /* Легкая тень для реалистичности */
         }
 
         /* 3. СЕРВИСЫ */
