@@ -23,6 +23,22 @@
         #preloader.fade-out { opacity: 0; filter: blur(15px); visibility: hidden; }
         .loading-image { width: 100%; max-width: 380px; height: auto; padding-left: 20px; box-sizing: border-box; }
 
+        /* --- МОДАЛЬНОЕ ОКНО ДЛЯ ПРОСМОТРА ТОВАРА --- */
+        #product-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            z-index: 5000; display: none; align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 0.3s ease;
+        }
+        #product-modal.active { display: flex; opacity: 1; }
+        .modal-content {
+            width: 85%; max-width: 400px; transform: scale(0.8);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        #product-modal.active .modal-content { transform: scale(1); }
+        .modal-image { width: 100%; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+
         body {
             background-color: var(--bg-color); margin: 0; padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -64,14 +80,14 @@
         .banners-scroll { display: flex; overflow-x: auto; padding: 0 15px; gap: 8px; }
         .banner-item { flex: 0 0 54%; aspect-ratio: 1080 / 680; border-radius: 12px; background-size: cover; background-position: center; }
 
-        /* --- СЕРВИСЫ (Жирные и яркие) --- */
+        /* --- СЕРВИСЫ --- */
         .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); background: white; padding: 10px 5px 15px; gap: 20px 0; }
         .service-item { display: flex; flex-direction: column; align-items: center; text-align: center; }
         .icon-wrapper { height: 48px; width: 48px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; }
         .service-icon { width: 42px; height: 42px; object-fit: contain; filter: drop-shadow(0 0 1px rgba(255, 45, 23, 0.1)); }
         .service-name { font-size: 11.5px; font-weight: 700; color: #111; letter-spacing: -0.2px; }
 
-        /* --- ПРОМО КАРУСЕЛЬ (Все 4 блока) --- */
+        /* --- ПРОМО КАРУСЕЛЬ --- */
         .promo-scroll-area { margin-top: 12px; overflow-x: auto; padding-bottom: 10px; }
         .promo-grid-container { display: grid; grid-template-rows: repeat(2, 1fr); grid-auto-flow: column; grid-auto-columns: max-content; gap: 10px; padding: 0 15px; }
         .promo-card { background: white; border-radius: 14px; padding: 10px 15px; display: flex; align-items: center; gap: 10px; min-width: 210px; }
@@ -79,12 +95,12 @@
         .promo-main-text { font-size: 14px; font-weight: 700; }
         .promo-subtext { font-size: 11px; color: var(--gray-text); }
 
-        /* --- ИСТОРИЯ ПРОСМОТРОВ (Все 10 товаров с названиями) --- */
+        /* --- ИСТОРИЯ ПРОСМОТРОВ (10 товаров) --- */
         .divider-line { height: 1px; background-color: var(--border-color); margin: 15px 15px 10px 15px; }
         .section-title { font-size: 17px; font-weight: 800; margin: 0 15px 12px 15px; color: var(--text-dark); }
         .history-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 20px; }
         .history-grid { display: grid; grid-template-rows: repeat(2, 1fr); grid-auto-flow: column; grid-auto-columns: 145px; gap: 10px; padding: 0 15px; }
-        .product-card { background: white; border-radius: 12px; padding: 8px; display: flex; flex-direction: column; height: 190px; box-sizing: border-box; }
+        .product-card { background: white; border-radius: 12px; padding: 8px; display: flex; flex-direction: column; height: 190px; box-sizing: border-box; cursor: pointer; }
         .product-img { width: 100%; height: 115px; object-fit: contain; margin-bottom: 4px; }
         .product-title {
             font-size: 12px; line-height: 1.2; height: 28px; overflow: hidden;
@@ -109,6 +125,12 @@
 <body>
 
     <div id="preloader"><img src="loading.png" class="loading-image"></div>
+
+    <div id="product-modal" onclick="closeProduct()">
+        <div class="modal-content">
+            <img id="modal-img" src="" class="modal-image">
+        </div>
+    </div>
 
     <div class="search-wrapper">
         <div class="search-bar">
@@ -153,16 +175,16 @@
 
     <div class="history-scroll">
         <div class="history-grid">
-            <div class="product-card" onclick="vibrate()"><img src="minoxidil.png" class="product-img"><div class="product-title">Миноксидил 5% для роста бороды</div><div class="product-price">4 500 ₸</div></div>
-            <div class="product-card" onclick="vibrate()"><img src="smartglasses.png" class="product-img"><div class="product-title">Смарт-очки Bluetooth 5.0</div><div class="product-price">12 990 ₸</div></div>
-            <div class="product-card" onclick="vibrate()"><img src="mezoroller.png" class="product-img"><div class="product-title">Мезороллер для лица 0.5 мм</div><div class="product-price">2 300 ₸</div></div>
-            <div class="product-card" onclick="vibrate()"><img src="marshallmajor.png" class="product-img"><div class="product-title">Marshall Major IV Black</div><div class="product-price">68 000 ₸</div></div>
-            <div class="product-card" onclick="vibrate()"><img src="microphone.png" class="product-img"><div class="product-title">Микрофон Fifine Studio</div><div class="product-price">18 500 ₸</div></div>
-            <div class="product-card" onclick="vibrate()"><img src="creedaventus.png" class="product-img"><div class="product-title">Creed Aventus Парфюм 100мл</div><div class="product-price">145 000 ₸</div></div>
-            <div class="product-card" onclick="vibrate()"><img src="foam.png" class="product-img"><div class="product-title">Пенка для умывания мягкая</div><div class="product-price">3 200 ₸</div></div>
-            <div class="product-card" onclick="vibrate()"><img src="casio.png" class="product-img"><div class="product-title">Часы Casio Vintage Silver</div><div class="product-price">24 900 ₸</div></div>
-            <div class="product-card" onclick="vibrate()"><img src="case.png" class="product-img"><div class="product-title">Чехол Silicone Case iPhone</div><div class="product-price">1 500 ₸</div></div>
-            <div class="product-card" onclick="vibrate()"><img src="jbl.png" class="product-img"><div class="product-title">Колонка JBL Flip 6</div><div class="product-price">49 990 ₸</div></div>
+            <div class="product-card" onclick="openProduct(this)"><img src="minoxidil.png" class="product-img"><div class="product-title">Миноксидил 5% для роста бороды</div><div class="product-price">4 500 ₸</div></div>
+            <div class="product-card" onclick="openProduct(this)"><img src="smartglasses.png" class="product-img"><div class="product-title">Смарт-очки Bluetooth 5.0</div><div class="product-price">12 990 ₸</div></div>
+            <div class="product-card" onclick="openProduct(this)"><img src="mezoroller.png" class="product-img"><div class="product-title">Мезороллер для лица 0.5 мм</div><div class="product-price">2 300 ₸</div></div>
+            <div class="product-card" onclick="openProduct(this)"><img src="marshallmajor.png" class="product-img"><div class="product-title">Marshall Major IV Black</div><div class="product-price">68 000 ₸</div></div>
+            <div class="product-card" onclick="openProduct(this)"><img src="microphone.png" class="product-img"><div class="product-title">Микрофон Fifine Studio</div><div class="product-price">18 500 ₸</div></div>
+            <div class="product-card" onclick="openProduct(this)"><img src="creedaventus.png" class="product-img"><div class="product-title">Creed Aventus Парфюм 100мл</div><div class="product-price">145 000 ₸</div></div>
+            <div class="product-card" onclick="openProduct(this)"><img src="foam.png" class="product-img"><div class="product-title">Пенка для умывания мягкая</div><div class="product-price">3 200 ₸</div></div>
+            <div class="product-card" onclick="openProduct(this)"><img src="casio.png" class="product-img"><div class="product-title">Часы Casio Vintage Silver</div><div class="product-price">24 900 ₸</div></div>
+            <div class="product-card" onclick="openProduct(this)"><img src="case.png" class="product-img"><div class="product-title">Чехол Silicone Case iPhone</div><div class="product-price">1 500 ₸</div></div>
+            <div class="product-card" onclick="openProduct(this)"><img src="jbl.png" class="product-img"><div class="product-title">Колонка JBL Flip 6</div><div class="product-price">49 990 ₸</div></div>
         </div>
     </div>
 
@@ -177,6 +199,7 @@
         const tg = window.Telegram.WebApp;
         tg.ready(); tg.expand();
 
+        // 1. ПРЕЛОАДЕР
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const loader = document.getElementById('preloader');
@@ -185,6 +208,31 @@
             }, 1000);
         });
 
+        // 2. УПРАВЛЕНИЕ МОДАЛКОЙ ТОВАРА
+        function openProduct(card) {
+            const imgSrc = card.querySelector('img').src;
+            const modal = document.getElementById('product-modal');
+            const modalImg = document.getElementById('modal-img');
+            
+            modalImg.src = imgSrc;
+            modal.style.display = 'flex';
+            
+            tg.HapticFeedback.impactOccurred('medium'); // Вибрация при открытии
+            
+            setTimeout(() => {
+                modal.classList.add('active');
+            }, 10);
+        }
+
+        function closeProduct() {
+            const modal = document.getElementById('product-modal');
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+        }
+
+        // 3. ПОИСК
         function enableSearchMode() {
             vibrate();
             document.body.classList.add('search-mode');
