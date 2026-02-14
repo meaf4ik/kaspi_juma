@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Kaspi.kz</title>
+    <title>Kaspi.kz Fullscreen</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         :root {
@@ -14,23 +14,27 @@
             --border-color: #e5e5e5;
         }
 
-        /* Блокировка стандартных свайпов Telegram на закрытие */
+        /* Полная блокировка системных свайпов */
         html, body {
             height: 100%;
-            overflow: hidden; /* Запрещаем скролл самого body */
+            overflow: hidden;
             position: fixed;
             width: 100%;
+            margin: 0; padding: 0;
+            background-color: white;
         }
 
-        /* Контейнер для прокрутки контента */
+        /* Основной контейнер, который имитирует скролл системы */
         #app-wrapper {
             height: 100vh;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
-            padding-bottom: 100px;
+            padding-bottom: env(safe-area-inset-bottom, 80px);
+            display: flex;
+            flex-direction: column;
         }
 
-        /* --- ЗАГРУЗОЧНЫЙ ЭКРАН --- */
+        /* --- ПРЕЛОАДЕР --- */
         #preloader {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: white; display: flex; justify-content: center; align-items: center;
@@ -39,10 +43,10 @@
         #preloader.fade-out { opacity: 0; filter: blur(15px); visibility: hidden; }
         .loading-image { width: 100%; max-width: 380px; height: auto; padding-left: 20px; box-sizing: border-box; }
 
-        /* --- МОДАЛЬНОЕ ОКНО ПРОСМОТРА --- */
+        /* --- МОДАЛКА ЗУМА --- */
         #product-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.75);
             backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
             z-index: 5000; display: none; align-items: center; justify-content: center;
             opacity: 0; transition: opacity 0.3s ease;
@@ -50,38 +54,31 @@
         #product-modal.active { display: flex; opacity: 1; }
         .modal-content { width: 85%; max-width: 400px; transform: scale(0.8); transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
         #product-modal.active .modal-content { transform: scale(1); }
-        .modal-image { width: 100%; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+        .modal-image { width: 100%; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); }
 
-        body {
-            background-color: var(--bg-color); margin: 0; padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            color: var(--text-dark); -webkit-font-smoothing: antialiased;
-        }
-
-        /* --- ПОИСКОВОЙ РЕЖИМ --- */
-        body.search-mode #app-wrapper > *:not(.search-wrapper) { display: none !important; }
-        body.search-mode #app-wrapper { background-color: white; }
-
+        /* --- ШАПКА --- */
         .search-wrapper {
             position: sticky; top: 0; background-color: white;
-            padding: 12px 15px; display: flex; align-items: center; gap: 10px;
+            padding: calc(env(safe-area-inset-top, 10px) + 12px) 15px 12px; 
+            display: flex; align-items: center; gap: 10px;
             border-bottom: 1px solid #f0f0f0; z-index: 2000;
         }
         .search-bar { background-color: #f0f0f2; border-radius: 10px; padding: 8px 12px; display: flex; align-items: center; gap: 10px; flex: 1; }
         .search-bar input { border: none; background: transparent; outline: none; width: 100%; font-size: 16px; color: var(--text-dark); }
         .cancel-btn { display: none; color: var(--kaspi-red); font-size: 15px; font-weight: 500; cursor: pointer; }
         body.search-mode .cancel-btn { display: block; }
-        .header-extra-icon { width: 22px; height: 22px; object-fit: contain; }
+        body.search-mode #app-wrapper > *:not(.search-wrapper) { display: none !important; }
 
-        /* --- БЛОКИ КОНТЕНТА --- */
+        /* --- КОНТЕНТ (Все блоки на месте) --- */
         .banners-container { background-color: white; padding: 5px 0 10px; }
-        .banners-scroll { display: flex; overflow-x: auto; padding: 0 15px; gap: 8px; }
-        .banner-item { flex: 0 0 54%; aspect-ratio: 1080 / 680; border-radius: 12px; background-size: cover; background-position: center; }
+        .banners-scroll { display: flex; overflow-x: auto; padding: 0 15px; gap: 8px; scroll-snap-type: x mandatory; }
+        .banners-scroll::-webkit-scrollbar { display: none; }
+        .banner-item { flex: 0 0 54%; aspect-ratio: 1080 / 680; border-radius: 12px; background-size: cover; background-position: center; scroll-snap-align: center; }
 
         .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); background: white; padding: 10px 5px 15px; gap: 20px 0; }
         .service-item { display: flex; flex-direction: column; align-items: center; text-align: center; }
         .service-icon { width: 42px; height: 42px; object-fit: contain; }
-        .service-name { font-size: 11.5px; font-weight: 700; color: #111; margin-top: 8px;}
+        .service-name { font-size: 11.5px; font-weight: 700; color: #111; margin-top: 8px; }
 
         .promo-scroll-area { margin-top: 12px; overflow-x: auto; padding-bottom: 10px; }
         .promo-grid-container { display: grid; grid-template-rows: repeat(2, 1fr); grid-auto-flow: column; grid-auto-columns: max-content; gap: 10px; padding: 0 15px; }
@@ -90,6 +87,7 @@
 
         .divider-line { height: 1px; background-color: var(--border-color); margin: 15px 15px 10px 15px; }
         .section-title { font-size: 17px; font-weight: 800; margin: 0 15px 12px 15px; }
+
         .history-scroll { overflow-x: auto; padding-bottom: 20px; }
         .history-grid { display: grid; grid-template-rows: repeat(2, 1fr); grid-auto-flow: column; grid-auto-columns: 145px; gap: 10px; padding: 0 15px; }
         .product-card { background: white; border-radius: 12px; padding: 8px; display: flex; flex-direction: column; height: 190px; box-sizing: border-box; }
@@ -105,11 +103,11 @@
         }
         .tab-item { display: flex; flex-direction: column; align-items: center; font-size: 10px; color: var(--gray-text); gap: 4px; }
         .tab-item.active { color: var(--kaspi-red); font-weight: 700; }
-        .tab-icon-img { width: 26px; height: 26px; opacity: 0.4; filter: grayscale(100%); }
-        .tab-item.active .tab-icon-img { opacity: 1; filter: grayscale(0%); }
+        .tab-icon-img { width: 26px; height: 26px; opacity: 0.4; }
+        .tab-item.active .tab-icon-img { opacity: 1; }
     </style>
 </head>
-<body>
+<body onload="initApp()">
 
     <div id="preloader"><img src="loading.png" class="loading-image"></div>
 
@@ -124,7 +122,7 @@
                 <input type="text" id="searchInput" placeholder="Поиск по Kaspi.kz" onfocus="enableSearchMode()">
             </div>
             <div class="cancel-btn" onclick="disableSearchMode()">Отмена</div>
-            <img src="silvershop.png" class="header-extra-icon">
+            <img src="silvershop.png" style="width:22px; height:22px;">
         </div>
 
         <div class="banners-container">
@@ -184,24 +182,33 @@
 
     <script>
         const tg = window.Telegram.WebApp;
-        tg.ready();
-        tg.expand(); // Развернуть на весь экран
-        
-        // ВКЛЮЧАЕМ ЗАЩИТУ ОТ СВАЙПА ВНИЗ (Подтверждение закрытия)
-        tg.isClosingConfirmationEnabled = true;
 
-        // Настройка цвета шапки и фона самого Telegram
-        tg.setHeaderColor('#ffffff');
-        tg.setBackgroundColor('#f2f2f5');
+        function initApp() {
+            tg.ready();
+            
+            // ПОЛНОЭКРАННЫЙ РЕЖИМ (Fullscreen API Telegram)
+            if (tg.requestFullscreen) {
+                tg.requestFullscreen(); 
+            } else {
+                tg.expand();
+            }
 
-        window.addEventListener('load', () => {
+            // Блокировка подтверждением закрытия
+            tg.isClosingConfirmationEnabled = true;
+
+            // Настройка цветов интерфейса
+            tg.setHeaderColor('#ffffff');
+            tg.setBackgroundColor('#f2f2f5');
+
+            // Прелоадер
             setTimeout(() => {
                 const loader = document.getElementById('preloader');
                 loader.classList.add('fade-out');
                 setTimeout(() => loader.style.display = 'none', 400);
             }, 1000);
-        });
+        }
 
+        // Функции взаимодействия
         function openProduct(card) {
             const imgSrc = card.querySelector('img').src;
             const modal = document.getElementById('product-modal');
