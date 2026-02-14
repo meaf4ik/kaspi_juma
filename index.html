@@ -14,35 +14,33 @@
             --border-color: #e5e5e5;
         }
 
-        /* --- ЗАГРУЗОЧНЫЙ ЭКРАН --- */
+        /* --- ОБНОВЛЕННЫЙ ЗАГРУЗОЧНЫЙ ЭКРАН --- */
         #preloader {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background-color: white; /* Цвет фона под картинкой */
+            background-color: white;
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 10000;
-            transition: opacity 0.8s ease, filter 1s ease, visibility 0.8s;
+            /* Ускорил анимацию: теперь 0.4s вместо 0.8s */
+            transition: opacity 0.4s ease-out, filter 0.4s ease-out, visibility 0.4s;
         }
 
-        /* Анимация рассеивания */
         #preloader.fade-out {
             opacity: 0;
-            filter: blur(30px); /* Эффект сильного размытия при уходе */
+            filter: blur(15px); /* Уменьшил радиус блюра для более быстрого визуального эффекта */
             visibility: hidden;
         }
 
         .loading-image {
-            width: 100%; /* Картинка на весь экран или по размеру */
-            max-width: 400px; /* Ограничим, чтобы на планшетах не растягивало */
+            width: 100%;
+            max-width: 380px;
             height: auto;
-            
-            /* ХИТРОСТЬ ДЛЯ ВЫРАВНИВАНИЯ: 
-               Если логотип смещен вправо — используй отрицательный translateX.
-               Если влево — положительный. Я поставил -3%, подправь если нужно. */
-            transform: translateX(-3%); 
+            /* Исправление: добавил отступ слева, чтобы компенсировать смещение логотипа в самом файле */
+            padding-left: 20px; 
+            box-sizing: border-box;
         }
 
         /* --- ОСНОВНОЙ СТИЛЬ --- */
@@ -95,7 +93,7 @@
             box-shadow: 0 1px 4px rgba(0,0,0,0.08);
         }
 
-        /* 3. СЕРВИСЫ (Жирные и яркие) */
+        /* 3. СЕРВИСЫ */
         .services-grid {
             display: grid; grid-template-columns: repeat(4, 1fr);
             background: white; padding: 10px 5px 15px; gap: 20px 0;
@@ -176,10 +174,10 @@
 
     <div class="banners-container">
         <div class="banners-scroll">
-            <div class="banner-item" style="background-image: url('reklama.png');" onclick="vibrate()"></div>
-            <div class="banner-item" style="background-image: url('reklama2.png');" onclick="vibrate()"></div>
-            <div class="banner-item" style="background-image: url('reklama.png');" onclick="vibrate()"></div>
-            <div class="banner-item" style="background-image: url('reklama2.png');" onclick="vibrate()"></div>
+            <div class="banner-item" style="background-image: url('reklama.png');"></div>
+            <div class="banner-item" style="background-image: url('reklama2.png');"></div>
+            <div class="banner-item" style="background-image: url('reklama.png');"></div>
+            <div class="banner-item" style="background-image: url('reklama2.png');"></div>
         </div>
     </div>
 
@@ -232,16 +230,18 @@
         const tg = window.Telegram.WebApp;
         tg.ready(); tg.expand();
 
-        // ЛОГИКА ЗАГРУЗОЧНОГО ЭКРАНА
+        // ОБНОВЛЕННАЯ ЛОГИКА ТАЙМЕРА
         window.addEventListener('load', () => {
+            // Уменьшил время показа до 1 секунды (1000мс)
             setTimeout(() => {
                 const loader = document.getElementById('preloader');
-                loader.classList.add('fade-out'); // Запуск анимации рассеивания
+                loader.classList.add('fade-out');
                 
+                // Удаление элемента теперь через 0.4с (согласно новой анимации)
                 setTimeout(() => {
-                    loader.style.display = 'none'; // Полное удаление через 0.8 сек
-                }, 800);
-            }, 2000); // Экран показывается 2 секунды
+                    loader.style.display = 'none';
+                }, 400);
+            }, 1000); 
         });
 
         function vibrate() { tg.HapticFeedback.impactOccurred('light'); }
