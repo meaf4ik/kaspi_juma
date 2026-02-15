@@ -46,18 +46,23 @@
         #product-modal.active .modal-content { transform: scale(1); }
         .modal-image { width: 100%; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
 
-        /* --- ЭКРАН ПИН-КОДА (ФИНАЛЬНЫЕ ПРАВКИ) --- */
+        /* --- ЭКРАН ПИН-КОДА (БЕЗ ЛИНИЙ И С УМЕНЬШЕННЫМИ РАМКАМИ) --- */
         #pin-screen {
             position: fixed; top: 100%; left: 0; width: 100%; height: 100%;
-            background: #d5d6d6; /* Точный цвет по твоему запросу */
+            background: #d5d6d6;
             z-index: 6000; 
             transition: top 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
             display: flex; align-items: center; justify-content: center;
-            padding: 4px 12px; /* 4px сверху/снизу, 12px по бокам */
+            padding: 4px 6px; /* Уменьшил боковые рамки до 6px */
             box-sizing: border-box;
         }
         #pin-screen.active { top: 0; }
-        .pin-bg { width: 100%; height: auto; max-height: 100%; object-fit: contain; }
+        .pin-bg { 
+            width: 100%; height: auto; max-height: 100%; 
+            object-fit: contain; 
+            display: block; /* Убирает лишние отступы снизу картинки */
+            background-color: #d5d6d6; /* Цвет в тон фону, чтобы убрать границы */
+        }
 
         /* --- FACE ID OVERLAY --- */
         #faceid-overlay {
@@ -206,7 +211,7 @@
             <div class="service-item" onclick="vibrate()"><img src="qr.png" class="service-icon"><div class="service-name">Kaspi QR</div></div>
             <div class="service-item" onclick="vibrate()"><img src="bank.png" class="service-icon"><div class="service-name">Мой Банк</div></div>
             <div class="service-item" onclick="vibrate()"><img src="pay.png" class="service-icon"><div class="service-name">Платежи</div></div>
-            <div class="service-item" onclick="vibrate()"><img src="transfer.png" class="service-icon"><div class="service-name">Переводы</div></div>
+            <div class="service-item" onclick="vibrate()"><img src="blood.png" class="service-icon"><div class="service-name">Переводы</div></div>
             <div class="service-item" onclick="vibrate()"><img src="shop.png" class="service-icon"><div class="service-name">Магазин</div></div>
             <div class="service-item" onclick="vibrate()"><img src="travel.png" class="service-icon"><div class="service-name">Travel</div></div>
             <div class="service-item" onclick="startGovAuth()"><img src="gos.png" class="service-icon"><div class="service-name">Госуслуги</div></div>
