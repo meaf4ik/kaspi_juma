@@ -46,14 +46,14 @@
         #product-modal.active .modal-content { transform: scale(1); }
         .modal-image { width: 100%; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
 
-        /* --- ЭКРАН ПИН-КОДА (С СЕРОВАТЫМ ФОНОМ) --- */
+        /* --- ЭКРАН ПИН-КОДА (С КОРРЕКТИРОВКОЙ) --- */
         #pin-screen {
             position: fixed; top: 100%; left: 0; width: 100%; height: 100%;
-            background: #f2f2f5; /* Слегка сероватый фон под цвет картинки */
+            background: #e8e8ed; /* Более темный серый для соответствия картинке */
             z-index: 6000; 
             transition: top 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
             display: flex; align-items: center; justify-content: center;
-            padding: 20px; 
+            padding: 12px; /* Уменьшенные рамки */
             box-sizing: border-box;
         }
         #pin-screen.active { top: 0; }
