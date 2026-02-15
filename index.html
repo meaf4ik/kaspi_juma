@@ -3,6 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Kaspi.kz">
+    
+    <link rel="apple-touch-icon" href="icon.png">
+    <link rel="icon" href="icon.png">
+
     <title>Kaspi.kz</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
@@ -77,6 +84,8 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             color: var(--text-dark); -webkit-font-smoothing: antialiased;
             overflow-x: hidden; user-select: none;
+            /* Отступ под статус-бар в PWA режиме */
+            padding-top: env(safe-area-inset-top);
         }
 
         /* --- ПОИСК --- */
@@ -101,12 +110,10 @@
         .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); background: white; padding: 10px 5px 15px; gap: 20px 0; }
         .service-item { display: flex; flex-direction: column; align-items: center; text-align: center; cursor: pointer; }
         
-        /* ОБНОВЛЕННЫЙ СТИЛЬ: ТЕПЕРЬ ЖИРНЕЕ */
         .service-icon { 
             width: 42px; 
             height: 42px; 
             object-fit: contain; 
-            /* Используем множественные тени для имитации "жирности" линий PNG */
             filter: saturate(1.1) 
                     drop-shadow(0.5px 0 0px rgba(0,0,0,0.05)) 
                     drop-shadow(-0.5px 0 0px rgba(0,0,0,0.05))
