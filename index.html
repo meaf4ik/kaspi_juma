@@ -98,6 +98,17 @@
         .gos-doc-card { background: #f5f5f5; border-radius: 16px; padding: 15px; min-width: 135px; display: flex; flex-direction: column; gap: 12px; }
         .gos-doc-img { width: 66px; height: auto; object-fit: contain; }
         .gos-doc-title { font-size: 13px; font-weight: 500; color: #333; line-height: 1.3; }
+
+        /* Категории (мини-бары) */
+        .gos-cats-section { background: white; padding: 15px 0; border-bottom: 1px solid #f0f0f0; }
+        .gos-cats-scroll { display: flex; justify-content: space-between; padding: 0 15px; }
+        .gos-cat-item { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 70px; position: relative; }
+        .gos-cat-icon-bg { width: 58px; height: 58px; background: #f5f5f5; border-radius: 16px; display: flex; align-items: center; justify-content: center; }
+        .gos-cat-icon { width: 44px; height: 44px; }
+        .gos-cat-title { font-size: 12px; color: #555; text-align: center; }
+        .gos-cat-item.active .gos-cat-title { color: var(--kaspi-red); font-weight: 600; }
+        .gos-cat-item.active::after { content: ''; position: absolute; bottom: -15px; left: 10px; right: 10px; height: 2px; background: var(--kaspi-red); }
+
         .gos-list-section { background: white; padding: 0 15px; }
         .gos-list-title { font-size: 16px; font-weight: 700; padding: 20px 0 10px 0; }
         .gos-list-item { display: flex; align-items: center; padding: 14px 0; border-bottom: 1px solid #f5f5f5; gap: 15px; cursor: pointer; }
@@ -123,7 +134,6 @@
         .service-icon { width: 42px; height: 42px; }
         .service-name { font-size: 11.5px; font-weight: 700; margin-top: 8px; }
 
-        /* --- ПРОМО БЛОКИ --- */
         .promo-scroll-area { margin-top: 12px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; }
         .promo-scroll-area::-webkit-scrollbar { display: none; }
         .promo-grid-container { display: grid; grid-template-rows: repeat(2, 1fr); grid-auto-flow: column; grid-auto-columns: max-content; gap: 10px; padding: 0 15px; }
@@ -135,7 +145,6 @@
         .divider-line { height: 1px; background-color: var(--border-color); margin: 15px 15px 10px 15px; }
         .section-title { font-size: 17px; font-weight: 800; margin: 0 15px 12px 15px; }
 
-        /* --- ТОВАРЫ --- */
         .history-scroll { overflow-x: auto; padding-bottom: 20px; scrollbar-width: none; }
         .history-scroll::-webkit-scrollbar { display: none; }
         .history-grid { display: grid; grid-template-rows: repeat(2, 1fr); grid-auto-flow: column; grid-auto-columns: 145px; gap: 10px; padding: 0 15px; }
@@ -168,12 +177,23 @@
                 <div class="gos-switcher"><div class="gos-switch-item active">Все услуги</div><div class="gos-switch-item">Мои заявки</div></div>
                 <div class="gos-search"><img src="magnifier.png" style="width:16px; opacity:0.5;"><input type="text" placeholder="Поиск по Госуслугам"></div>
             </div>
+            
             <div class="gos-docs-section">
                 <div class="gos-docs-scroll">
                     <div class="gos-doc-card" onclick="openUdost()"><img src="udost.png" class="gos-doc-img"><div class="gos-doc-title">Удостоверение личности</div></div>
                     <div class="gos-doc-card"><img src="passport.png" class="gos-doc-img"><div class="gos-doc-title">Паспорт гражданина РК</div></div>
                 </div>
             </div>
+
+            <div class="gos-cats-section">
+                <div class="gos-cats-scroll">
+                    <div class="gos-cat-item active"><div class="gos-cat-icon-bg"><img src="popular.png" class="gos-cat-icon"></div><div class="gos-cat-title">Популярные</div></div>
+                    <div class="gos-cat-item"><div class="gos-cat-icon-bg"><img src="spravki.png" class="gos-cat-icon"></div><div class="gos-cat-title">Справки</div></div>
+                    <div class="gos-cat-item"><div class="gos-cat-icon-bg"><img src="avto.png" class="gos-cat-icon"></div><div class="gos-cat-title">Авто</div></div>
+                    <div class="gos-cat-item"><div class="gos-cat-icon-bg"><img src="house.png" class="gos-cat-icon"></div><div class="gos-cat-title">Жилье</div></div>
+                </div>
+            </div>
+
             <div class="gos-list-section">
                 <div class="gos-list-title">Популярные и новые</div>
                 <div class="gos-list-item" onclick="vibrate()"><div class="gos-list-icon-wrapper"><img src="samozanyat.png" class="gos-list-icon"></div><div class="gos-list-text"><div class="gos-list-item-title">Стать самозанятым</div><div class="gos-list-item-sub">Открыть счет и начать принимать оплату</div></div><div class="gos-badge">NEW</div><div class="gos-arrow">›</div></div>
