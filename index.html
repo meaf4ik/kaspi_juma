@@ -101,13 +101,16 @@
         .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); background: white; padding: 10px 5px 15px; gap: 20px 0; }
         .service-item { display: flex; flex-direction: column; align-items: center; text-align: center; cursor: pointer; }
         
-        /* ОБНОВЛЕННЫЙ СТИЛЬ ИКОНОК */
+        /* ОБНОВЛЕННЫЙ СТИЛЬ: ТЕПЕРЬ ЖИРНЕЕ */
         .service-icon { 
             width: 42px; 
             height: 42px; 
             object-fit: contain; 
-            /* Делаем ярче и насыщеннее, добавляем "жирности" через drop-shadow */
-            filter: saturate(1.2) contrast(1.1) drop-shadow(0 0 0.2px rgba(0,0,0,0.1));
+            /* Используем множественные тени для имитации "жирности" линий PNG */
+            filter: saturate(1.1) 
+                    drop-shadow(0.5px 0 0px rgba(0,0,0,0.05)) 
+                    drop-shadow(-0.5px 0 0px rgba(0,0,0,0.05))
+                    drop-shadow(0 0.5px 0px rgba(0,0,0,0.05));
         }
         
         .service-name { font-size: 11.5px; font-weight: 700; color: #111; margin-top: 8px;}
