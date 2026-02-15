@@ -7,8 +7,11 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Kaspi.kz">
     
-    <link rel="apple-touch-icon" href="icon.png">
-    <link rel="icon" href="icon.png">
+    <link rel="apple-touch-icon" href="icon.png?v=2">
+    <link rel="apple-touch-icon" sizes="152x152" href="icon.png?v=2">
+    <link rel="apple-touch-icon" sizes="180x180" href="icon.png?v=2">
+    <link rel="apple-touch-icon" sizes="167x167" href="icon.png?v=2">
+    <link rel="icon" type="image/png" href="icon.png?v=2">
 
     <title>Kaspi.kz</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -43,15 +46,18 @@
         #product-modal.active .modal-content { transform: scale(1); }
         .modal-image { width: 100%; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
 
-        /* --- ЭКРАН ПИН-КОДА --- */
+        /* --- ЭКРАН ПИН-КОДА (С СЕРОВАТЫМ ФОНОМ) --- */
         #pin-screen {
             position: fixed; top: 100%; left: 0; width: 100%; height: 100%;
-            background: white; z-index: 6000; 
+            background: #f2f2f5; /* Слегка сероватый фон под цвет картинки */
+            z-index: 6000; 
             transition: top 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
             display: flex; align-items: center; justify-content: center;
+            padding: 20px; 
+            box-sizing: border-box;
         }
         #pin-screen.active { top: 0; }
-        .pin-bg { width: 100%; height: 100%; object-fit: cover; }
+        .pin-bg { width: 100%; height: auto; max-height: 100%; object-fit: contain; }
 
         /* --- FACE ID OVERLAY --- */
         #faceid-overlay {
@@ -84,7 +90,6 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             color: var(--text-dark); -webkit-font-smoothing: antialiased;
             overflow-x: hidden; user-select: none;
-            /* Отступ под статус-бар в PWA режиме */
             padding-top: env(safe-area-inset-top);
         }
 
