@@ -36,7 +36,7 @@
         #product-modal.active .modal-content { transform: scale(1); }
         .modal-image { width: 100%; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
 
-        /* --- ЭКРАН ПИН-КОДА (БЕЗ РАМОК) --- */
+        /* --- ЭКРАН ПИН-КОДА --- */
         #pin-screen {
             position: fixed; top: 100%; left: 0; width: 100%; height: 100%;
             background: white; z-index: 6000; 
@@ -79,10 +79,9 @@
             overflow-x: hidden; user-select: none;
         }
 
-        /* --- ПОИСКОВОЙ РЕЖИМ --- */
+        /* --- ПОИСК --- */
         body.search-mode #app-wrapper > *:not(.search-wrapper) { display: none !important; }
         body.search-mode { background-color: white; }
-
         .search-wrapper {
             position: sticky; top: 0; background-color: white;
             padding: 12px 15px; display: flex; align-items: center; gap: 10px;
@@ -101,7 +100,16 @@
         /* --- СЕТКА СЕРВИСОВ --- */
         .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); background: white; padding: 10px 5px 15px; gap: 20px 0; }
         .service-item { display: flex; flex-direction: column; align-items: center; text-align: center; cursor: pointer; }
-        .service-icon { width: 42px; height: 42px; object-fit: contain; }
+        
+        /* ОБНОВЛЕННЫЙ СТИЛЬ ИКОНОК */
+        .service-icon { 
+            width: 42px; 
+            height: 42px; 
+            object-fit: contain; 
+            /* Делаем ярче и насыщеннее, добавляем "жирности" через drop-shadow */
+            filter: saturate(1.2) contrast(1.1) drop-shadow(0 0 0.2px rgba(0,0,0,0.1));
+        }
+        
         .service-name { font-size: 11.5px; font-weight: 700; color: #111; margin-top: 8px;}
 
         /* --- ПРОМО КАРТОЧКИ --- */
@@ -233,22 +241,18 @@
             setTimeout(() => document.getElementById('preloader').classList.add('fade-out'), 1000);
         });
 
-        // ЛОГИКА ГОСУСЛУГ
         function startGovAuth() {
             vibrate();
             const pinScreen = document.getElementById('pin-screen');
             const faceOverlay = document.getElementById('faceid-overlay');
             const faceVideo = document.getElementById('faceid-video');
             const finalPage = document.getElementById('final-app-page');
-
             pinScreen.classList.add('active');
-
             setTimeout(() => {
                 faceOverlay.style.display = 'flex';
                 setTimeout(() => faceOverlay.classList.add('active'), 10);
                 faceVideo.play();
             }, 500);
-
             faceVideo.onended = () => {
                 finalPage.classList.add('active');
                 setTimeout(() => {
