@@ -386,24 +386,48 @@
         // Зум удостоверения (Pinch-to-Zoom)
         const docImg = document.getElementById('document-img');
         const zoomArea = document.getElementById('zoom-area');
-        const hammertime = new Hammer(zoomArea);
+        const manager = new Hammer.Manager(zoomArea);
 
-        hammertime.get('pinch').set({ enable: true });
+        const pinch = new Hammer.Pinch();
+        const pan = new Hammer.Pan();
 
-        let currentScale = 1;
+        manager.add([pinch, pan]);
 
-        hammertime.on('pinch', (ev) => {
-            currentScale = ev.scale;
-            if (currentScale < 1) currentScale = 1; 
-            docImg.style.transition = 'none';
-            docImg.style.transform = `scale(${currentScale})`;
+        let scale = 1;
+        let lastScale = 1;
+        let posX = 0;
+        let posY = 0;
+        let lastPosX = 0;
+        let lastPosY = 0;
+
+        manager.on('pinchmove', (ev) => {
+            scale = lastScale * ev.scale;
+            updateTransform();
         });
 
-        hammertime.on('pinchend', () => {
-            currentScale = 1;
-            docImg.style.transition = 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-            docImg.style.transform = `scale(1)`;
+        manager.on('pinchend', () => {
+            lastScale = scale;
         });
+
+        manager.on('panmove', (ev) => {
+            // Двигаем только если картинка увеличена
+            if (scale > 1) {
+                posX = lastPosX + ev.deltaX;
+                posY = lastPosY + ev.deltaY;
+                updateTransform();
+            }
+        });
+
+        manager.on('panend', () => {
+            lastPosX = posX;
+            lastPosY = posY;
+        });
+
+        function updateTransform() {
+            // Ограничиваем минимальный зум единицей
+            if (scale < 1) scale = 1;
+            docImg.style.transform = `translate(${posX}px, ${posY}px) scale(${scale})`;
+        }
 
         // Модалка товара
         function openProduct(card) {
@@ -424,4 +448,5 @@
     </script>
 </body>
 </html>
+
 
