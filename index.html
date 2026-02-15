@@ -23,7 +23,7 @@
         #preloader.fade-out { opacity: 0; filter: blur(15px); visibility: hidden; }
         .loading-image { width: 100%; max-width: 380px; height: auto; padding-left: 20px; box-sizing: border-box; }
 
-        /* --- МОДАЛКА ЗУМА ТОВАРА --- */
+        /* --- МОДАЛКА ЗУМА --- */
         #product-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(255, 255, 255, 0.7);
@@ -36,25 +36,33 @@
         #product-modal.active .modal-content { transform: scale(1); }
         .modal-image { width: 100%; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
 
-        /* --- ЭКРАН ПИН-КОДА --- */
+        /* --- ЭКРАН ПИН-КОДА С РАМКОЙ --- */
         #pin-screen {
             position: fixed; top: 100%; left: 0; width: 100%; height: 100%;
             background: white; z-index: 6000; transition: top 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-            display: flex; flex-direction: column;
+            display: flex; align-items: center; justify-content: center;
+            box-sizing: border-box; padding: 6px; /* Белая рамка */
         }
         #pin-screen.active { top: 0; }
-        .pin-bg { width: 100%; height: 100%; object-fit: cover; }
+        .pin-bg { width: 100%; height: 100%; object-fit: contain; border-radius: 10px; }
 
-        /* --- FACE ID OVERLAY --- */
+        /* --- FACE ID OVERLAY (Плавный блюр) --- */
         #faceid-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(0px); -webkit-backdrop-filter: blur(0px);
             z-index: 6500; display: none; align-items: center; justify-content: center;
-            opacity: 0; transition: opacity 0.5s ease;
+            opacity: 0; transition: opacity 0.6s ease, backdrop-filter 0.6s ease, -webkit-backdrop-filter 0.6s ease;
         }
-        #faceid-overlay.active { display: flex; opacity: 1; }
-        .faceid-video { width: 150px; height: 150px; }
+        #faceid-overlay.active { 
+            display: flex; opacity: 1; 
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+        }
+        .faceid-container {
+            width: 150px; height: 150px; border-radius: 35px; overflow: hidden; /* Закругление гифки */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .faceid-video { width: 100%; height: 100%; object-fit: cover; }
 
         /* --- ФИНАЛЬНОЕ ОКНО --- */
         #final-app-page {
@@ -68,33 +76,25 @@
             background-color: var(--bg-color); margin: 0; padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             color: var(--text-dark); -webkit-font-smoothing: antialiased;
-            overflow-x: hidden; user-select: none;
         }
 
-        /* --- ПОИСКОВОЙ РЕЖИМ --- */
+        /* --- ПОИСК --- */
         body.search-mode #app-wrapper > *:not(.search-wrapper) { display: none !important; }
-        body.search-mode { background-color: white; }
-
-        .search-wrapper {
-            position: sticky; top: 0; background-color: white;
-            padding: 12px 15px; display: flex; align-items: center; gap: 10px;
-            border-bottom: 1px solid #f0f0f0; z-index: 2000;
-        }
+        .search-wrapper { position: sticky; top: 0; background-color: white; padding: 12px 15px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #f0f0f0; z-index: 2000; }
         .search-bar { background-color: #f0f0f2; border-radius: 10px; padding: 8px 12px; display: flex; align-items: center; gap: 10px; flex: 1; }
-        .search-bar input { border: none; background: transparent; outline: none; width: 100%; font-size: 16px; color: var(--text-dark); }
-        .cancel-btn { display: none; color: var(--kaspi-red); font-size: 15px; font-weight: 500; cursor: pointer; white-space: nowrap; }
+        .search-bar input { border: none; background: transparent; outline: none; width: 100%; font-size: 16px; }
+        .cancel-btn { display: none; color: var(--kaspi-red); font-weight: 500; cursor: pointer; }
         body.search-mode .cancel-btn { display: block; }
 
-        /* --- СЕРВИСЫ --- */
-        .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); background: white; padding: 10px 5px 15px; gap: 20px 0; }
-        .service-item { display: flex; flex-direction: column; align-items: center; text-align: center; cursor: pointer; }
-        .service-icon { width: 42px; height: 42px; object-fit: contain; }
-        .service-name { font-size: 11.5px; font-weight: 700; color: #111; margin-top: 8px;}
-
-        /* --- БАННЕРЫ И ПРОМО (БЕЗ ИЗМЕНЕНИЙ) --- */
+        /* --- КОНТЕНТ --- */
         .banners-container { background-color: white; padding: 5px 0 10px; }
         .banners-scroll { display: flex; overflow-x: auto; padding: 0 15px; gap: 8px; }
         .banner-item { flex: 0 0 54%; aspect-ratio: 1080 / 680; border-radius: 12px; background-size: cover; background-position: center; }
+
+        .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); background: white; padding: 10px 5px 15px; gap: 20px 0; }
+        .service-item { display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .service-icon { width: 42px; height: 42px; object-fit: contain; }
+        .service-name { font-size: 11.5px; font-weight: 700; color: #111; margin-top: 8px;}
 
         .promo-scroll-area { margin-top: 12px; overflow-x: auto; padding-bottom: 10px; }
         .promo-grid-container { display: grid; grid-template-rows: repeat(2, 1fr); grid-auto-flow: column; grid-auto-columns: max-content; gap: 10px; padding: 0 15px; }
@@ -104,20 +104,13 @@
         .divider-line { height: 1px; background-color: var(--border-color); margin: 15px 15px 10px 15px; }
         .section-title { font-size: 17px; font-weight: 800; margin: 0 15px 12px 15px; }
 
-        /* --- ТОВАРЫ --- */
         .history-scroll { overflow-x: auto; padding-bottom: 20px; }
         .history-grid { display: grid; grid-template-rows: repeat(2, 1fr); grid-auto-flow: column; grid-auto-columns: 145px; gap: 10px; padding: 0 15px; }
-        .product-card { background: white; border-radius: 12px; padding: 8px; display: flex; flex-direction: column; height: 190px; box-sizing: border-box; }
+        .product-card { background: white; border-radius: 12px; padding: 8px; display: flex; flex-direction: column; height: 190px; }
         .product-img { width: 100%; height: 115px; object-fit: contain; }
-        .product-title { font-size: 12px; line-height: 1.2; height: 28px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; margin-bottom: 4px; }
         .product-price { font-size: 14px; font-weight: 800; margin-top: auto; }
 
-        .tab-bar {
-            position: fixed; bottom: 0; left: 0; right: 0; background: white; 
-            display: grid; grid-template-columns: repeat(4, 1fr); height: 65px; 
-            align-items: center; border-top: 1px solid #e5e5e5; z-index: 3000;
-            padding-bottom: env(safe-area-inset-bottom);
-        }
+        .tab-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: grid; grid-template-columns: repeat(4, 1fr); height: 65px; border-top: 1px solid #e5e5e5; z-index: 3000; padding-bottom: env(safe-area-inset-bottom); }
         .tab-item { display: flex; flex-direction: column; align-items: center; font-size: 10px; color: var(--gray-text); gap: 4px; }
         .tab-item.active { color: var(--kaspi-red); font-weight: 700; }
         .tab-icon-img { width: 26px; height: 26px; opacity: 0.4; }
@@ -136,13 +129,14 @@
     </div>
 
     <div id="faceid-overlay">
-        <video id="faceid-video" class="faceid-video" playsinline muted>
-            <source src="faceid.mp4" type="video/mp4">
-        </video>
+        <div class="faceid-container">
+            <video id="faceid-video" class="faceid-video" playsinline muted>
+                <source src="faceid.mp4" type="video/mp4">
+            </video>
+        </div>
     </div>
 
-    <div id="final-app-page">
-        </div>
+    <div id="final-app-page"></div>
 
     <div id="app-wrapper">
         <div class="search-wrapper">
@@ -186,16 +180,16 @@
 
         <div class="history-scroll">
             <div class="history-grid">
-                <div class="product-card" onclick="openProduct(this)"><img src="minoxidil.png" class="product-img"><div class="product-title">Миноксидил 5% для роста бороды</div><div class="product-price">4 500 ₸</div></div>
-                <div class="product-card" onclick="openProduct(this)"><img src="smartglasses.png" class="product-img"><div class="product-title">Смарт-очки Bluetooth 5.0</div><div class="product-price">12 990 ₸</div></div>
-                <div class="product-card" onclick="openProduct(this)"><img src="mezoroller.png" class="product-img"><div class="product-title">Мезороллер для лица 0.5 мм</div><div class="product-price">2 300 ₸</div></div>
-                <div class="product-card" onclick="openProduct(this)"><img src="marshallmajor.png" class="product-img"><div class="product-title">Marshall Major IV Black</div><div class="product-price">68 000 ₸</div></div>
-                <div class="product-card" onclick="openProduct(this)"><img src="microphone.png" class="product-img"><div class="product-title">Микрофон Fifine Studio</div><div class="product-price">18 500 ₸</div></div>
-                <div class="product-card" onclick="openProduct(this)"><img src="creedaventus.png" class="product-img"><div class="product-title">Creed Aventus Парфюм 100мл</div><div class="product-price">145 000 ₸</div></div>
-                <div class="product-card" onclick="openProduct(this)"><img src="foam.png" class="product-img"><div class="product-title">Пенка для умывания мягкая</div><div class="product-price">3 200 ₸</div></div>
-                <div class="product-card" onclick="openProduct(this)"><img src="casio.png" class="product-img"><div class="product-title">Часы Casio Vintage Silver</div><div class="product-price">24 900 ₸</div></div>
-                <div class="product-card" onclick="openProduct(this)"><img src="case.png" class="product-img"><div class="product-title">Чехол Silicone Case iPhone</div><div class="product-price">1 500 ₸</div></div>
-                <div class="product-card" onclick="openProduct(this)"><img src="jbl.png" class="product-img"><div class="product-title">Колонка JBL Flip 6</div><div class="product-price">49 990 ₸</div></div>
+                <div class="product-card" onclick="openProduct(this)"><img src="minoxidil.png" class="product-img"><div class="product-title">Миноксидил 5%...</div><div class="product-price">4 500 ₸</div></div>
+                <div class="product-card" onclick="openProduct(this)"><img src="smartglasses.png" class="product-img"><div class="product-title">Смарт-очки...</div><div class="product-price">12 990 ₸</div></div>
+                <div class="product-card" onclick="openProduct(this)"><img src="mezoroller.png" class="product-img"><div class="product-title">Мезороллер...</div><div class="product-price">2 300 ₸</div></div>
+                <div class="product-card" onclick="openProduct(this)"><img src="marshallmajor.png" class="product-img"><div class="product-title">Marshall...</div><div class="product-price">68 000 ₸</div></div>
+                <div class="product-card" onclick="openProduct(this)"><img src="microphone.png" class="product-img"><div class="product-title">Микрофон...</div><div class="product-price">18 500 ₸</div></div>
+                <div class="product-card" onclick="openProduct(this)"><img src="creedaventus.png" class="product-img"><div class="product-title">Creed Aventus...</div><div class="product-price">145 000 ₸</div></div>
+                <div class="product-card" onclick="openProduct(this)"><img src="foam.png" class="product-img"><div class="product-title">Пенка...</div><div class="product-price">3 200 ₸</div></div>
+                <div class="product-card" onclick="openProduct(this)"><img src="casio.png" class="product-img"><div class="product-title">Часы Casio...</div><div class="product-price">24 900 ₸</div></div>
+                <div class="product-card" onclick="openProduct(this)"><img src="case.png" class="product-img"><div class="product-title">Чехол...</div><div class="product-price">1 500 ₸</div></div>
+                <div class="product-card" onclick="openProduct(this)"><img src="jbl.png" class="product-img"><div class="product-title">JBL Flip 6</div><div class="product-price">49 990 ₸</div></div>
             </div>
         </div>
     </div>
@@ -210,16 +204,11 @@
     <script>
         const tg = window.Telegram.WebApp;
         tg.ready(); tg.expand();
-        tg.isClosingConfirmationEnabled = true;
 
-        // 1. ПРЕЛОАДЕР
         window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('preloader').classList.add('fade-out');
-            }, 1000);
+            setTimeout(() => document.getElementById('preloader').classList.add('fade-out'), 1000);
         });
 
-        // 2. ЛОГИКА ГОСУСЛУГ (PIN + FACE ID)
         function startGovAuth() {
             vibrate();
             const pinScreen = document.getElementById('pin-screen');
@@ -227,27 +216,24 @@
             const faceVideo = document.getElementById('faceid-video');
             const finalPage = document.getElementById('final-app-page');
 
-            // Вылет Пина снизу
             pinScreen.classList.add('active');
 
-            // Через 0.5 сек - Блюр и Face ID
             setTimeout(() => {
-                faceOverlay.classList.add('active');
+                faceOverlay.style.display = 'flex';
+                setTimeout(() => faceOverlay.classList.add('active'), 10);
                 faceVideo.play();
             }, 500);
 
-            // Когда видео Face ID заканчивается
             faceVideo.onended = () => {
                 finalPage.classList.add('active');
-                // Очистка состояний (необязательно, но полезно)
                 setTimeout(() => {
                     faceOverlay.classList.remove('active');
                     pinScreen.classList.remove('active');
+                    setTimeout(() => faceOverlay.style.display = 'none', 600);
                 }, 600);
             };
         }
 
-        // 3. ОСТАЛЬНЫЕ ФУНКЦИИ (Зум, поиск и т.д.)
         function openProduct(card) {
             const imgSrc = card.querySelector('img').src;
             const modal = document.getElementById('product-modal');
@@ -263,17 +249,8 @@
             setTimeout(() => modal.style.display = 'none', 300);
         }
 
-        function enableSearchMode() {
-            vibrate();
-            document.body.classList.add('search-mode');
-        }
-
-        function disableSearchMode() {
-            document.body.classList.remove('search-mode');
-            document.getElementById('searchInput').value = '';
-            document.getElementById('searchInput').blur();
-        }
-
+        function enableSearchMode() { vibrate(); document.body.classList.add('search-mode'); }
+        function disableSearchMode() { document.body.classList.remove('search-mode'); document.getElementById('searchInput').blur(); }
         function vibrate() { tg.HapticFeedback.impactOccurred('light'); }
     </script>
 </body>
