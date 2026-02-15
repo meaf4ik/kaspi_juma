@@ -23,6 +23,19 @@
         #preloader.fade-out { opacity: 0; filter: blur(15px); visibility: hidden; }
         .loading-image { width: 100%; max-width: 380px; height: auto; padding-left: 20px; box-sizing: border-box; }
 
+        /* --- МОДАЛКА ЗУМА --- */
+        #product-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            z-index: 5000; display: none; align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 0.3s ease;
+        }
+        #product-modal.active { display: flex; opacity: 1; }
+        .modal-content { width: 85%; max-width: 400px; transform: scale(0.8); transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        #product-modal.active .modal-content { transform: scale(1); }
+        .modal-image { width: 100%; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+
         /* --- ЭКРАН ПИН-КОДА (БЕЗ РАМОК) --- */
         #pin-screen {
             position: fixed; top: 100%; left: 0; width: 100%; height: 100%;
@@ -59,38 +72,80 @@
         }
         #final-app-page.active { top: 0; }
 
-        /* --- ОБЩИЕ СТИЛИ И СЕРВИСЫ --- */
-        body { background-color: var(--bg-color); margin: 0; padding: 0; font-family: -apple-system, system-ui, sans-serif; overflow-x: hidden; }
-        
-        .search-wrapper { position: sticky; top: 0; background: white; padding: 12px 15px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #f0f0f0; z-index: 2000; }
-        .search-bar { background: #f0f0f2; border-radius: 10px; padding: 8px 12px; display: flex; align-items: center; gap: 10px; flex: 1; }
-        .search-bar input { border: none; background: transparent; outline: none; width: 100%; font-size: 16px; }
+        body {
+            background-color: var(--bg-color); margin: 0; padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text-dark); -webkit-font-smoothing: antialiased;
+            overflow-x: hidden; user-select: none;
+        }
 
+        /* --- ПОИСКОВОЙ РЕЖИМ --- */
+        body.search-mode #app-wrapper > *:not(.search-wrapper) { display: none !important; }
+        body.search-mode { background-color: white; }
+
+        .search-wrapper {
+            position: sticky; top: 0; background-color: white;
+            padding: 12px 15px; display: flex; align-items: center; gap: 10px;
+            border-bottom: 1px solid #f0f0f0; z-index: 2000;
+        }
+        .search-bar { background-color: #f0f0f2; border-radius: 10px; padding: 8px 12px; display: flex; align-items: center; gap: 10px; flex: 1; }
+        .search-bar input { border: none; background: transparent; outline: none; width: 100%; font-size: 16px; color: var(--text-dark); }
+        .cancel-btn { display: none; color: var(--kaspi-red); font-size: 15px; font-weight: 500; cursor: pointer; white-space: nowrap; }
+        body.search-mode .cancel-btn { display: block; }
+
+        /* --- БАННЕРЫ --- */
+        .banners-container { background-color: white; padding: 5px 0 10px; }
+        .banners-scroll { display: flex; overflow-x: auto; padding: 0 15px; gap: 8px; }
+        .banner-item { flex: 0 0 54%; aspect-ratio: 1080 / 680; border-radius: 12px; background-size: cover; background-position: center; }
+
+        /* --- СЕТКА СЕРВИСОВ --- */
         .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); background: white; padding: 10px 5px 15px; gap: 20px 0; }
         .service-item { display: flex; flex-direction: column; align-items: center; text-align: center; cursor: pointer; }
         .service-icon { width: 42px; height: 42px; object-fit: contain; }
-        .service-name { font-size: 11.5px; font-weight: 700; margin-top: 8px; }
+        .service-name { font-size: 11.5px; font-weight: 700; color: #111; margin-top: 8px;}
 
-        .banners-scroll { display: flex; overflow-x: auto; padding: 10px 15px; gap: 8px; }
-        .banner-item { flex: 0 0 54%; aspect-ratio: 1080/680; border-radius: 12px; background-size: cover; }
-
-        .promo-grid-container { display: grid; grid-template-rows: repeat(2, 1fr); grid-auto-flow: column; gap: 10px; padding: 0 15px; overflow-x: auto; }
+        /* --- ПРОМО КАРТОЧКИ --- */
+        .promo-scroll-area { margin-top: 12px; overflow-x: auto; padding-bottom: 10px; }
+        .promo-grid-container { display: grid; grid-template-rows: repeat(2, 1fr); grid-auto-flow: column; grid-auto-columns: max-content; gap: 10px; padding: 0 15px; }
         .promo-card { background: white; border-radius: 14px; padding: 10px 15px; display: flex; align-items: center; gap: 10px; min-width: 210px; }
-        .promo-img { width: 36px; height: 36px; }
+        .promo-img { width: 36px; height: 36px; object-fit: contain; }
+        .promo-main-text { font-size: 14px; font-weight: 700; }
+        .promo-subtext { font-size: 11px; color: var(--gray-text); }
 
-        .history-grid { display: grid; grid-template-rows: repeat(2, 1fr); grid-auto-flow: column; gap: 10px; padding: 0 15px; overflow-x: auto; }
-        .product-card { background: white; border-radius: 12px; padding: 8px; display: flex; flex-direction: column; height: 190px; width: 145px; box-sizing: border-box; }
-        .product-img { width: 100%; height: 110px; object-fit: contain; }
-        .product-price { font-size: 14px; font-weight: 800; margin-top: auto; }
+        .divider-line { height: 1px; background-color: var(--border-color); margin: 15px 15px 10px 15px; }
+        .section-title { font-size: 17px; font-weight: 800; margin: 0 15px 12px 15px; color: var(--text-dark); }
 
-        .tab-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: grid; grid-template-columns: repeat(4, 1fr); height: 65px; border-top: 1px solid #e5e5e5; z-index: 3000; padding-bottom: env(safe-area-inset-bottom); }
-        .tab-item { display: flex; flex-direction: column; align-items: center; font-size: 10px; color: var(--gray-text); justify-content: center; }
+        /* --- ТОВАРЫ --- */
+        .history-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 20px; }
+        .history-grid { display: grid; grid-template-rows: repeat(2, 1fr); grid-auto-flow: column; grid-auto-columns: 145px; gap: 10px; padding: 0 15px; }
+        .product-card { background: white; border-radius: 12px; padding: 8px; display: flex; flex-direction: column; height: 190px; box-sizing: border-box; cursor: pointer; }
+        .product-img { width: 100%; height: 115px; object-fit: contain; margin-bottom: 4px; }
+        .product-title {
+            font-size: 12px; line-height: 1.2; height: 28px; overflow: hidden;
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+            margin-bottom: 4px; color: #333;
+        }
+        .product-price { font-size: 14px; font-weight: 800; color: var(--text-dark); margin-top: auto; }
+
+        .tab-bar {
+            position: fixed; bottom: 0; left: 0; right: 0; background: white; 
+            display: grid; grid-template-columns: repeat(4, 1fr); height: 65px; 
+            align-items: center; border-top: 1px solid #e5e5e5; z-index: 3000;
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        .tab-item { display: flex; flex-direction: column; align-items: center; font-size: 10px; color: var(--gray-text); gap: 4px; }
         .tab-item.active { color: var(--kaspi-red); font-weight: 700; }
+        .tab-icon-img { width: 26px; height: 26px; opacity: 0.4; filter: grayscale(100%); }
+        .tab-item.active .tab-icon-img { opacity: 1; filter: grayscale(0%); }
     </style>
 </head>
 <body>
 
     <div id="preloader"><img src="loading.png" class="loading-image"></div>
+
+    <div id="product-modal" onclick="closeProduct()">
+        <div class="modal-content"><img id="modal-img" src="" class="modal-image"></div>
+    </div>
 
     <div id="pin-screen">
         <img src="pin.png" class="pin-bg">
@@ -109,54 +164,65 @@
     <div id="app-wrapper">
         <div class="search-wrapper">
             <div class="search-bar">
-                <input type="text" placeholder="Поиск по Kaspi.kz">
+                <img src="magnifier.png" style="width:16px; opacity:0.5;">
+                <input type="text" id="searchInput" placeholder="Поиск по Kaspi.kz" onfocus="enableSearchMode()">
+            </div>
+            <div class="cancel-btn" onclick="disableSearchMode()">Отмена</div>
+            <img src="silvershop.png" style="width:22px;">
+        </div>
+
+        <div class="banners-container">
+            <div class="banners-scroll">
+                <div class="banner-item" style="background-image: url('reklama.png');"></div>
+                <div class="banner-item" style="background-image: url('reklama2.png');"></div>
+                <div class="banner-item" style="background-image: url('reklama.png');"></div>
             </div>
         </div>
 
         <div class="services-grid">
-            <div class="service-item"><img src="qr.png" class="service-icon"><div class="service-name">Kaspi QR</div></div>
-            <div class="service-item"><img src="bank.png" class="service-icon"><div class="service-name">Мой Банк</div></div>
-            <div class="service-item"><img src="pay.png" class="service-icon"><div class="service-name">Платежи</div></div>
-            <div class="service-item"><img src="transfer.png" class="service-icon"><div class="service-name">Переводы</div></div>
-            <div class="service-item"><img src="shop.png" class="service-icon"><div class="service-name">Магазин</div></div>
-            <div class="service-item"><img src="travel.png" class="service-icon"><div class="service-name">Travel</div></div>
+            <div class="service-item" onclick="vibrate()"><img src="qr.png" class="service-icon"><div class="service-name">Kaspi QR</div></div>
+            <div class="service-item" onclick="vibrate()"><img src="bank.png" class="service-icon"><div class="service-name">Мой Банк</div></div>
+            <div class="service-item" onclick="vibrate()"><img src="pay.png" class="service-icon"><div class="service-name">Платежи</div></div>
+            <div class="service-item" onclick="vibrate()"><img src="transfer.png" class="service-icon"><div class="service-name">Переводы</div></div>
+            <div class="service-item" onclick="vibrate()"><img src="shop.png" class="service-icon"><div class="service-name">Магазин</div></div>
+            <div class="service-item" onclick="vibrate()"><img src="travel.png" class="service-icon"><div class="service-name">Travel</div></div>
             <div class="service-item" onclick="startGovAuth()"><img src="gos.png" class="service-icon"><div class="service-name">Госуслуги</div></div>
-            <div class="service-item"><img src="ads.png" class="service-icon"><div class="service-name">Объявления</div></div>
+            <div class="service-item" onclick="vibrate()"><img src="ads.png" class="service-icon"><div class="service-name">Объявления</div></div>
         </div>
 
-        <div class="banners-scroll">
-            <div class="banner-item" style="background-image: url('reklama.png');"></div>
-            <div class="banner-item" style="background-image: url('reklama2.png');"></div>
+        <div class="promo-scroll-area">
+            <div class="promo-grid-container">
+                <div class="promo-card"><img src="red.png" class="promo-img"><div><div class="promo-main-text">Рассрочка 0-0-12</div><div class="promo-subtext">Покупки</div></div></div>
+                <div class="promo-card"><img src="credit.png" class="promo-img"><div><div class="promo-main-text">Кредит наличными</div><div class="promo-subtext">на Kaspi Gold</div></div></div>
+                <div class="promo-card"><img src="deposit.png" class="promo-img"><div><div class="promo-main-text">Депозит</div><div class="promo-subtext">15% годовых</div></div></div>
+                <div class="promo-card"><img src="magnum.png" class="promo-img"><div><div class="promo-main-text">Magnum</div><div class="promo-subtext">Продукты</div></div></div>
+            </div>
         </div>
 
-        <div class="promo-grid-container">
-            <div class="promo-card"><img src="red.png" class="promo-img"><div><div class="promo-main-text">Рассрочка 0-0-12</div></div></div>
-            <div class="promo-card"><img src="credit.png" class="promo-img"><div><div class="promo-main-text">Кредит наличными</div></div></div>
-            <div class="promo-card"><img src="deposit.png" class="promo-img"><div><div class="promo-main-text">Депозит</div></div></div>
-            <div class="promo-card"><img src="magnum.png" class="promo-img"><div><div class="promo-main-text">Magnum</div></div></div>
-        </div>
+        <div class="divider-line"></div>
+        <div class="section-title">Вы недавно смотрели</div>
 
-        <div style="height: 20px;"></div>
-
-        <div class="history-grid">
-            <div class="product-card"><img src="minoxidil.png" class="product-img"><div class="product-price">4 500 ₸</div></div>
-            <div class="product-card"><img src="smartglasses.png" class="product-img"><div class="product-price">12 990 ₸</div></div>
-            <div class="product-card"><img src="mezoroller.png" class="product-img"><div class="product-price">2 300 ₸</div></div>
-            <div class="product-card"><img src="marshallmajor.png" class="product-img"><div class="product-price">68 000 ₸</div></div>
-            <div class="product-card"><img src="microphone.png" class="product-img"><div class="product-price">18 500 ₸</div></div>
-            <div class="product-card"><img src="creedaventus.png" class="product-img"><div class="product-price">145 000 ₸</div></div>
-            <div class="product-card"><img src="foam.png" class="product-img"><div class="product-price">3 200 ₸</div></div>
-            <div class="product-card"><img src="casio.png" class="product-img"><div class="product-price">24 900 ₸</div></div>
-            <div class="product-card"><img src="case.png" class="product-img"><div class="product-price">1 500 ₸</div></div>
-            <div class="product-card"><img src="jbl.png" class="product-img"><div class="product-price">49 990 ₸</div></div>
+        <div class="history-scroll">
+            <div class="history-grid">
+                <div class="product-card" onclick="openProduct(this)"><img src="minoxidil.png" class="product-img"><div class="product-title">Миноксидил 5% для роста бороды</div><div class="product-price">4 500 ₸</div></div>
+                <div class="product-card" onclick="openProduct(this)"><img src="smartglasses.png" class="product-img"><div class="product-title">Смарт-очки Bluetooth 5.0</div><div class="product-price">12 990 ₸</div></div>
+                <div class="product-card" onclick="openProduct(this)"><img src="mezoroller.png" class="product-img"><div class="product-title">Мезороллер для лица 0.5 мм</div><div class="product-price">2 300 ₸</div></div>
+                <div class="product-card" onclick="openProduct(this)"><img src="marshallmajor.png" class="product-img"><div class="product-title">Marshall Major IV Black</div><div class="product-price">68 000 ₸</div></div>
+                <div class="product-card" onclick="openProduct(this)"><img src="microphone.png" class="product-img"><div class="product-title">Микрофон Fifine Studio</div><div class="product-price">18 500 ₸</div></div>
+                <div class="product-card" onclick="openProduct(this)"><img src="creedaventus.png" class="product-img"><div class="product-title">Creed Aventus Парфюм 100мл</div><div class="product-price">145 000 ₸</div></div>
+                <div class="product-card" onclick="openProduct(this)"><img src="foam.png" class="product-img"><div class="product-title">Пенка для умывания мягкая</div><div class="product-price">3 200 ₸</div></div>
+                <div class="product-card" onclick="openProduct(this)"><img src="casio.png" class="product-img"><div class="product-title">Часы Casio Vintage Silver</div><div class="product-price">24 900 ₸</div></div>
+                <div class="product-card" onclick="openProduct(this)"><img src="case.png" class="product-img"><div class="product-title">Чехол Silicone Case iPhone</div><div class="product-price">1 500 ₸</div></div>
+                <div class="product-card" onclick="openProduct(this)"><img src="jbl.png" class="product-img"><div class="product-title">Колонка JBL Flip 6</div><div class="product-price">49 990 ₸</div></div>
+            </div>
         </div>
     </div>
 
     <div class="tab-bar">
-        <div class="tab-item active"><div>Главная</div></div>
-        <div class="tab-item"><div>Kaspi QR</div></div>
-        <div class="tab-item"><div>Сообщения</div></div>
-        <div class="tab-item"><div>Сервисы</div></div>
+        <div class="tab-item active" onclick="switchTab(this)"><img src="main.png" class="tab-icon-img"><div>Главная</div></div>
+        <div class="tab-item" onclick="switchTab(this)"><img src="kaspiqr.png" class="tab-icon-img"><div>Kaspi QR</div></div>
+        <div class="tab-item" onclick="switchTab(this)"><img src="sms.png" class="tab-icon-img"><div>Сообщения</div></div>
+        <div class="tab-item" onclick="switchTab(this)"><img src="service.png" class="tab-icon-img"><div>Сервисы</div></div>
     </div>
 
     <script>
@@ -167,8 +233,9 @@
             setTimeout(() => document.getElementById('preloader').classList.add('fade-out'), 1000);
         });
 
+        // ЛОГИКА ГОСУСЛУГ
         function startGovAuth() {
-            tg.HapticFeedback.impactOccurred('light');
+            vibrate();
             const pinScreen = document.getElementById('pin-screen');
             const faceOverlay = document.getElementById('faceid-overlay');
             const faceVideo = document.getElementById('faceid-video');
@@ -190,6 +257,30 @@
                     setTimeout(() => faceOverlay.style.display = 'none', 600);
                 }, 600);
             };
+        }
+
+        function openProduct(card) {
+            const imgSrc = card.querySelector('img').src;
+            const modal = document.getElementById('product-modal');
+            document.getElementById('modal-img').src = imgSrc;
+            modal.style.display = 'flex';
+            tg.HapticFeedback.impactOccurred('medium');
+            setTimeout(() => modal.classList.add('active'), 10);
+        }
+
+        function closeProduct() {
+            const modal = document.getElementById('product-modal');
+            modal.classList.remove('active');
+            setTimeout(() => modal.style.display = 'none', 300);
+        }
+
+        function enableSearchMode() { vibrate(); document.body.classList.add('search-mode'); }
+        function disableSearchMode() { document.body.classList.remove('search-mode'); document.getElementById('searchInput').blur(); }
+        function vibrate() { tg.HapticFeedback.impactOccurred('light'); }
+        function switchTab(el) {
+            vibrate();
+            document.querySelectorAll('.tab-item').forEach(i => i.classList.remove('active'));
+            el.classList.add('active');
         }
     </script>
 </body>
