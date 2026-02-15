@@ -8,9 +8,6 @@
     <meta name="apple-mobile-web-app-title" content="Kaspi.kz">
     
     <link rel="apple-touch-icon" href="icon.png?v=2">
-    <link rel="apple-touch-icon" sizes="152x152" href="icon.png?v=2">
-    <link rel="apple-touch-icon" sizes="180x180" href="icon.png?v=2">
-    <link rel="apple-touch-icon" sizes="167x167" href="icon.png?v=2">
     <link rel="icon" type="image/png" href="icon.png?v=2">
 
     <title>Kaspi.kz</title>
@@ -46,170 +43,81 @@
         #product-modal.active .modal-content { transform: scale(1); }
         .modal-image { width: 100%; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
 
-        /* --- ЭКРАН ПИН-КОДА (Исправленный: боковые рамки 6px, без линий) --- */
+        /* --- ЭКРАН ПИН-КОДА --- */
         #pin-screen {
             position: fixed; top: 100%; left: 0; width: 100%; height: 100%;
-            background: #d5d6d6;
-            z-index: 6000; 
+            background: #d5d6d6; z-index: 6000; 
             transition: top 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
             display: flex; align-items: center; justify-content: center;
-            padding: 4px 6px; 
-            box-sizing: border-box;
+            padding: 4px 6px; box-sizing: border-box;
         }
         #pin-screen.active { top: 0; }
-        .pin-bg { 
-            width: 100%; height: auto; max-height: 100%; 
-            object-fit: contain; 
-            display: block; 
-            background-color: #d5d6d6; 
-        }
+        .pin-bg { width: 100%; height: auto; max-height: 100%; object-fit: contain; background-color: #d5d6d6; }
 
         /* --- FACE ID OVERLAY --- */
         #faceid-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(0px); -webkit-backdrop-filter: blur(0px);
-            z-index: 6500; display: none; align-items: center; justify-content: center;
+            background: rgba(255, 255, 255, 0.1); z-index: 6500; display: none; align-items: center; justify-content: center;
             opacity: 0; transition: opacity 0.6s ease, backdrop-filter 0.6s ease;
         }
-        #faceid-overlay.active { 
-            display: flex; opacity: 1; 
-            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-        }
-        .faceid-container {
-            width: 150px; height: 150px; border-radius: 35px; overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-        }
+        #faceid-overlay.active { display: flex; opacity: 1; backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); }
+        .faceid-container { width: 150px; height: 150px; border-radius: 35px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
         .faceid-video { width: 100%; height: 100%; object-fit: cover; }
 
         /* --- СТРАНИЦА ГОСУСЛУГ --- */
         #final-app-page {
             position: fixed; top: 100%; left: 0; width: 100%; height: 100%;
-            background: var(--bg-color); 
-            z-index: 2500; 
-            transition: top 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-            display: flex; flex-direction: column;
-            padding-bottom: 65px; 
-            box-sizing: border-box;
+            background: var(--bg-color); z-index: 2500; transition: top 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            display: flex; flex-direction: column; padding-bottom: 65px; box-sizing: border-box;
         }
         #final-app-page.active { top: 0; }
-
-        .gos-header {
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 12px 15px; background: white; font-size: 17px; font-weight: 600;
-        }
-        .gos-back { width: 24px; height: 24px; display: flex; align-items: center; justify-content: flex-start; cursor: pointer; color: #111; }
+        .gos-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 15px; background: white; font-size: 17px; font-weight: 600; }
+        .gos-back { width: 24px; height: 24px; display: flex; align-items: center; cursor: pointer; color: #111; }
         .gos-header-title { flex: 1; text-align: center; margin-right: 24px; color: #111; }
-
         .gos-scroll-content { flex: 1; overflow-y: auto; background: var(--bg-color); }
-
         .gos-top-section { padding: 5px 15px 15px 15px; background: white; }
-        .gos-switcher {
-            display: flex; background: #f0f0f2; border-radius: 12px; padding: 3px; margin-bottom: 15px;
-        }
-        .gos-switch-item {
-            flex: 1; text-align: center; padding: 10px 0; font-size: 14px; color: #333; font-weight: 500; border-radius: 10px; cursor: pointer;
-        }
+        .gos-switcher { display: flex; background: #f0f0f2; border-radius: 12px; padding: 3px; margin-bottom: 15px; }
+        .gos-switch-item { flex: 1; text-align: center; padding: 10px 0; font-size: 14px; color: #333; font-weight: 500; border-radius: 10px; cursor: pointer; }
         .gos-switch-item.active { background: white; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .gos-search { background: #f0f0f2; border-radius: 12px; padding: 10px 15px; display: flex; align-items: center; gap: 10px; }
+        .gos-search input { border: none; background: transparent; outline: none; width: 100%; font-size: 15px; }
 
-        .gos-search {
-            background: #f0f0f2; border-radius: 12px; padding: 10px 15px; display: flex; align-items: center; gap: 10px;
-        }
-        .gos-search input {
-            border: none; background: transparent; outline: none; width: 100%; font-size: 15px; color: var(--text-dark);
-        }
-
-        .gos-docs-section {
-            background: white; padding: 0 0 15px 0; border-bottom: 8px solid var(--bg-color);
-        }
-        .gos-docs-scroll {
-            display: flex; overflow-x: auto; padding: 0 15px; gap: 10px; margin-bottom: 15px;
-        }
-        .gos-doc-card {
-            background: #f5f5f5; border-radius: 16px; padding: 15px; min-width: 135px; display: flex; flex-direction: column; justify-content: space-between; gap: 12px; cursor: pointer;
-        }
-        /* УВЕЛИЧЕННЫЕ ИКОНКИ ДОКУМЕНТОВ */
+        .gos-docs-section { background: white; padding: 0 0 15px 0; border-bottom: 8px solid var(--bg-color); }
+        .gos-docs-scroll { display: flex; overflow-x: auto; padding: 0 15px; gap: 10px; margin-bottom: 15px; scrollbar-width: none; }
+        .gos-docs-scroll::-webkit-scrollbar { display: none; }
+        .gos-doc-card { background: #f5f5f5; border-radius: 16px; padding: 15px; min-width: 135px; display: flex; flex-direction: column; justify-content: space-between; gap: 12px; }
         .gos-doc-img { width: 66px; height: auto; object-fit: contain; border-radius: 4px; } 
         .gos-doc-title { font-size: 13px; font-weight: 500; color: #333; line-height: 1.3; }
 
-        .gos-docs-all {
-            padding: 0 15px; display: flex; align-items: center; justify-content: space-between; color: #007aff; font-size: 15px; font-weight: 500; cursor: pointer;
-        }
-
-        .gos-cats-section {
-            background: white; padding: 15px 0; border-bottom: 1px solid #f0f0f0;
-        }
-        .gos-cats-scroll {
-            display: flex; justify-content: space-between; padding: 0 15px;
-        }
-        .gos-cat-item {
-            display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; position: relative; width: 70px;
-        }
-        .gos-cat-icon-bg {
-            width: 58px; height: 58px; background: #f5f5f5; border-radius: 16px; display: flex; align-items: center; justify-content: center; overflow: hidden;
-        }
-        /* УВЕЛИЧЕННЫЕ ИКОНКИ КАТЕГОРИЙ */
+        .gos-cats-section { background: white; padding: 15px 0; border-bottom: 1px solid #f0f0f0; }
+        .gos-cats-scroll { display: flex; justify-content: space-between; padding: 0 15px; }
+        .gos-cat-item { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 70px; position: relative; }
+        .gos-cat-icon-bg { width: 58px; height: 58px; background: #f5f5f5; border-radius: 16px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .gos-cat-icon { width: 44px; height: 44px; object-fit: contain; }
         .gos-cat-title { font-size: 12px; color: #555; text-align: center; }
         .gos-cat-item.active .gos-cat-title { color: var(--kaspi-red); font-weight: 600; }
-        .gos-cat-item.active::after {
-            content: ''; position: absolute; bottom: -15px; left: 10px; right: 10px; height: 2px; background: var(--kaspi-red);
-        }
+        .gos-cat-item.active::after { content: ''; position: absolute; bottom: -15px; left: 10px; right: 10px; height: 2px; background: var(--kaspi-red); }
 
-        .gos-list-section { background: white; padding: 0 15px; }
-        .gos-list-title { font-size: 16px; font-weight: 700; padding: 20px 0 10px 0; color: #111; }
-        .gos-list-item {
-            display: flex; align-items: center; padding: 16px 0; border-bottom: 1px solid #f5f5f5; gap: 15px; cursor: pointer;
-        }
-        .gos-list-icon-wrapper {
-            width: 42px; height: 42px; background: #fdf0f0; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--kaspi-red);
-        }
-        .gos-list-text { flex: 1; }
-        .gos-list-item-title { font-size: 15px; font-weight: 500; color: #222; margin-bottom: 4px; }
-        .gos-list-item-sub { font-size: 13px; color: var(--gray-text); line-height: 1.3; }
-        .gos-badge { background: var(--kaspi-red); color: white; font-size: 10px; font-weight: 700; padding: 3px 6px; border-radius: 6px; margin-right: 5px; }
-        .gos-arrow { color: #ccc; font-size: 20px; font-weight: 300; }
+        /* --- ГЛАВНАЯ СТРАНИЦА --- */
+        body { background-color: var(--bg-color); margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; user-select: none; padding-top: env(safe-area-inset-top); }
+        #app-wrapper { padding-bottom: 80px; }
 
-        body {
-            background-color: var(--bg-color); margin: 0; padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            color: var(--text-dark); -webkit-font-smoothing: antialiased;
-            overflow-x: hidden; user-select: none;
-            padding-top: env(safe-area-inset-top);
-        }
-
-        /* --- ПОИСК --- */
-        body.search-mode #app-wrapper > *:not(.search-wrapper) { display: none !important; }
-        body.search-mode { background-color: white; }
-        .search-wrapper {
-            position: sticky; top: 0; background-color: white;
-            padding: 12px 15px; display: flex; align-items: center; gap: 10px;
-            border-bottom: 1px solid #f0f0f0; z-index: 2000;
-        }
+        .search-wrapper { position: sticky; top: 0; background-color: white; padding: 12px 15px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #f0f0f0; z-index: 2000; }
         .search-bar { background-color: #f0f0f2; border-radius: 10px; padding: 8px 12px; display: flex; align-items: center; gap: 10px; flex: 1; }
-        .search-bar input { border: none; background: transparent; outline: none; width: 100%; font-size: 16px; color: var(--text-dark); }
-        .cancel-btn { display: none; color: var(--kaspi-red); font-size: 15px; font-weight: 500; cursor: pointer; white-space: nowrap; }
-        body.search-mode .cancel-btn { display: block; }
+        .search-bar input { border: none; background: transparent; outline: none; width: 100%; font-size: 16px; }
 
-        /* --- БАННЕРЫ --- */
         .banners-container { background-color: white; padding: 5px 0 10px; }
-        .banners-scroll { display: flex; overflow-x: auto; padding: 0 15px; gap: 8px; }
+        .banners-scroll { display: flex; overflow-x: auto; padding: 0 15px; gap: 8px; scrollbar-width: none; }
+        .banners-scroll::-webkit-scrollbar { display: none; }
         .banner-item { flex: 0 0 54%; aspect-ratio: 1080 / 680; border-radius: 12px; background-size: cover; background-position: center; }
 
-        /* --- СЕТКА СЕРВИСОВ --- */
         .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); background: white; padding: 10px 5px 15px; gap: 20px 0; }
-        .service-item { display: flex; flex-direction: column; align-items: center; text-align: center; cursor: pointer; }
-        
-        .service-icon { 
-            width: 42px; height: 42px; object-fit: contain; filter: saturate(1.1) 
-                    drop-shadow(0.5px 0 0px rgba(0,0,0,0.05)) 
-                    drop-shadow(-0.5px 0 0px rgba(0,0,0,0.05))
-                    drop-shadow(0 0.5px 0px rgba(0,0,0,0.05));
-        }
-        .service-name { font-size: 11.5px; font-weight: 700; color: #111; margin-top: 8px;}
+        .service-item { display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .service-icon { width: 42px; height: 42px; object-fit: contain; filter: saturate(1.1); }
+        .service-name { font-size: 11.5px; font-weight: 700; color: #111; margin-top: 8px; }
 
-        /* --- ПРОМО КАРТОЧКИ --- */
-        .promo-scroll-area { margin-top: 12px; overflow-x: auto; padding-bottom: 10px; }
+        .promo-scroll-area { margin-top: 12px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; }
+        .promo-scroll-area::-webkit-scrollbar { display: none; }
         .promo-grid-container { display: grid; grid-template-rows: repeat(2, 1fr); grid-auto-flow: column; grid-auto-columns: max-content; gap: 10px; padding: 0 15px; }
         .promo-card { background: white; border-radius: 14px; padding: 10px 15px; display: flex; align-items: center; gap: 10px; min-width: 210px; }
         .promo-img { width: 36px; height: 36px; object-fit: contain; }
@@ -217,30 +125,21 @@
         .promo-subtext { font-size: 11px; color: var(--gray-text); }
 
         .divider-line { height: 1px; background-color: var(--border-color); margin: 15px 15px 10px 15px; }
-        .section-title { font-size: 17px; font-weight: 800; margin: 0 15px 12px 15px; color: var(--text-dark); }
+        .section-title { font-size: 17px; font-weight: 800; margin: 0 15px 12px 15px; }
 
-        /* --- ТОВАРЫ --- */
-        .history-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 20px; }
+        .history-scroll { overflow-x: auto; padding-bottom: 20px; scrollbar-width: none; }
+        .history-scroll::-webkit-scrollbar { display: none; }
         .history-grid { display: grid; grid-template-rows: repeat(2, 1fr); grid-auto-flow: column; grid-auto-columns: 145px; gap: 10px; padding: 0 15px; }
-        .product-card { background: white; border-radius: 12px; padding: 8px; display: flex; flex-direction: column; height: 190px; box-sizing: border-box; cursor: pointer; }
+        .product-card { background: white; border-radius: 12px; padding: 8px; display: flex; flex-direction: column; height: 190px; box-sizing: border-box; }
         .product-img { width: 100%; height: 115px; object-fit: contain; margin-bottom: 4px; }
-        .product-title {
-            font-size: 12px; line-height: 1.2; height: 28px; overflow: hidden;
-            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
-            margin-bottom: 4px; color: #333;
-        }
-        .product-price { font-size: 14px; font-weight: 800; color: var(--text-dark); margin-top: auto; }
+        .product-title { font-size: 12px; line-height: 1.2; height: 28px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; color: #333; }
+        .product-price { font-size: 14px; font-weight: 800; margin-top: auto; }
 
-        .tab-bar {
-            position: fixed; bottom: 0; left: 0; right: 0; background: white; 
-            display: grid; grid-template-columns: repeat(4, 1fr); height: 65px; 
-            align-items: center; border-top: 1px solid #e5e5e5; z-index: 3000;
-            padding-bottom: env(safe-area-inset-bottom);
-        }
+        .tab-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: grid; grid-template-columns: repeat(4, 1fr); height: 65px; align-items: center; border-top: 1px solid #e5e5e5; z-index: 3000; padding-bottom: env(safe-area-inset-bottom); }
         .tab-item { display: flex; flex-direction: column; align-items: center; font-size: 10px; color: var(--gray-text); gap: 4px; }
         .tab-item.active { color: var(--kaspi-red); font-weight: 700; }
-        .tab-icon-img { width: 26px; height: 26px; opacity: 0.4; filter: grayscale(100%); }
-        .tab-item.active .tab-icon-img { opacity: 1; filter: grayscale(0%); }
+        .tab-icon-img { width: 26px; height: 26px; opacity: 0.4; }
+        .tab-item.active .tab-icon-img { opacity: 1; }
     </style>
 </head>
 <body>
@@ -251,9 +150,7 @@
         <div class="modal-content"><img id="modal-img" src="" class="modal-image"></div>
     </div>
 
-    <div id="pin-screen">
-        <img src="pin.png" class="pin-bg">
-    </div>
+    <div id="pin-screen"><img src="pin.png" class="pin-bg"></div>
 
     <div id="faceid-overlay">
         <div class="faceid-container">
@@ -270,69 +167,32 @@
             </div>
             <div class="gos-header-title">Госуслуги</div>
         </div>
-        
         <div class="gos-scroll-content">
             <div class="gos-top-section">
                 <div class="gos-switcher">
-                    <div class="gos-switch-item active" onclick="vibrate()">Все услуги</div>
-                    <div class="gos-switch-item" onclick="vibrate()">Мои заявки</div>
+                    <div class="gos-switch-item active">Все услуги</div>
+                    <div class="gos-switch-item">Мои заявки</div>
                 </div>
                 <div class="gos-search">
                     <img src="magnifier.png" style="width:16px; opacity:0.5;">
                     <input type="text" placeholder="Поиск по Госуслугам">
                 </div>
             </div>
-
             <div class="gos-docs-section">
                 <div class="gos-docs-scroll">
-                    <div class="gos-doc-card" onclick="vibrate()">
-                        <img src="udost.png" class="gos-doc-img">
-                        <div class="gos-doc-title">Удостоверение<br>личности</div>
-                    </div>
-                    <div class="gos-doc-card" onclick="vibrate()">
-                        <img src="passport.png" class="gos-doc-img">
-                        <div class="gos-doc-title">Паспорт<br>гражданина РК</div>
-                    </div>
+                    <div class="gos-doc-card"><img src="udost.png" class="gos-doc-img"><div class="gos-doc-title">Удостоверение личности</div></div>
+                    <div class="gos-doc-card"><img src="passport.png" class="gos-doc-img"><div class="gos-doc-title">Паспорт гражданина РК</div></div>
                 </div>
-                <div class="gos-docs-all" onclick="vibrate()">
-                    <span>Все документы</span>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+                <div class="gos-docs-all" style="padding: 0 15px; color: #007aff; display: flex; justify-content: space-between;">
+                    <span>Все документы</span><span>›</span>
                 </div>
             </div>
-
             <div class="gos-cats-section">
                 <div class="gos-cats-scroll">
-                    <div class="gos-cat-item active" onclick="vibrate()">
-                        <div class="gos-cat-icon-bg"><img src="popular.png" class="gos-cat-icon"></div>
-                        <div class="gos-cat-title">Популярные</div>
-                    </div>
-                    <div class="gos-cat-item" onclick="vibrate()">
-                        <div class="gos-cat-icon-bg"><img src="spravki.png" class="gos-cat-icon"></div>
-                        <div class="gos-cat-title">Справки</div>
-                    </div>
-                    <div class="gos-cat-item" onclick="vibrate()">
-                        <div class="gos-cat-icon-bg"><img src="avto.png" class="gos-cat-icon"></div>
-                        <div class="gos-cat-title">Авто</div>
-                    </div>
-                    <div class="gos-cat-item" onclick="vibrate()">
-                        <div class="gos-cat-icon-bg"><img src="house.png" class="gos-cat-icon"></div>
-                        <div class="gos-cat-title">Жилье</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="gos-list-section">
-                <div class="gos-list-title">Популярные и новые</div>
-                <div class="gos-list-item" onclick="vibrate()">
-                    <div class="gos-list-icon-wrapper">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><rect x="15" y="11" width="8" height="6" rx="1"/><path d="M19 11v-2a2 2 0 0 0-2-2h-4"/></svg>
-                    </div>
-                    <div class="gos-list-text">
-                        <div class="gos-list-item-title">Стать самозанятым</div>
-                        <div class="gos-list-item-sub">Открыть счет и начать<br>принимать оплату в Kaspi.kz</div>
-                    </div>
-                    <div class="gos-badge">NEW</div>
-                    <div class="gos-arrow">›</div>
+                    <div class="gos-cat-item active"><div class="gos-cat-icon-bg"><img src="popular.png" class="gos-cat-icon"></div><div class="gos-cat-title">Популярные</div></div>
+                    <div class="gos-cat-item"><div class="gos-cat-icon-bg"><img src="spravki.png" class="gos-cat-icon"></div><div class="gos-cat-title">Справки</div></div>
+                    <div class="gos-cat-item"><div class="gos-cat-icon-bg"><img src="avto.png" class="gos-cat-icon"></div><div class="gos-cat-title">Авто</div></div>
+                    <div class="gos-cat-item"><div class="gos-cat-icon-bg"><img src="house.png" class="gos-cat-icon"></div><div class="gos-cat-title">Жилье</div></div>
                 </div>
             </div>
         </div>
@@ -342,9 +202,8 @@
         <div class="search-wrapper">
             <div class="search-bar">
                 <img src="magnifier.png" style="width:16px; opacity:0.5;">
-                <input type="text" id="searchInput" placeholder="Поиск по Kaspi.kz" onfocus="enableSearchMode()">
+                <input type="text" placeholder="Поиск по Kaspi.kz">
             </div>
-            <div class="cancel-btn" onclick="disableSearchMode()">Отмена</div>
             <img src="silvershop.png" style="width:22px;">
         </div>
 
@@ -352,23 +211,26 @@
             <div class="banners-scroll">
                 <div class="banner-item" style="background-image: url('reklama.png');"></div>
                 <div class="banner-item" style="background-image: url('reklama2.png');"></div>
+                <div class="banner-item" style="background-image: url('reklama.png');"></div>
             </div>
         </div>
 
         <div class="services-grid">
-            <div class="service-item" onclick="vibrate()"><img src="qr.png" class="service-icon"><div class="service-name">Kaspi QR</div></div>
-            <div class="service-item" onclick="vibrate()"><img src="bank.png" class="service-icon"><div class="service-name">Мой Банк</div></div>
-            <div class="service-item" onclick="vibrate()"><img src="pay.png" class="service-icon"><div class="service-name">Платежи</div></div>
-            <div class="service-item" onclick="vibrate()"><img src="transfer.png" class="service-icon"><div class="service-name">Переводы</div></div>
-            <div class="service-item" onclick="vibrate()"><img src="shop.png" class="service-icon"><div class="service-name">Магазин</div></div>
-            <div class="service-item" onclick="vibrate()"><img src="travel.png" class="service-icon"><div class="service-name">Travel</div></div>
+            <div class="service-item"><img src="qr.png" class="service-icon"><div class="service-name">Kaspi QR</div></div>
+            <div class="service-item"><img src="bank.png" class="service-icon"><div class="service-name">Мой Банк</div></div>
+            <div class="service-item"><img src="pay.png" class="service-icon"><div class="service-name">Платежи</div></div>
+            <div class="service-item"><img src="transfer.png" class="service-icon"><div class="service-name">Переводы</div></div>
+            <div class="service-item"><img src="shop.png" class="service-icon"><div class="service-name">Магазин</div></div>
+            <div class="service-item"><img src="travel.png" class="service-icon"><div class="service-name">Travel</div></div>
             <div class="service-item" onclick="startGovAuth()"><img src="gos.png" class="service-icon"><div class="service-name">Госуслуги</div></div>
-            <div class="service-item" onclick="vibrate()"><img src="ads.png" class="service-icon"><div class="service-name">Объявления</div></div>
+            <div class="service-item"><img src="ads.png" class="service-icon"><div class="service-name">Объявления</div></div>
         </div>
 
         <div class="promo-scroll-area">
             <div class="promo-grid-container">
                 <div class="promo-card"><img src="red.png" class="promo-img"><div><div class="promo-main-text">Рассрочка 0-0-12</div><div class="promo-subtext">Покупки</div></div></div>
+                <div class="promo-card"><img src="credit.png" class="promo-img"><div><div class="promo-main-text">Кредит наличными</div><div class="promo-subtext">на Kaspi Gold</div></div></div>
+                <div class="promo-card"><img src="deposit.png" class="promo-img"><div><div class="promo-main-text">Депозит</div><div class="promo-subtext">15% годовых</div></div></div>
                 <div class="promo-card"><img src="magnum.png" class="promo-img"><div><div class="promo-main-text">Magnum</div><div class="promo-subtext">Продукты</div></div></div>
             </div>
         </div>
@@ -379,16 +241,24 @@
         <div class="history-scroll">
             <div class="history-grid">
                 <div class="product-card" onclick="openProduct(this)"><img src="minoxidil.png" class="product-img"><div class="product-title">Миноксидил 5% для роста бороды</div><div class="product-price">4 500 ₸</div></div>
+                <div class="product-card" onclick="openProduct(this)"><img src="smartglasses.png" class="product-img"><div class="product-title">Смарт-очки Bluetooth 5.0</div><div class="product-price">12 990 ₸</div></div>
+                <div class="product-card" onclick="openProduct(this)"><img src="mezoroller.png" class="product-img"><div class="product-title">Мезороллер для лица 0.5 мм</div><div class="product-price">2 300 ₸</div></div>
                 <div class="product-card" onclick="openProduct(this)"><img src="marshallmajor.png" class="product-img"><div class="product-title">Marshall Major IV Black</div><div class="product-price">68 000 ₸</div></div>
+                <div class="product-card" onclick="openProduct(this)"><img src="microphone.png" class="product-img"><div class="product-title">Микрофон Fifine Studio</div><div class="product-price">18 500 ₸</div></div>
+                <div class="product-card" onclick="openProduct(this)"><img src="creedaventus.png" class="product-img"><div class="product-title">Creed Aventus Парфюм 100мл</div><div class="product-price">145 000 ₸</div></div>
+                <div class="product-card" onclick="openProduct(this)"><img src="foam.png" class="product-img"><div class="product-title">Пенка для умывания мягкая</div><div class="product-price">3 200 ₸</div></div>
+                <div class="product-card" onclick="openProduct(this)"><img src="casio.png" class="product-img"><div class="product-title">Часы Casio Vintage Silver</div><div class="product-price">24 900 ₸</div></div>
+                <div class="product-card" onclick="openProduct(this)"><img src="case.png" class="product-img"><div class="product-title">Чехол Silicone Case iPhone</div><div class="product-price">1 500 ₸</div></div>
+                <div class="product-card" onclick="openProduct(this)"><img src="jbl.png" class="product-img"><div class="product-title">Колонка JBL Flip 6</div><div class="product-price">49 990 ₸</div></div>
             </div>
         </div>
     </div>
 
     <div class="tab-bar">
-        <div class="tab-item active" onclick="switchTab(this)"><img src="main.png" class="tab-icon-img"><div>Главная</div></div>
-        <div class="tab-item" onclick="switchTab(this)"><img src="kaspiqr.png" class="tab-icon-img"><div>Kaspi QR</div></div>
-        <div class="tab-item" onclick="switchTab(this)"><img src="sms.png" class="tab-icon-img"><div>Сообщения</div></div>
-        <div class="tab-item" onclick="switchTab(this)"><img src="service.png" class="tab-icon-img"><div>Сервисы</div></div>
+        <div class="tab-item active"><img src="main.png" class="tab-icon-img"><div>Главная</div></div>
+        <div class="tab-item"><img src="kaspiqr.png" class="tab-icon-img"><div>Kaspi QR</div></div>
+        <div class="tab-item"><img src="sms.png" class="tab-icon-img"><div>Сообщения</div></div>
+        <div class="tab-item"><img src="service.png" class="tab-icon-img"><div>Сервисы</div></div>
     </div>
 
     <script>
@@ -400,11 +270,10 @@
         });
 
         function startGovAuth() {
-            vibrate();
+            tg.HapticFeedback.impactOccurred('light');
             const pinScreen = document.getElementById('pin-screen');
             const faceOverlay = document.getElementById('faceid-overlay');
             const faceVideo = document.getElementById('faceid-video');
-            const finalPage = document.getElementById('final-app-page');
             pinScreen.classList.add('active');
             setTimeout(() => {
                 faceOverlay.style.display = 'flex';
@@ -412,7 +281,7 @@
                 faceVideo.play();
             }, 500);
             faceVideo.onended = () => {
-                finalPage.classList.add('active');
+                document.getElementById('final-app-page').classList.add('active');
                 setTimeout(() => {
                     faceOverlay.classList.remove('active');
                     pinScreen.classList.remove('active');
@@ -422,7 +291,7 @@
         }
 
         function closeGovAuth() {
-            vibrate();
+            tg.HapticFeedback.impactOccurred('light');
             document.getElementById('final-app-page').classList.remove('active');
         }
 
@@ -439,15 +308,6 @@
             const modal = document.getElementById('product-modal');
             modal.classList.remove('active');
             setTimeout(() => modal.style.display = 'none', 300);
-        }
-
-        function enableSearchMode() { vibrate(); document.body.classList.add('search-mode'); }
-        function disableSearchMode() { document.body.classList.remove('search-mode'); document.getElementById('searchInput').blur(); }
-        function vibrate() { tg.HapticFeedback.impactOccurred('light'); }
-        function switchTab(el) {
-            vibrate();
-            document.querySelectorAll('.tab-item').forEach(i => i.classList.remove('active'));
-            el.classList.add('active');
         }
     </script>
 </body>
