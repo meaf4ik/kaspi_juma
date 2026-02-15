@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Kaspi.kz">
     
     <link rel="apple-touch-icon" href="icon.png?v=2">
     <link rel="icon" type="image/png" href="icon.png?v=2">
@@ -110,7 +109,7 @@
         .gos-badge { background: var(--kaspi-red); color: white; font-size: 10px; font-weight: 700; padding: 3px 6px; border-radius: 6px; margin-right: 5px; }
         .gos-arrow { color: #c7c7cc; font-size: 24px; font-weight: 300; margin-top: -2px; }
 
-        /* --- НОВОЕ: АНИМАЦИЯ ВЫЛЕТА И РАМКИ --- */
+        /* --- АНИМАЦИЯ ВЫЛЕТА EGOV --- */
         #egov-loader {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 7000; background: white;
@@ -151,7 +150,7 @@
 
         .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); background: white; padding: 10px 5px 15px; gap: 20px 0; }
         .service-item { display: flex; flex-direction: column; align-items: center; text-align: center; }
-        .service-icon { width: 42px; height: 42px; object-fit: contain; filter: saturate(1.1); }
+        .service-icon { width: 42px; height: 42px; object-fit: contain; }
         .service-name { font-size: 11.5px; font-weight: 700; color: #111; margin-top: 8px; }
 
         .promo-scroll-area { margin-top: 12px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; }
@@ -207,14 +206,8 @@
         </div>
         <div class="gos-scroll-content">
             <div class="gos-top-section">
-                <div class="gos-switcher">
-                    <div class="gos-switch-item active">Все услуги</div>
-                    <div class="gos-switch-item">Мои заявки</div>
-                </div>
-                <div class="gos-search">
-                    <img src="magnifier.png" style="width:16px; opacity:0.5;">
-                    <input type="text" placeholder="Поиск по Госуслугам">
-                </div>
+                <div class="gos-switcher"><div class="gos-switch-item active">Все услуги</div><div class="gos-switch-item">Мои заявки</div></div>
+                <div class="gos-search"><img src="magnifier.png" style="width:16px; opacity:0.5;"><input type="text" placeholder="Поиск по Госуслугам"></div>
             </div>
             <div class="gos-docs-section">
                 <div class="gos-docs-scroll">
@@ -224,26 +217,11 @@
                     </div>
                     <div class="gos-doc-card"><img src="passport.png" class="gos-doc-img"><div class="gos-doc-title">Паспорт гражданина РК</div></div>
                 </div>
-                <div class="gos-docs-all" style="padding: 0 15px; color: #007aff; display: flex; justify-content: space-between;">
-                    <span>Все документы</span><span>›</span>
-                </div>
             </div>
-            <div class="gos-cats-section">
-                <div class="gos-cats-scroll">
-                    <div class="gos-cat-item active"><div class="gos-cat-icon-bg"><img src="popular.png" class="gos-cat-icon"></div><div class="gos-cat-title">Популярные</div></div>
-                    <div class="gos-cat-item"><div class="gos-cat-icon-bg"><img src="spravki.png" class="gos-cat-icon"></div><div class="gos-cat-title">Справки</div></div>
-                    <div class="gos-cat-item"><div class="gos-cat-icon-bg"><img src="avto.png" class="gos-cat-icon"></div><div class="gos-cat-title">Авто</div></div>
-                    <div class="gos-cat-item"><div class="gos-cat-icon-bg"><img src="house.png" class="gos-cat-icon"></div><div class="gos-cat-title">Жилье</div></div>
-                </div>
-            </div>
-            
             <div class="gos-list-section">
                 <div class="gos-list-title">Популярные и новые</div>
-                <div class="gos-list-item" onclick="vibrate()"><div class="gos-list-icon-wrapper"><img src="samozanyat.png" class="gos-list-icon"></div><div class="gos-list-text"><div class="gos-list-item-title">Стать самозанятым</div><div class="gos-list-item-sub">Открыть счет и начать<br>принимать оплату в Kaspi.kz</div></div><div class="gos-badge">NEW</div><div class="gos-arrow">›</div></div>
-                <div class="gos-list-item" onclick="vibrate()"><div class="gos-list-icon-wrapper"><img src="izmenenierekvizitov.png" class="gos-list-icon"></div><div class="gos-list-text"><div class="gos-list-item-title">Изменение реквизитов<br>и налогового режима ИП</div></div><div class="gos-badge">NEW</div><div class="gos-arrow">›</div></div>
+                <div class="gos-list-item" onclick="vibrate()"><div class="gos-list-icon-wrapper"><img src="samozanyat.png" class="gos-list-icon"></div><div class="gos-list-text"><div class="gos-list-item-title">Стать самозанятым</div><div class="gos-list-item-sub">Открыть счет и начать принимать оплату</div></div><div class="gos-badge">NEW</div><div class="gos-arrow">›</div></div>
                 <div class="gos-list-item" onclick="vibrate()"><div class="gos-list-icon-wrapper"><img src="pereofomravto.png" class="gos-list-icon"></div><div class="gos-list-text"><div class="gos-list-item-title">Переоформление автомобиля</div></div><div class="gos-arrow">›</div></div>
-                <div class="gos-list-item" onclick="vibrate()"><div class="gos-list-icon-wrapper"><img src="propiska.png" class="gos-list-icon"></div><div class="gos-list-text"><div class="gos-list-item-title">Прописка</div><div class="gos-list-item-sub">Временная и постоянная</div></div><div class="gos-arrow">›</div></div>
-                <div class="gos-list-item" onclick="vibrate()"><div class="gos-list-icon-wrapper"><img src="zamenaprav.png" class="gos-list-icon"></div><div class="gos-list-text"><div class="gos-list-item-title">Замена водительских прав</div></div><div class="gos-arrow">›</div></div>
             </div>
         </div>
     </div>
@@ -253,7 +231,9 @@
             <div class="search-bar"><img src="magnifier.png" style="width:16px; opacity:0.5;"><input type="text" placeholder="Поиск по Kaspi.kz"></div>
             <img src="silvershop.png" style="width:22px;">
         </div>
-        <div class="banners-container"><div class="banners-scroll"><div class="banner-item" style="background-image: url('reklama.png');"></div><div class="banner-item" style="background-image: url('reklama2.png');"></div><div class="banner-item" style="background-image: url('reklama.png');"></div></div></div>
+
+        <div class="banners-container"><div class="banners-scroll"><div class="banner-item" style="background-image: url('reklama.png');"></div><div class="banner-item" style="background-image: url('reklama2.png');"></div></div></div>
+
         <div class="services-grid">
             <div class="service-item"><img src="qr.png" class="service-icon"><div class="service-name">Kaspi QR</div></div>
             <div class="service-item"><img src="bank.png" class="service-icon"><div class="service-name">Мой Банк</div></div>
@@ -264,20 +244,22 @@
             <div class="service-item" onclick="startGovAuth()"><img src="gos.png" class="service-icon"><div class="service-name">Госуслуги</div></div>
             <div class="service-item"><img src="ads.png" class="service-icon"><div class="service-name">Объявления</div></div>
         </div>
-        <div class="promo-scroll-area">
-            <div class="promo-grid-container">
-                <div class="promo-card"><img src="red.png" class="promo-img"><div><div class="promo-main-text">Рассрочка 0-0-12</div><div class="promo-subtext">Покупки</div></div></div>
-                <div class="promo-card"><img src="credit.png" class="promo-img"><div><div class="promo-main-text">Кредит наличными</div><div class="promo-subtext">на Kaspi Gold</div></div></div>
-                <div class="promo-card"><img src="deposit.png" class="promo-img"><div><div class="promo-main-text">Депозит</div><div class="promo-subtext">15% годовых</div></div></div>
-                <div class="promo-card"><img src="magnum.png" class="promo-img"><div><div class="promo-main-text">Magnum</div><div class="promo-subtext">Продукты</div></div></div>
-            </div>
-        </div>
+
         <div class="divider-line"></div>
         <div class="section-title">Вы недавно смотрели</div>
+
         <div class="history-scroll">
             <div class="history-grid">
                 <div class="product-card" onclick="openProduct(this)"><img src="minoxidil.png" class="product-img"><div class="product-title">Миноксидил 5% для роста бороды</div><div class="product-price">4 500 ₸</div></div>
                 <div class="product-card" onclick="openProduct(this)"><img src="smartglasses.png" class="product-img"><div class="product-title">Смарт-очки Bluetooth 5.0</div><div class="product-price">12 990 ₸</div></div>
+                <div class="product-card" onclick="openProduct(this)"><img src="mezoroller.png" class="product-img"><div class="product-title">Мезороллер для лица 0.5 мм</div><div class="product-price">2 300 ₸</div></div>
+                <div class="product-card" onclick="openProduct(this)"><img src="marshallmajor.png" class="product-img"><div class="product-title">Marshall Major IV Black</div><div class="product-price">68 000 ₸</div></div>
+                <div class="product-card" onclick="openProduct(this)"><img src="microphone.png" class="product-img"><div class="product-title">Микрофон Fifine Studio</div><div class="product-price">18 500 ₸</div></div>
+                <div class="product-card" onclick="openProduct(this)"><img src="creedaventus.png" class="product-img"><div class="product-title">Creed Aventus Парфюм 100мл</div><div class="product-price">145 000 ₸</div></div>
+                <div class="product-card" onclick="openProduct(this)"><img src="foam.png" class="product-img"><div class="product-title">Пенка для умывания мягкая</div><div class="product-price">3 200 ₸</div></div>
+                <div class="product-card" onclick="openProduct(this)"><img src="casio.png" class="product-img"><div class="product-title">Часы Casio Vintage Silver</div><div class="product-price">24 900 ₸</div></div>
+                <div class="product-card" onclick="openProduct(this)"><img src="case.png" class="product-img"><div class="product-title">Чехол Silicone Case iPhone</div><div class="product-price">1 500 ₸</div></div>
+                <div class="product-card" onclick="openProduct(this)"><img src="jbl.png" class="product-img"><div class="product-title">Колонка JBL Flip 6</div><div class="product-price">49 990 ₸</div></div>
             </div>
         </div>
     </div>
@@ -289,15 +271,8 @@
         <div class="tab-item"><img src="service.png" class="tab-icon-img"><div>Сервисы</div></div>
     </div>
 
-    <div id="egov-loader">
-        <div class="egov-img-wrapper" id="egov-wrapper">
-            <img src="egov.png">
-        </div>
-    </div>
-
-    <div id="udost-page">
-        <div style="padding: 20px; font-weight: 600; font-family: sans-serif;" onclick="closeUdostPage()">‹ Назад</div>
-    </div>
+    <div id="egov-loader"><div class="egov-img-wrapper" id="egov-wrapper"><img src="egov.png"></div></div>
+    <div id="udost-page"><div style="padding: 20px; font-weight: 600;" onclick="closeUdostPage()">‹ Назад</div></div>
 
     <script>
         const tg = window.Telegram.WebApp;
@@ -338,16 +313,8 @@
             const loader = document.getElementById('egov-loader');
             const wrapper = document.getElementById('egov-wrapper');
             const udostPage = document.getElementById('udost-page');
-
-            // 1. Вылетает пустая страница
             loader.classList.add('active');
-
-            // 2. Через 0.5с проявляем картинку с рамками
-            setTimeout(() => {
-                wrapper.classList.add('visible');
-            }, 500);
-
-            // 3. Через 3.0с (2.5 ожидания) открываем страницу
+            setTimeout(() => wrapper.classList.add('visible'), 500);
             setTimeout(() => {
                 udostPage.classList.add('active');
                 setTimeout(() => {
