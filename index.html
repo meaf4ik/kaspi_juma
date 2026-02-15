@@ -98,22 +98,29 @@
         .gos-cat-item.active .gos-cat-title { color: var(--kaspi-red); font-weight: 600; }
         .gos-cat-item.active::after { content: ''; position: absolute; bottom: -15px; left: 10px; right: 10px; height: 2px; background: var(--kaspi-red); }
 
-        /* ИЗМЕНЕННЫЙ БЛОК: СТИЛИ ДЛЯ ПОПУЛЯРНОГО И НОВОГО */
         .gos-list-section { background: white; padding: 0 15px; }
         .gos-list-title { font-size: 16px; font-weight: 700; padding: 20px 0 10px 0; color: #111; }
-        .gos-list-item {
-            display: flex; align-items: center; padding: 14px 0; border-bottom: 1px solid #f5f5f5; gap: 15px; cursor: pointer;
-        }
+        .gos-list-item { display: flex; align-items: center; padding: 14px 0; border-bottom: 1px solid #f5f5f5; gap: 15px; cursor: pointer; }
         .gos-list-item:last-child { border-bottom: none; }
-        .gos-list-icon-wrapper {
-            width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border-radius: 12px; overflow: hidden; background: transparent;
-        }
+        .gos-list-icon-wrapper { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border-radius: 12px; overflow: hidden; background: transparent; }
         .gos-list-icon { width: 100%; height: 100%; object-fit: cover; }
         .gos-list-text { flex: 1; }
         .gos-list-item-title { font-size: 15px; font-weight: 500; color: #222; margin-bottom: 2px; line-height: 1.2; }
         .gos-list-item-sub { font-size: 12px; color: var(--gray-text); line-height: 1.3; margin-top: 2px; }
         .gos-badge { background: var(--kaspi-red); color: white; font-size: 10px; font-weight: 700; padding: 3px 6px; border-radius: 6px; margin-right: 5px; }
         .gos-arrow { color: #c7c7cc; font-size: 24px; font-weight: 300; margin-top: -2px; }
+
+        /* --- НОВОЕ: АНИМАЦИЯ ВЫЛЕТА EGOV И УДОСТОВЕРЕНИЯ --- */
+        #egov-loader, #udost-page {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 7000; background: white;
+            transform: translateX(100%);
+            transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            display: flex; align-items: center; justify-content: center;
+        }
+        #egov-loader.active, #udost-page.active { transform: translateX(0); }
+        #egov-loader img { width: 100%; height: 100%; object-fit: cover; }
+        #egov-loader.exit { transform: translateX(-100%); }
 
         /* --- ГЛАВНАЯ СТРАНИЦА --- */
         body { background-color: var(--bg-color); margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; user-select: none; padding-top: env(safe-area-inset-top); }
@@ -197,7 +204,10 @@
             </div>
             <div class="gos-docs-section">
                 <div class="gos-docs-scroll">
-                    <div class="gos-doc-card"><img src="udost.png" class="gos-doc-img"><div class="gos-doc-title">Удостоверение личности</div></div>
+                    <div class="gos-doc-card" onclick="openUdost()">
+                        <img src="udost.png" class="gos-doc-img">
+                        <div class="gos-doc-title">Удостоверение личности</div>
+                    </div>
                     <div class="gos-doc-card"><img src="passport.png" class="gos-doc-img"><div class="gos-doc-title">Паспорт гражданина РК</div></div>
                 </div>
                 <div class="gos-docs-all" style="padding: 0 15px; color: #007aff; display: flex; justify-content: space-between;">
@@ -215,70 +225,22 @@
             
             <div class="gos-list-section">
                 <div class="gos-list-title">Популярные и новые</div>
-                
-                <div class="gos-list-item" onclick="vibrate()">
-                    <div class="gos-list-icon-wrapper"><img src="samozanyat.png" class="gos-list-icon"></div>
-                    <div class="gos-list-text">
-                        <div class="gos-list-item-title">Стать самозанятым</div>
-                        <div class="gos-list-item-sub">Открыть счет и начать<br>принимать оплату в Kaspi.kz</div>
-                    </div>
-                    <div class="gos-badge">NEW</div>
-                    <div class="gos-arrow">›</div>
-                </div>
-
-                <div class="gos-list-item" onclick="vibrate()">
-                    <div class="gos-list-icon-wrapper"><img src="izmenenierekvizitov.png" class="gos-list-icon"></div>
-                    <div class="gos-list-text">
-                        <div class="gos-list-item-title">Изменение реквизитов<br>и налогового режима ИП</div>
-                    </div>
-                    <div class="gos-badge">NEW</div>
-                    <div class="gos-arrow">›</div>
-                </div>
-
-                <div class="gos-list-item" onclick="vibrate()">
-                    <div class="gos-list-icon-wrapper"><img src="pereofomravto.png" class="gos-list-icon"></div>
-                    <div class="gos-list-text">
-                        <div class="gos-list-item-title">Переоформление автомобиля</div>
-                    </div>
-                    <div class="gos-arrow">›</div>
-                </div>
-
-                <div class="gos-list-item" onclick="vibrate()">
-                    <div class="gos-list-icon-wrapper"><img src="propiska.png" class="gos-list-icon"></div>
-                    <div class="gos-list-text">
-                        <div class="gos-list-item-title">Прописка</div>
-                        <div class="gos-list-item-sub">Временная и постоянная</div>
-                    </div>
-                    <div class="gos-arrow">›</div>
-                </div>
-
-                <div class="gos-list-item" onclick="vibrate()">
-                    <div class="gos-list-icon-wrapper"><img src="zamenaprav.png" class="gos-list-icon"></div>
-                    <div class="gos-list-text">
-                        <div class="gos-list-item-title">Замена водительских прав</div>
-                    </div>
-                    <div class="gos-arrow">›</div>
-                </div>
+                <div class="gos-list-item" onclick="vibrate()"><div class="gos-list-icon-wrapper"><img src="samozanyat.png" class="gos-list-icon"></div><div class="gos-list-text"><div class="gos-list-item-title">Стать самозанятым</div><div class="gos-list-item-sub">Открыть счет и начать<br>принимать оплату в Kaspi.kz</div></div><div class="gos-badge">NEW</div><div class="gos-arrow">›</div></div>
+                <div class="gos-list-item" onclick="vibrate()"><div class="gos-list-icon-wrapper"><img src="izmenenierekvizitov.png" class="gos-list-icon"></div><div class="gos-list-text"><div class="gos-list-item-title">Изменение реквизитов<br>и налогового режима ИП</div></div><div class="gos-badge">NEW</div><div class="gos-arrow">›</div></div>
+                <div class="gos-list-item" onclick="vibrate()"><div class="gos-list-icon-wrapper"><img src="pereofomravto.png" class="gos-list-icon"></div><div class="gos-list-text"><div class="gos-list-item-title">Переоформление автомобиля</div></div><div class="gos-arrow">›</div></div>
+                <div class="gos-list-item" onclick="vibrate()"><div class="gos-list-icon-wrapper"><img src="propiska.png" class="gos-list-icon"></div><div class="gos-list-text"><div class="gos-list-item-title">Прописка</div><div class="gos-list-item-sub">Временная и постоянная</div></div><div class="gos-arrow">›</div></div>
+                <div class="gos-list-item" onclick="vibrate()"><div class="gos-list-icon-wrapper"><img src="zamenaprav.png" class="gos-list-icon"></div><div class="gos-list-text"><div class="gos-list-item-title">Замена водительских прав</div></div><div class="gos-arrow">›</div></div>
             </div>
         </div>
     </div>
 
     <div id="app-wrapper">
         <div class="search-wrapper">
-            <div class="search-bar">
-                <img src="magnifier.png" style="width:16px; opacity:0.5;">
-                <input type="text" placeholder="Поиск по Kaspi.kz">
-            </div>
+            <div class="search-bar"><img src="magnifier.png" style="width:16px; opacity:0.5;"><input type="text" placeholder="Поиск по Kaspi.kz"></div>
             <img src="silvershop.png" style="width:22px;">
         </div>
 
-        <div class="banners-container">
-            <div class="banners-scroll">
-                <div class="banner-item" style="background-image: url('reklama.png');"></div>
-                <div class="banner-item" style="background-image: url('reklama2.png');"></div>
-                <div class="banner-item" style="background-image: url('reklama.png');"></div>
-            </div>
-        </div>
+        <div class="banners-container"><div class="banners-scroll"><div class="banner-item" style="background-image: url('reklama.png');"></div><div class="banner-item" style="background-image: url('reklama2.png');"></div><div class="banner-item" style="background-image: url('reklama.png');"></div></div></div>
 
         <div class="services-grid">
             <div class="service-item"><img src="qr.png" class="service-icon"><div class="service-name">Kaspi QR</div></div>
@@ -326,6 +288,11 @@
         <div class="tab-item"><img src="service.png" class="tab-icon-img"><div>Сервисы</div></div>
     </div>
 
+    <div id="egov-loader"><img src="egov.png"></div>
+    <div id="udost-page">
+        <div style="padding: 20px; font-weight: 600;" onclick="this.parentElement.classList.remove('active')">‹ Назад</div>
+    </div>
+
     <script>
         const tg = window.Telegram.WebApp;
         tg.ready(); tg.expand();
@@ -358,6 +325,20 @@
         function closeGovAuth() {
             tg.HapticFeedback.impactOccurred('light');
             document.getElementById('final-app-page').classList.remove('active');
+        }
+
+        function openUdost() {
+            tg.HapticFeedback.impactOccurred('medium');
+            const loader = document.getElementById('egov-loader');
+            const udostPage = document.getElementById('udost-page');
+            loader.classList.add('active');
+            setTimeout(() => {
+                loader.classList.add('exit');
+                udostPage.classList.add('active');
+                setTimeout(() => {
+                    loader.classList.remove('active', 'exit');
+                }, 500);
+            }, 2500);
         }
 
         function openProduct(card) {
