@@ -41,15 +41,46 @@
 /* Сама шторка с QR */
 #qr-sheet {
     width: 100%;
-    height: 50vh;
+    height: 55vh; /* Чуть больше половины экрана, чтобы все влезло */
     background: white;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
-    transform: translateY(100%); /* Убрано вниз */
+    transform: translateY(100%);
     transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-    padding-bottom: env(safe-area-inset-bottom);
+    padding: 10px 20px calc(20px + env(safe-area-inset-bottom));
+    box-sizing: border-box;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+        /* Элементы внутри шторки */
+.qr-handle {
+    width: 36px; height: 4px; background: #e0e0e0; 
+    border-radius: 2px; margin-bottom: 20px;
+}
+.qr-header {
+    width: 100%; display: flex; justify-content: space-between; 
+    align-items: center; margin-bottom: 25px;
+}
+.qr-title {
+    font-size: 19px; font-weight: 700; color: #222;
+}
+.qr-close {
+    font-size: 24px; color: #8e8e93; cursor: pointer; font-weight: 300;
+}
+.qr-subtitle {
+    font-size: 15px; color: #333; margin-bottom: 25px;
+}
+.qr-image {
+    width: 160px; height: 160px; margin-bottom: 25px;
+}
+.qr-alt-text {
+    font-size: 14px; color: #8e8e93; margin-bottom: 5px;
+}
+.qr-code-val {
+    font-size: 28px; font-weight: 700; color: #222; letter-spacing: 1px;
 }
 
 /* Классы для активации анимации */
@@ -621,7 +652,21 @@ function closeQr() {
     </script>
 <div id="qr-overlay" onclick="closeQr()">
     <div id="qr-sheet" onclick="event.stopPropagation()">
+        <div class="qr-handle"></div>
+        
+        <div class="qr-header">
+            <div class="qr-title">Удостоверение личности</div>
+            <div class="qr-close" onclick="closeQr()">✕</div>
+        </div>
+        
+        <div class="qr-subtitle">Покажите QR-код сотруднику</div>
+        
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=868342" alt="QR" class="qr-image">
+        
+        <div class="qr-alt-text">или скажите код</div>
+        <div class="qr-code-val">868 342</div>
     </div>
 </div>
 </body>
 </html>
+
