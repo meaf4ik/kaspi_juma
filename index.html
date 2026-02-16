@@ -217,7 +217,7 @@
             display: flex; flex-direction: column; padding-bottom: 65px; box-sizing: border-box;
         }
         #final-app-page.active { top: 0; }
-        .gos-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 15px; background: white; font-size: 17px; font-weight: 600; }
+        .gos-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 15px; background: white; font-size: 17px; font-weight: 600; border-top: 4px solid white; padding-top: calc(env(safe-area-inset-top) + 5px); }
         .gos-back { width: 24px; height: 24px; display: flex; align-items: center; cursor: pointer; }
         .gos-scroll-content { flex: 1; overflow-y: auto; background: var(--bg-color); }
         .gos-top-section { padding: 5px 15px 15px 15px; background: white; }
@@ -633,6 +633,7 @@ function closeQr() {
 </div>
 </body>
 </html>
+
 
 
 
