@@ -79,7 +79,6 @@
         }
         #udost-page.active { transform: translateX(0); }
         
-        /* Закрепленная верхняя панель */
         .udost-top-fixed {
             background: white; z-index: 10;
         }
@@ -105,8 +104,11 @@
         .udost-slider {
             display: flex; width: 200%; height: 100%; transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
+        
+        /* Обновленный стиль страницы для работы с кнопками внутри */
         .udost-page-view {
-            width: 50%; height: 100%; display: flex; flex-direction: column; align-items: center; position: relative;
+            width: 50%; height: 100%; display: flex; flex-direction: column; align-items: center; 
+            position: relative; justify-content: space-between; /* Чтобы кнопки были внизу */
         }
 
         .doc-zoom-container {
@@ -118,10 +120,13 @@
             border-radius: 12px; touch-action: none; will-change: transform;
         }
 
-        .udost-footer {
+        /* Новый стиль внутреннего футера для свайпа */
+        .page-footer-inner {
+            width: 100%;
             padding: 20px 15px calc(20px + env(safe-area-inset-bottom));
-            background: white; display: flex; flex-direction: column; gap: 10px; z-index: 10;
+            background: white; display: flex; flex-direction: column; gap: 10px; box-sizing: border-box;
         }
+
         .btn-blue {
             background: #007aff; color: white; border-radius: 12px; padding: 16px;
             display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: 600;
@@ -129,6 +134,11 @@
         .btn-outline {
             border: 1px solid #007aff; color: #007aff; border-radius: 12px; padding: 16px;
             display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: 600;
+        }
+
+        /* Старый статичный футер скрываем */
+        .udost-footer {
+            display: none;
         }
 
         /* --- ГОСУСЛУГИ --- */
@@ -335,20 +345,26 @@
                     <div class="doc-zoom-container" id="zoom-area">
                         <img src="document.png" id="document-img">
                     </div>
+                    <div class="page-footer-inner">
+                        <div class="btn-blue">
+                            <img src="qr_white.png" style="width:20px; display:none;" onerror="this.style.display='none'"> Предъявить документ
+                        </div>
+                        <div class="btn-outline">
+                            <img src="share_blue.png" style="width:20px; display:none;" onerror="this.style.display='none'"> Отправить документ
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="udost-page-view" style="padding-top: 40px;">
-                    <div style="color: #8e8e93; font-size: 16px;">Здесь будут реквизиты...</div>
+                <div class="udost-page-view">
+                    <div style="flex: 1; display: flex; align-items: center; justify-content: center; color: #8e8e93; font-size: 16px;">
+                        Здесь будут реквизиты...
+                    </div>
+                    <div class="page-footer-inner">
+                        <div class="btn-blue">
+                            Отправить реквизиты
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="udost-footer">
-            <div class="btn-blue">
-                <img src="qr_white.png" style="width:20px; display:none;" onerror="this.style.display='none'"> Предъявить документ
-            </div>
-            <div class="btn-outline">
-                <img src="share_blue.png" style="width:20px; display:none;" onerror="this.style.display='none'"> Отправить документ
             </div>
         </div>
     </div>
