@@ -78,7 +78,7 @@
             display: flex; flex-direction: column;
         }
         #udost-page.active { transform: translateX(0); }
-        
+
         .udost-top-fixed {
             background: white; z-index: 10;
         }
@@ -104,11 +104,28 @@
         .udost-slider {
             display: flex; width: 200%; height: 100%; transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
-        
-        /* Обновленный стиль страницы для работы с кнопками внутри */
+
         .udost-page-view {
-            width: 50%; height: 100%; display: flex; flex-direction: column; align-items: center; 
-            position: relative; justify-content: space-between; /* Чтобы кнопки были внизу */
+            width: 50%; height: 100%; display: flex; flex-direction: column; align-items: center;
+            position: relative; justify-content: space-between;
+        }
+
+        /* --- СТИЛИ РЕКВИЗИТОВ --- */
+        .req-list {
+            width: 100%; padding: 0 15px; box-sizing: border-box; flex: 1; overflow-y: auto;
+        }
+        .req-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 14px 0; border-bottom: 1px solid #f2f2f5;
+        }
+        .req-label {
+            font-size: 13px; color: var(--gray-text); margin-bottom: 3px;
+        }
+        .req-value {
+            font-size: 16px; color: black; font-weight: 400;
+        }
+        .copy-icon-svg {
+            opacity: 0.4;
         }
 
         .doc-zoom-container {
@@ -120,7 +137,6 @@
             border-radius: 12px; touch-action: none; will-change: transform;
         }
 
-        /* Новый стиль внутреннего футера для свайпа */
         .page-footer-inner {
             width: 100%;
             padding: 20px 15px calc(20px + env(safe-area-inset-bottom));
@@ -134,9 +150,9 @@
         .btn-outline {
             border: 1px solid #007aff; color: #007aff; border-radius: 12px; padding: 16px;
             display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: 600;
+            background: white;
         }
 
-        /* Старый статичный футер скрываем */
         .udost-footer {
             display: none;
         }
@@ -241,7 +257,7 @@
                 <div class="gos-switcher"><div class="gos-switch-item active">Все услуги</div><div class="gos-switch-item">Мои заявки</div></div>
                 <div class="gos-search"><img src="magnifier.png" style="width:16px; opacity:0.5;"><input type="text" placeholder="Поиск по Госуслугам"></div>
             </div>
-            
+
             <div class="gos-docs-section">
                 <div class="gos-docs-scroll">
                     <div class="gos-doc-card" onclick="openUdost()"><img src="udost.png" class="gos-doc-img"><div class="gos-doc-title">Удостоверение личности</div></div>
@@ -275,7 +291,7 @@
             <img src="silvershop.png" style="width:22px;">
         </div>
         <div class="banners-container"><div class="banners-scroll"><div class="banner-item" style="background-image: url('reklama.png');"></div><div class="banner-item" style="background-image: url('reklama2.png');"></div></div></div>
-        
+
         <div class="services-grid">
             <div class="service-item"><img src="qr.png" class="service-icon"><div class="service-name">Kaspi QR</div></div>
             <div class="service-item"><img src="bank.png" class="service-icon"><div class="service-name">Мой Банк</div></div>
@@ -330,7 +346,7 @@
                 <div onclick="closeUdostPage()" style="font-size: 24px; padding-right: 20px;">‹</div>
                 <div style="flex:1; text-align:center; font-weight:600; margin-right:35px;">Удостоверение личности</div>
             </div>
-            
+
             <div style="padding: 10px 15px 15px 15px;">
                 <div class="udost-switcher">
                     <div class="udost-switch active" id="tab-doc" onclick="showTab('doc')">Документ</div>
@@ -338,7 +354,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="udost-content">
             <div class="udost-slider" id="udost-slider">
                 <div class="udost-page-view">
@@ -346,21 +362,62 @@
                         <img src="document.png" id="document-img">
                     </div>
                     <div class="page-footer-inner">
-                        <div class="btn-blue">
-                            <img src="qr_white.png" style="width:20px; display:none;" onerror="this.style.display='none'"> Предъявить документ
+                        <div class="btn-blue" onclick="vibrate()">
+                            Предъявить документ
                         </div>
-                        <div class="btn-outline">
-                            <img src="share_blue.png" style="width:20px; display:none;" onerror="this.style.display='none'"> Отправить документ
+                        <div class="btn-outline" onclick="vibrate()">
+                            Отправить документ
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="udost-page-view">
-                    <div style="flex: 1; display: flex; align-items: center; justify-content: center; color: #8e8e93; font-size: 16px;">
-                        Здесь будут реквизиты...
+                    <div class="req-list">
+                        <div class="req-item" onclick="vibrate()">
+                            <div>
+                                <div class="req-label">ФИО</div>
+                                <div class="req-value">Нурахметов Бахтияр Адилжанович</div>
+                            </div>
+                            <svg class="copy-icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#007aff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        </div>
+                        <div class="req-item" onclick="vibrate()">
+                            <div>
+                                <div class="req-label">ИИН</div>
+                                <div class="req-value">010819501897</div>
+                            </div>
+                            <svg class="copy-icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#007aff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        </div>
+                        <div class="req-item" onclick="vibrate()">
+                            <div>
+                                <div class="req-label">Дата рождения</div>
+                                <div class="req-value">19.08.2001</div>
+                            </div>
+                            <svg class="copy-icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#007aff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        </div>
+                        <div class="req-item" onclick="vibrate()">
+                            <div>
+                                <div class="req-label">Номер документа</div>
+                                <div class="req-value">051583845</div>
+                            </div>
+                            <svg class="copy-icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#007aff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        </div>
+                        <div class="req-item" onclick="vibrate()">
+                            <div>
+                                <div class="req-label">Дата выдачи</div>
+                                <div class="req-value">01.09.2019</div>
+                            </div>
+                            <svg class="copy-icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#007aff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        </div>
+                        <div class="req-item" onclick="vibrate()">
+                            <div>
+                                <div class="req-label">Срок действия</div>
+                                <div class="req-value">31.08.2029</div>
+                            </div>
+                            <svg class="copy-icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#007aff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        </div>
                     </div>
                     <div class="page-footer-inner">
-                        <div class="btn-blue">
+                        <div class="btn-outline" onclick="vibrate()">
                             Отправить реквизиты
                         </div>
                     </div>
@@ -377,7 +434,6 @@
             setTimeout(() => document.getElementById('preloader').classList.add('fade-out'), 1000);
         });
 
-        // Переключение вкладок со свайпом
         function showTab(tab) {
             const slider = document.getElementById('udost-slider');
             const tabDoc = document.getElementById('tab-doc');
@@ -395,7 +451,6 @@
             tg.HapticFeedback.impactOccurred('light');
         }
 
-        // FaceID и ПИН логика
         function startGovAuth() {
             tg.HapticFeedback.impactOccurred('light');
             const pinScreen = document.getElementById('pin-screen');
@@ -422,7 +477,6 @@
             document.getElementById('final-app-page').classList.remove('active');
         }
 
-        // Открытие Удостоверения с лоадером eGov
         function openUdost() {
             tg.HapticFeedback.impactOccurred('medium');
             const loader = document.getElementById('egov-loader');
@@ -441,26 +495,15 @@
 
         function closeUdostPage() {
             document.getElementById('udost-page').classList.remove('active');
-            // При закрытии страницы возвращаем на вкладку "Документ"
             showTab('doc');
         }
 
-        // Зум удостоверения (Pinch-to-Zoom)
         const docImg = document.getElementById('document-img');
         const zoomArea = document.getElementById('zoom-area');
         const manager = new Hammer.Manager(zoomArea);
+        manager.add([new Hammer.Pinch(), new Hammer.Pan()]);
 
-        const pinch = new Hammer.Pinch();
-        const pan = new Hammer.Pan();
-
-        manager.add([pinch, pan]);
-
-        let scale = 1;
-        let lastScale = 1;
-        let posX = 0;
-        let posY = 0;
-        let lastPosX = 0;
-        let lastPosY = 0;
+        let scale = 1, lastScale = 1, posX = 0, posY = 0, lastPosX = 0, lastPosY = 0;
 
         manager.on('pinchmove', (ev) => {
             scale = lastScale * ev.scale;
@@ -470,9 +513,7 @@
 
         manager.on('pinchend', () => {
             lastScale = scale;
-            if (scale <= 1.05) {
-                resetToCenter();
-            }
+            if (scale <= 1.05) resetToCenter();
         });
 
         manager.on('panmove', (ev) => {
@@ -484,20 +525,12 @@
         });
 
         manager.on('panend', () => {
-            lastPosX = posX;
-            lastPosY = posY;
-            if (scale <= 1.01) {
-                resetToCenter();
-            }
+            lastPosX = posX; lastPosY = posY;
+            if (scale <= 1.01) resetToCenter();
         });
 
         function resetToCenter() {
-            scale = 1;
-            lastScale = 1;
-            posX = 0;
-            posY = 0;
-            lastPosX = 0;
-            lastPosY = 0;
+            scale = 1; lastScale = 1; posX = 0; posY = 0; lastPosX = 0; lastPosY = 0;
             updateTransform(true);
         }
 
@@ -506,7 +539,6 @@
             docImg.style.transform = `translate(${posX}px, ${posY}px) scale(${scale})`;
         }
 
-        // Модалка товара
         function openProduct(card) {
             const imgSrc = card.querySelector('img').src;
             const modal = document.getElementById('product-modal');
